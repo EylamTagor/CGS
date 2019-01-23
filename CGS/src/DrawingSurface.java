@@ -4,7 +4,7 @@ import processing.core.PImage;
 public class DrawingSurface extends PApplet {
 	private PImage backBtn;
 	private ImageButton back;
-	private TextButton blazer, shirt, slacks, socks, belt, shoes;
+	private TextButton blazer, shirt, slacks, socks, belt, tie;
 
 	public void setup() {
 		backBtn = loadImage("backbutton.png");
