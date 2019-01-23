@@ -2,7 +2,7 @@
 import processing.core.PApplet;
 
 public class TextButton extends Button {
-	private float x, y, width, height, textX, textY;
+	private float textX, textY;
 	private int btnR, btnG, btnB, textR, textG, textB;
 	private String text;
 
@@ -21,9 +21,9 @@ public class TextButton extends Button {
 	}
 
 	public void draw(PApplet p) {
-		p.color(btnR, btnG, btnB);
+		p.fill(btnR, btnG, btnB);
 		p.rect(x, y, width, height);
-		p.color(textR, textG, textB);
+		p.fill(textR, textG, textB);
 		p.text(text, textX, textY);
 	}
 
