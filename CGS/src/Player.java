@@ -1,13 +1,12 @@
-
 public class Player {
 	private int[] progress; // progress[conf #] = # games passed for that conf
 	private int balance;
-	private boolean blazer, shirt, slacks, shoes, belt, tie; // prices: 250, 75, 100, 75, 25, 50.
+	private boolean jacket, shirt, slacks, shoes, belt, tie; // prices: 250, 75, 100, 75, 25, 50.
 
 	public Player() {
 		progress = new int[5];
 		balance = 0;
-		blazer = false;
+		jacket = false;
 		shirt = false;
 		slacks = false;
 		shoes = false;
@@ -15,9 +14,9 @@ public class Player {
 		tie = false;
 	}
 
-	public void obtainBlazer() {
+	public void obtainJacket() {
 		balance -= 250;
-		blazer = true;
+		jacket = true;
 	}
 
 	public void obtainShirt() {
@@ -51,6 +50,30 @@ public class Player {
 
 	public int getBalance() {
 		return balance;
+	}
+
+	public boolean hasJacket() {
+		return jacket;
+	}
+
+	public boolean hasShirt() {
+		return shirt;
+	}
+
+	public boolean hasSlacks() {
+		return slacks;
+	}
+
+	public boolean hasShoes() {
+		return shoes;
+	}
+
+	public boolean hasBelt() {
+		return belt;
+	}
+
+	public boolean hasTie() {
+		return tie;
 	}
 
 	public void passGame(int currConf) {

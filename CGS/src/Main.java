@@ -6,6 +6,7 @@ public class Main {
 
 	public static void main(String args[]) {
 		DrawingSurface drawing = new DrawingSurface();
+		drawing.setSize(800, 700);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -14,7 +15,7 @@ public class Main {
 		window.setSize(800, 700);
 		window.setLocation(100, 100);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(true);
+		window.setResizable(false);
 
 		window.setVisible(true);
 		canvas.requestFocus();
