@@ -20,9 +20,10 @@ public class Asteroid {
 	public void draw(PApplet p) {
 		p.strokeWeight(0);
 		p.fill(175);
-		p.ellipse(x, y, width, height);
+//		p.ellipse(x, y, width, height);
+		p.image(p.loadImage("asteroid.png"), x - width / 2, y - height / 2, width, height);
 
-		p.fill(0);
+		p.fill(255);
 
 		if (ans == 0)
 			p.text(question.getCorrect(), x, y);
