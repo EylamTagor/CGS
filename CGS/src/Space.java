@@ -67,7 +67,6 @@ public class Space extends PApplet {
 		textSize(25);
 		textAlign(CENTER);
 		textFont(font);
-		text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
 
 		if (status == -1) {
 			textSize(36);
@@ -83,6 +82,7 @@ public class Space extends PApplet {
 			fill(0);
 			start.draw(this);
 		} else if (status == 0) {
+			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
 			if (timer == 600) {
 				int gones = 0;
 				for (boolean b : gone)
@@ -123,10 +123,12 @@ public class Space extends PApplet {
 				timer++;
 			}
 		} else if (status == 1) {
+			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
 			text("YOU LOSE!", width / 2, 50);
 			textSize(15);
-			text("Time's up.", width / 2, 75);
+			text("Time's up. The correct answer is: " + question.getCorrect(), width / 2, 75);
 		} else if (status == 2) {
+			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
 			text("YOU WIN!", width / 2, 50);
 			textSize(15);
 			text("You guided the astronaut\nonto the correct asteroid!", width / 2, 75);
