@@ -119,7 +119,7 @@ public class Space extends PApplet {
 					playerX += 7.5;
 			} else {
 				textSize(36);
-				text((int) 10 - timer / 60, width / 2, height / 2);
+				text("Get Ready! Start in: " + ((int) 10 - timer / 60), width / 2, height / 2);
 				timer++;
 			}
 		} else if (status == 1) {
