@@ -33,8 +33,7 @@ public class Driving extends PApplet {
 		obstacles = new ArrayList<Obstacle>();
 		gone = new boolean[4];
 
-		ArrayList<Integer> takenCue = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3)),
-				takenLane = (ArrayList<Integer>) takenCue.clone();
+		ArrayList<Integer> takenCue = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3));
 
 		for (int i = 0; i < 4; i++) {
 			fuel.add(new FuelTank(question, i, (int) (Math.random() * 4),
