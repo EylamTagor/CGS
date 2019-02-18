@@ -1,6 +1,6 @@
 package games.space;
 
-import buttons.TextButton;
+import buttons.TextButton1;
 import general.Question;
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -12,7 +12,7 @@ public class Space extends PApplet {
 	private PImage background, astronaut;
 	private PFont font;
 
-	private TextButton start;
+	private TextButton1 start;
 
 	private Asteroid[] asteroids;
 	public static final float[] randomVals = { 100, 250, 400, 550 };
@@ -25,7 +25,7 @@ public class Space extends PApplet {
 
 	public Space(Question question) {
 		this.question = question;
-		start = new TextButton(50, 375, 105, 40, 70, 400, 255, 255, 255, 0, 0, 0, "START");
+		start = new TextButton1(50, 375, 105, 40, 70, 400, 255, 255, 255, 0, 0, 0, "START");
 
 		asteroids = new Asteroid[4];
 

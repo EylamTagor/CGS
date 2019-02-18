@@ -3,7 +3,7 @@ package games.driving;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import buttons.TextButton;
+import buttons.TextButton1;
 import general.Question;
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -18,7 +18,7 @@ public class Driving extends PApplet {
 	private PImage car;
 	private PFont font;
 
-	private TextButton start;
+	private TextButton1 start;
 
 	private int lane;
 	private double speed;
@@ -28,15 +28,16 @@ public class Driving extends PApplet {
 
 	public Driving(Question question) {
 		this.question = question;
-		start = new TextButton(50, 375, 105, 40, 70, 400, 75, 175, 75, 255, 255, 255, "START");
+		start = new TextButton1(50, 375, 105, 40, 70, 400, 75, 175, 75, 255, 255, 255, "START");
 		fuel = new ArrayList<FuelTank>();
 		obstacles = new ArrayList<Obstacle>();
 		gone = new boolean[4];
 
-		ArrayList<Integer> takenCue = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3));
+		ArrayList<Integer> takenCue = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3)),
+				takenLane = (ArrayList<Integer>) takenCue.clone();
 
 		for (int i = 0; i < 4; i++) {
-			fuel.add(new FuelTank(question, i, (int) (Math.random() * 4),
+			fuel.add(new FuelTank(question, i, takenLane.remove((int) (Math.random() * takenLane.size())),
 					takenCue.remove((int) (Math.random() * takenCue.size()))));
 
 			int obstacleLane = (int) (Math.random() * 4);
