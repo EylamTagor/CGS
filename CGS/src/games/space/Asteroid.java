@@ -23,7 +23,6 @@ public class Asteroid {
 	public void draw(PApplet p) {
 		p.strokeWeight(0);
 		p.fill(175);
-//		p.ellipse(x, y, width, height);
 		p.image(p.loadImage("images\\asteroid.png"), x - width / 2, y - height / 2, width, height);
 
 		p.fill(255);

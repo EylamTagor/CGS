@@ -1,10 +1,15 @@
 package games.space;
 
+import java.applet.Applet;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import general.Question;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class SpaceMain {
 
@@ -27,5 +32,4 @@ public class SpaceMain {
 		window.setVisible(true);
 		canvas.requestFocus();
 	}
-
 }
