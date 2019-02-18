@@ -1,3 +1,5 @@
+package games.driving;
+
 import processing.core.PApplet;
 
 public class Obstacle {
@@ -8,7 +10,7 @@ public class Obstacle {
 	public Obstacle(int lane, int cue) {
 		this.lane = lane;
 		this.cue = cue;
-		x = 250 + 250 * cue;
+		x = 750 + 250 * cue;
 		y = 150 + lane * 100;
 		width = 50;
 		height = 50;
@@ -17,7 +19,7 @@ public class Obstacle {
 	public void draw(PApplet p) {
 		p.strokeWeight(0);
 		p.fill(0);
-		p.image(p.loadImage("obstacle.png"), x, y, width, height);
+		p.image(p.loadImage("images\\obstacle.png"), x, y, width, height);
 	}
 
 	public float getX() {

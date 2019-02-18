@@ -1,3 +1,7 @@
+package games.space;
+
+import buttons.TextButton;
+import general.Question;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -54,8 +58,8 @@ public class Space extends PApplet {
 	}
 
 	public void setup() {
-		background = loadImage("Space-800x700.jpg");
-		astronaut = loadImage("astronaut-clipart-png.png");
+		background = loadImage("images\\Space-800x700.jpg");
+		astronaut = loadImage("images\\astronaut-clipart-png.png");
 		font = createFont("Arial Bold", 18);
 	}
 

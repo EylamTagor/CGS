@@ -1,3 +1,4 @@
+package general;
 
 public class Question {
 	private String question, correct, wrong1, wrong2, wrong3;

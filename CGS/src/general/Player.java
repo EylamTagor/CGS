@@ -1,3 +1,4 @@
+package general;
 public class Player {
 	private int[] progress; // progress[conf #] = # games passed for that conf
 	private int balance;

@@ -1,6 +1,10 @@
+package games.driving;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import buttons.TextButton;
+import general.Question;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -42,14 +46,14 @@ public class Driving extends PApplet {
 		}
 
 		status = -1;
-		speed = 5;
+		speed = 7.5;
 		lane = 0;
 		timer = 0;
 	}
 
 	public void setup() {
 		font = createFont("Arial Bold", 18);
-		car = loadImage("car.png");
+		car = loadImage("images\\car.png");
 	}
 
 	public void draw() {

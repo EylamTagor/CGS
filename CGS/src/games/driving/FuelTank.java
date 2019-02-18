@@ -1,3 +1,6 @@
+package games.driving;
+
+import general.Question;
 import processing.core.PApplet;
 
 public class FuelTank {
@@ -11,7 +14,7 @@ public class FuelTank {
 		this.ans = ans;
 		this.lane = lane;
 		this.cue = cue;
-		x = 250 + 250 * cue;
+		x = 750 + 250 * cue;
 		y = 150 + lane * 100;
 		width = 150;
 		height = 50;
@@ -20,7 +23,7 @@ public class FuelTank {
 	public void draw(PApplet p) {
 		p.strokeWeight(0);
 		p.fill(155, 0, 155);
-		p.image(p.loadImage("fuel.png"), x, y, width, height);
+		p.image(p.loadImage("images\\fuel.png"), x, y, width, height);
 
 		p.fill(255);
 		p.textAlign(PApplet.LEFT);

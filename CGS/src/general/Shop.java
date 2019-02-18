@@ -1,3 +1,5 @@
+package general;
+import buttons.TextButton;
 import processing.core.PApplet;
 
 public class Shop extends PApplet {

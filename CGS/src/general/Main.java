@@ -1,11 +1,18 @@
+package general;
+
 import javax.swing.JFrame;
+
+import games.space.Space;
+import games.driving.Driving;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
 public class Main {
 
 	public static void main(String args[]) {
-		Driving drawing = new Driving(new Question("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "right",
+		// change drawing's type to whatever game you want to run (or duplicate for each
+		// game if you want
+		Space drawing = new Space(new Question("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "right",
 				"wrong1", "wrong2", "wrong3"));
 		drawing.setSize(800, 700);
 		PApplet.runSketch(new String[] { "" }, drawing);
