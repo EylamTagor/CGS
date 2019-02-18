@@ -12,7 +12,7 @@ public class Space extends PApplet {
 	private PImage background, astronaut;
 	private PFont font;
 
-	private TextButton1 start;
+	private TextButton1 start, pause;
 
 	private Asteroid[] asteroids;
 	public static final float[] randomVals = { 100, 250, 400, 550 };
@@ -20,12 +20,13 @@ public class Space extends PApplet {
 
 	private float playerX, playerY;
 	private boolean up, down, left, right;
-	private int timer, status; // 0 = running, 1 = lose, 2 = win, -1 = how to play
+	private int timer, status; // 0 = running, 1 = lose, 2 = win, -1 = how to play, -2 = pause
 	private double speed;
 
 	public Space(Question question) {
 		this.question = question;
 		start = new TextButton1(50, 375, 105, 40, 70, 400, 255, 255, 255, 0, 0, 0, "START");
+//		pause = new TextButton1();
 
 		asteroids = new Asteroid[4];
 
