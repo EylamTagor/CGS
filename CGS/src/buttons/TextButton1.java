@@ -38,4 +38,16 @@ public class TextButton1 extends Button1 {
 		this.btnB = btnB;
 	}
 
+	public void setText(String s) {
+		text = s;
+	}
+
+	public void setWidth(float w) {
+		width = w;
+	}
+
+	public void setHeight(float h) {
+		height = h;
+	}
+
 }

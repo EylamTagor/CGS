@@ -12,7 +12,7 @@ public class Space extends PApplet {
 	private PImage background, astronaut;
 	private PFont font;
 
-	private TextButton1 start, pause;
+	private TextButton1 start, pause, quit;
 
 	private Asteroid[] asteroids;
 	public static final float[] randomVals = { 100, 250, 400, 550 };
@@ -26,7 +26,8 @@ public class Space extends PApplet {
 	public Space(Question question) {
 		this.question = question;
 		start = new TextButton1(50, 375, 105, 40, 70, 400, 255, 255, 255, 0, 0, 0, "START");
-//		pause = new TextButton1();
+		pause = new TextButton1(0, 0, 100, 40, 15, 25, 255, 255, 255, 0, 0, 0, "PAUSE");
+		quit = new TextButton1(275, 275, 240, 100, 390, 350, 255, 255, 255, 0, 0, 0, "QUIT");
 
 		asteroids = new Asteroid[4];
 
@@ -68,12 +69,19 @@ public class Space extends PApplet {
 		background(255);
 		image(background, 0, 0, 800, 700);
 
-		fill(255);
-		textSize(25);
-		textAlign(CENTER);
 		textFont(font);
+		textAlign(CENTER);
+		textSize(25);
+		fill(255);
 
-		if (status == -1) {
+		if (status == -2) {
+			textAlign(LEFT);
+			textSize(20);
+			pause.draw(this);
+			textAlign(CENTER);
+			textSize(60);
+			quit.draw(this);
+		} else if (status == -1) {
 			textSize(36);
 			text("SPACE EXPLORATION", width / 2, 50);
 			textSize(25);
@@ -87,8 +95,13 @@ public class Space extends PApplet {
 			fill(0);
 			start.draw(this);
 		} else if (status == 0) {
+			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
 			if (timer == 600) {
+				textAlign(LEFT);
+				pause.draw(this);
+				textAlign(CENTER);
+
 				int gones = 0;
 				for (boolean b : gone)
 					if (b)
@@ -128,21 +141,43 @@ public class Space extends PApplet {
 				timer++;
 			}
 		} else if (status == 1) {
+			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
 			text("YOU LOSE!", width / 2, 50);
 			textSize(15);
 			text("Time's up. The correct answer is: " + question.getCorrect(), width / 2, 75);
+			textAlign(CENTER);
+			textSize(60);
+			quit.draw(this);
 		} else if (status == 2) {
+			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
 			text("YOU WIN!", width / 2, 50);
 			textSize(15);
 			text("You guided the astronaut\nonto the correct asteroid!", width / 2, 75);
+			textAlign(CENTER);
+			textSize(60);
+			quit.draw(this);
 		}
 	}
 
 	public void mouseClicked() {
 		if (status == -1 && start.isInBounds(mouseX, mouseY))
 			status = 0;
+		if (pause.isInBounds(mouseX, mouseY)) {
+			if (status == 0 && timer == 600) {
+				status = -2;
+				pause.setText("RESUME");
+				pause.setWidth(115);
+			} else if (status == -2) {
+				status = 0;
+				pause.setText("PAUSE");
+				pause.setWidth(100);
+			}
+		}
+
+		if ((status == -2 || status == 1 || status == 2) && quit.isInBounds(mouseX, mouseY))
+			System.exit(0);
 	}
 
 	public void keyPressed() {
