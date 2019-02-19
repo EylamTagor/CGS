@@ -1,18 +1,22 @@
 package games.space;
 
 import buttons.TextButton1;
+import general.Player;
 import general.Question;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 
 public class Space extends PApplet {
+	private Player player;
+	private int conference;
+
 	private Question question;
 
 	private PImage background, astronaut;
 	private PFont font;
 
-	private TextButton1 start, pause, quit;
+	private TextButton1 start, pause;
 
 	private Asteroid[] asteroids;
 	public static final float[] randomVals = { 100, 250, 400, 550 };
@@ -23,11 +27,13 @@ public class Space extends PApplet {
 	private int timer, status; // 0 = running, 1 = lose, 2 = win, -1 = how to play, -2 = pause
 	private double speed;
 
-	public Space(Question question) {
+	public Space(Question question, Player player, int conference) {
+		this.player = player;
+		this.conference = conference;
+
 		this.question = question;
 		start = new TextButton1(50, 375, 105, 40, 70, 400, 255, 255, 255, 0, 0, 0, "START");
 		pause = new TextButton1(0, 0, 100, 40, 15, 25, 255, 255, 255, 0, 0, 0, "PAUSE");
-		quit = new TextButton1(275, 275, 240, 100, 390, 350, 255, 255, 255, 0, 0, 0, "QUIT");
 
 		asteroids = new Asteroid[4];
 
@@ -79,8 +85,9 @@ public class Space extends PApplet {
 			textSize(20);
 			pause.draw(this);
 			textAlign(CENTER);
-			textSize(60);
-			quit.draw(this);
+			textSize(30);
+			fill(255);
+			text("Close this window to quit.", width / 2, height / 2);
 		} else if (status == -1) {
 			textSize(36);
 			text("SPACE EXPLORATION", width / 2, 50);
@@ -97,7 +104,7 @@ public class Space extends PApplet {
 		} else if (status == 0) {
 			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
-			if (timer == 600) {
+			if (timer == 300) {
 				textAlign(LEFT);
 				pause.draw(this);
 				textAlign(CENTER);
@@ -119,7 +126,7 @@ public class Space extends PApplet {
 					if (asteroids[i].isTop())
 						asteroids[i].moveTo(asteroids[i].getX(), (float) (asteroids[i].getY() + speed));
 					else
-						asteroids[i].moveTo(asteroids[i].getX(), (float) (asteroids[i].getY() + speed));
+						asteroids[i].moveTo(asteroids[i].getX(), (float) (asteroids[i].getY() - speed));
 				}
 
 				if (asteroids[0].isEllipseInside(playerX + 25, playerY + 25, 50, 50))
@@ -137,7 +144,7 @@ public class Space extends PApplet {
 					playerX += 7.5;
 			} else {
 				textSize(36);
-				text("Get Ready! Start in: " + ((int) 10 - timer / 60), width / 2, height / 2);
+				text("Get Ready! Start in: " + ((int) 5 - timer / 60), width / 2, height / 2);
 				timer++;
 			}
 		} else if (status == 1) {
@@ -147,8 +154,6 @@ public class Space extends PApplet {
 			textSize(15);
 			text("Time's up. The correct answer is: " + question.getCorrect(), width / 2, 75);
 			textAlign(CENTER);
-			textSize(60);
-			quit.draw(this);
 		} else if (status == 2) {
 			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
@@ -156,8 +161,8 @@ public class Space extends PApplet {
 			textSize(15);
 			text("You guided the astronaut\nonto the correct asteroid!", width / 2, 75);
 			textAlign(CENTER);
-			textSize(60);
-			quit.draw(this);
+
+			player.passGame(conference);
 		}
 	}
 
@@ -165,7 +170,7 @@ public class Space extends PApplet {
 		if (status == -1 && start.isInBounds(mouseX, mouseY))
 			status = 0;
 		if (pause.isInBounds(mouseX, mouseY)) {
-			if (status == 0 && timer == 600) {
+			if (status == 0 && timer == 300) {
 				status = -2;
 				pause.setText("RESUME");
 				pause.setWidth(115);
@@ -175,9 +180,6 @@ public class Space extends PApplet {
 				pause.setWidth(100);
 			}
 		}
-
-		if ((status == -2 || status == 1 || status == 2) && quit.isInBounds(mouseX, mouseY))
-			System.exit(0);
 	}
 
 	public void keyPressed() {
