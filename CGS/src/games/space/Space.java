@@ -162,6 +162,7 @@ public class Space extends PApplet {
 			text("You guided the astronaut\nonto the correct asteroid!", width / 2, 75);
 			textAlign(CENTER);
 
+			noLoop();
 			player.passGame(conference);
 		}
 	}

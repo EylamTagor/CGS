@@ -168,6 +168,7 @@ public class Driving extends PApplet {
 			textSize(15);
 			text("You collected the right fuel tank!", width / 2, 75);
 
+			noLoop();
 			player.passGame(conference);
 		} else if (status == 3) {
 			textSize(20);
