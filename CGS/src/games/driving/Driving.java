@@ -22,7 +22,7 @@ public class Driving extends PApplet {
 	private PImage car;
 	private PFont font;
 
-	private TextButton1 start, pause;
+	private TextButton1 start, pause, quit;
 
 	private int lane;
 	private double speed;
@@ -30,13 +30,14 @@ public class Driving extends PApplet {
 	private int timer, status; // 0 = running, 1 = hit wrong fuel, 2 = win, 3 = ran out of time, 4 = hit
 								// obstacle, -1 = how to play, -2 = pause
 
-	public Driving(Question question, Player player, int conference) {
+	public Driving(Question question, Player player, int conference, float speed) {
 		this.player = player;
 		this.conference = conference;
 
 		this.question = question;
 		start = new TextButton1(50, 375, 105, 40, 70, 400, 75, 175, 75, 255, 255, 255, "START");
 		pause = new TextButton1(0, 0, 100, 40, 15, 25, 255, 255, 255, 0, 0, 0, "PAUSE");
+		quit = new TextButton1(275, 275, 240, 100, 390, 350, 255, 255, 255, 0, 0, 0, "QUIT");
 
 		fuel = new ArrayList<FuelTank>();
 		obstacles = new ArrayList<Obstacle>();
@@ -55,7 +56,7 @@ public class Driving extends PApplet {
 		}
 
 		status = -1;
-		speed = 7.5;
+		this.speed = speed;
 		lane = 0;
 		timer = 0;
 	}
@@ -78,9 +79,8 @@ public class Driving extends PApplet {
 			textSize(20);
 			pause.draw(this);
 			textAlign(CENTER);
-			fill(255);
-			textSize(30);
-			text("Close this window to quit.", width / 2, height / 2);
+			textSize(60);
+			quit.draw(this);
 		} else if (status == -1) {
 			textSize(36);
 			text("EXPERT DRIVING", width / 2, 50);
@@ -161,12 +161,18 @@ public class Driving extends PApplet {
 			text("YOU LOSE!", width / 2, 50);
 			textSize(15);
 			text("You collected the wrong fuel tank. The correct answer is: " + question.getCorrect(), width / 2, 75);
+
+			textSize(60);
+			quit.draw(this);
 		} else if (status == 2) {
 			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
 			text("YOU WIN!", width / 2, 50);
 			textSize(15);
 			text("You collected the right fuel tank!", width / 2, 75);
+
+			textSize(60);
+			quit.draw(this);
 
 			noLoop();
 			player.passGame(conference);
@@ -176,18 +182,25 @@ public class Driving extends PApplet {
 			text("YOU LOSE!", width / 2, 50);
 			textSize(15);
 			text("You were too slow, and missed all the fuel tanks!", width / 2, 75);
+
+			textSize(60);
+			quit.draw(this);
 		} else if (status == 4) {
 			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
 			text("YOU LOSE!", width / 2, 50);
 			textSize(15);
 			text("You crashed into an obstacle!", width / 2, 75);
+
+			textSize(60);
+			quit.draw(this);
 		}
 	}
 
 	public void mouseClicked() {
 		if (status == -1 && start.isInBounds(mouseX, mouseY))
 			status = 0;
+
 		if (pause.isInBounds(mouseX, mouseY)) {
 			if (status == 0 && timer == 300) {
 				status = -2;
@@ -199,6 +212,10 @@ public class Driving extends PApplet {
 				pause.setWidth(100);
 			}
 		}
+
+		if ((status == -2 || status == 1 || status == 2 || status == 3 || status == 4)
+				&& quit.isInBounds(mouseX, mouseY))
+			exit();
 	}
 
 	public void keyPressed() {
