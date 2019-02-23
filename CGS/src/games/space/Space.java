@@ -1,5 +1,7 @@
 package games.space;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
 import buttons1.TextButton1;
@@ -31,7 +33,13 @@ public class Space extends PApplet {
 
 	private JFrame window;
 
-	public Space(Question question, Player player, int conference, float speed) {
+	private ArrayList<Question> answers, wrongAnswers;
+	private int index;
+
+	private boolean bool;
+
+	public Space(Question question, Player player, int conference, float speed, ArrayList<Question> answers,
+			ArrayList<Question> wrongAnswers, int index) {
 		this.player = player;
 		this.conference = conference;
 		this.question = question;
@@ -48,10 +56,10 @@ public class Space extends PApplet {
 		boolean[] taken = new boolean[4];
 		int count = 0;
 		while (!taken[0] || !taken[1] || !taken[2] || !taken[3]) {
-			int index = (int) (Math.random() * 4);
-			if (!taken[index]) {
-				asteroids[index].moveTo(200 * count + 100, asteroids[index].getY());
-				taken[index] = true;
+			int ind = (int) (Math.random() * 4);
+			if (!taken[ind]) {
+				asteroids[ind].moveTo(200 * count + 100, asteroids[ind].getY());
+				taken[ind] = true;
 				count++;
 			}
 		}
@@ -67,6 +75,12 @@ public class Space extends PApplet {
 		status = -1;
 		this.speed = speed;
 		timer = 0;
+
+		this.answers = answers;
+		this.wrongAnswers = wrongAnswers;
+		this.index = index;
+
+		bool = false;
 	}
 
 	public void setFrame(JFrame win) {
@@ -192,6 +206,11 @@ public class Space extends PApplet {
 				quit.setColor(200, 200, 200);
 			else
 				quit.setColor(255, 255, 255);
+
+			if (bool) {
+				bool = true;
+				wrongAnswers.add(answers.get(index));
+			}
 		} else if (status == 2) {
 			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);

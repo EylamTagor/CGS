@@ -33,8 +33,13 @@ public class Driving extends PApplet {
 								// obstacle, -1 = how to play, -2 = pause
 
 	private JFrame window;
+	private ArrayList<Question> answers, wrongAnswers;
+	private int index;
 
-	public Driving(Question question, Player player, int conference, float speed) {
+	private boolean bool;
+
+	public Driving(Question question, Player player, int conference, float speed, ArrayList<Question> answers,
+			ArrayList<Question> wrongAnswers, int index) {
 		this.player = player;
 		this.conference = conference;
 
@@ -63,6 +68,12 @@ public class Driving extends PApplet {
 		this.speed = speed;
 		lane = 0;
 		timer = 0;
+
+		this.answers = answers;
+		this.wrongAnswers = wrongAnswers;
+		this.index = index;
+
+		bool = false;
 	}
 
 	public void setFrame(JFrame win) {
@@ -195,6 +206,10 @@ public class Driving extends PApplet {
 			else
 				quit.setColor(255, 255, 255);
 
+			if (bool) {
+				bool = true;
+				wrongAnswers.add(answers.get(index));
+			}
 		} else if (status == 2) {
 			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
@@ -220,6 +235,11 @@ public class Driving extends PApplet {
 
 			textSize(60);
 			quit.draw(this);
+
+			if (bool) {
+				bool = true;
+				wrongAnswers.add(answers.get(index));
+			}
 		} else if (status == 4) {
 			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
@@ -229,6 +249,11 @@ public class Driving extends PApplet {
 
 			textSize(60);
 			quit.draw(this);
+
+			if (bool) {
+				bool = true;
+				wrongAnswers.add(answers.get(index));
+			}
 		}
 	}
 
