@@ -22,6 +22,8 @@ public class SpaceMain {
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
 		JFrame window = (JFrame) canvas.getFrame();
 
+		drawing.setFrame(window);
+		
 		window.setSize(800, 700);
 		window.setLocation(100, 100);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

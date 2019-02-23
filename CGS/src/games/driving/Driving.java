@@ -3,6 +3,8 @@ package games.driving;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.swing.JFrame;
+
 import buttons.TextButton1;
 import general.Player;
 import general.Question;
@@ -29,6 +31,8 @@ public class Driving extends PApplet {
 
 	private int timer, status; // 0 = running, 1 = hit wrong fuel, 2 = win, 3 = ran out of time, 4 = hit
 								// obstacle, -1 = how to play, -2 = pause
+
+	private JFrame window;
 
 	public Driving(Question question, Player player, int conference, float speed) {
 		this.player = player;
@@ -59,6 +63,10 @@ public class Driving extends PApplet {
 		this.speed = speed;
 		lane = 0;
 		timer = 0;
+	}
+
+	public void setFrame(JFrame win) {
+		window = win;
 	}
 
 	public void setup() {
@@ -215,7 +223,7 @@ public class Driving extends PApplet {
 
 		if ((status == -2 || status == 1 || status == 2 || status == 3 || status == 4)
 				&& quit.isInBounds(mouseX, mouseY))
-			exit();
+			window.dispose();
 	}
 
 	public void keyPressed() {

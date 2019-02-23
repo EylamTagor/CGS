@@ -1,5 +1,7 @@
 package games.space;
 
+import javax.swing.JFrame;
+
 import buttons.TextButton1;
 import general.Player;
 import general.Question;
@@ -27,10 +29,11 @@ public class Space extends PApplet {
 	private int timer, status; // 0 = running, 1 = lose, 2 = win, -1 = how to play, -2 = pause
 	private double speed;
 
+	private JFrame window;
+
 	public Space(Question question, Player player, int conference, float speed) {
 		this.player = player;
 		this.conference = conference;
-
 		this.question = question;
 		start = new TextButton1(50, 375, 105, 40, 70, 400, 255, 255, 255, 0, 0, 0, "START");
 		pause = new TextButton1(0, 0, 100, 40, 15, 25, 255, 255, 255, 0, 0, 0, "PAUSE");
@@ -64,6 +67,10 @@ public class Space extends PApplet {
 		status = -1;
 		this.speed = speed;
 		timer = 0;
+	}
+
+	public void setFrame(JFrame win) {
+		window = win;
 	}
 
 	public void setup() {
@@ -196,7 +203,7 @@ public class Space extends PApplet {
 		}
 
 		if ((status == -2 || status == 1 || status == 2) && quit.isInBounds(mouseX, mouseY))
-			exit();
+			window.dispose();
 	}
 
 	public void keyPressed() {
@@ -209,6 +216,9 @@ public class Space extends PApplet {
 				left = true;
 			if (keyCode == RIGHT)
 				right = true;
+
+			if (keyCode == ESC)
+				window.dispose();
 		}
 	}
 
