@@ -70,6 +70,7 @@ public class ProgressBar {
 	}
 
 	public void increaseProgress(double amount) {
-		progress += amount;
+		if (amount + progress <= 4)
+			progress += amount;
 	}
 }
