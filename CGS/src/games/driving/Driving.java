@@ -86,9 +86,18 @@ public class Driving extends PApplet {
 			textAlign(LEFT);
 			textSize(20);
 			pause.draw(this);
+			if (pause.isPointInButton(mouseX, mouseY))
+				pause.setColor(200, 200, 200);
+			else
+				pause.setColor(255, 255, 255);
+
 			textAlign(CENTER);
 			textSize(60);
 			quit.draw(this);
+			if (quit.isPointInButton(mouseX, mouseY))
+				quit.setColor(200, 200, 200);
+			else
+				quit.setColor(255, 255, 255);
 		} else if (status == -1) {
 			textSize(36);
 			text("EXPERT DRIVING", width / 2, 50);
@@ -103,6 +112,10 @@ public class Driving extends PApplet {
 			fill(0);
 			noStroke();
 			start.draw(this);
+			if (start.isPointInButton(mouseX, mouseY))
+				start.setColor(50, 150, 50);
+			else
+				start.setColor(75, 175, 75);
 		} else if (status == 0) {
 			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
@@ -110,6 +123,11 @@ public class Driving extends PApplet {
 			if (timer == 300) {
 				textAlign(LEFT);
 				pause.draw(this);
+				if (pause.isPointInButton(mouseX, mouseY))
+					pause.setColor(200, 200, 200);
+				else
+					pause.setColor(255, 255, 255);
+
 				textAlign(CENTER);
 
 				int gones = 0;
@@ -172,6 +190,11 @@ public class Driving extends PApplet {
 
 			textSize(60);
 			quit.draw(this);
+			if (quit.isPointInButton(mouseX, mouseY))
+				quit.setColor(200, 200, 200);
+			else
+				quit.setColor(255, 255, 255);
+
 		} else if (status == 2) {
 			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
@@ -181,6 +204,10 @@ public class Driving extends PApplet {
 
 			textSize(60);
 			quit.draw(this);
+			if (quit.isPointInButton(mouseX, mouseY))
+				quit.setColor(200, 200, 200);
+			else
+				quit.setColor(255, 255, 255);
 
 			noLoop();
 			player.passGame(conference);
