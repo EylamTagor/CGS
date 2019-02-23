@@ -1,13 +1,11 @@
-package btns;
+package buttons1;
 
-
-import ayush.shapes.Rectangle;
 import processing.core.PApplet;
 
-public abstract class Button {
+public abstract class Button1 {
 	protected float x, y, width, height;
 
-	public Button(float x, float y, float width, float height) {
+	public Button1(float x, float y, float width, float height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -51,9 +49,4 @@ public abstract class Button {
 	public void setHeight(float height) {
 		this.height = height;
 	}
-	
-	public Rectangle getRectangle() {
-		return new Rectangle(x,y,width,height);
-	}
 }
-

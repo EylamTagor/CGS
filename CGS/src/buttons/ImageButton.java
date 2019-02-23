@@ -1,4 +1,4 @@
-package btns;
+package buttons;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -14,6 +14,4 @@ public class ImageButton extends Button {
 	public void draw(PApplet p) {
 		p.image(image, getX(), getY(), width, height);
 	}
-	
-	
 }

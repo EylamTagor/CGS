@@ -5,19 +5,19 @@ import javax.swing.JFrame;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
-public class ShopMain {
+public class Main {
+
+	public static int width = 800, height = 700;
 
 	public static void main(String args[]) {
-		// change drawing's type to whatever game you want to run (or duplicate for each
-		// game if you want
-		Shop drawing = new Shop();
+		DrawingSurface drawing = new DrawingSurface();
 		drawing.setSize(800, 700);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
 		JFrame window = (JFrame) canvas.getFrame();
 
-		window.setSize(800, 700);
+		window.setSize(width, height);
 		window.setLocation(100, 100);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
@@ -25,4 +25,5 @@ public class ShopMain {
 		window.setVisible(true);
 		canvas.requestFocus();
 	}
+
 }

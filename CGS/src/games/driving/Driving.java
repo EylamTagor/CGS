@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import javax.swing.JFrame;
 
-import buttons.TextButton1;
+import buttons1.TextButton1;
 import general.Player;
 import general.Question;
 import processing.core.PApplet;

@@ -1,4 +1,5 @@
 package general;
+
 public class Player {
 	private int[] progress; // progress[conf #] = # games passed for that conf
 	private int balance;
@@ -79,5 +80,9 @@ public class Player {
 
 	public void passGame(int currConf) {
 		progress[currConf]++;
+	}
+
+	public int[] getProgress() {
+		return progress;
 	}
 }

@@ -1,10 +1,11 @@
-package general;
+package buttons;
 
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+import general.Main;
 import processing.core.PApplet;
 
 public class SohilButton {
@@ -37,7 +38,7 @@ public class SohilButton {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		x = 400 - width / 2;
+		x = Main.width / 2 - width / 2;
 		color = new Color(135, 206, 255);
 		highlightColor = new Color(38, 38, 38);
 		this.textSize = textSize;

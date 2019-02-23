@@ -24,23 +24,33 @@ public class ProgressBar {
 	public void draw(PApplet marker) {
 		marker.pushStyle();
 
+		// HEALTH BOX DESIGN AND HEALTH BAR DESIGN
 		marker.stroke(0);
 		marker.strokeWeight(1);
 		marker.fill(255);
+//		marker.rect((float) x, (float) y, (float) width, (float) height); // ACTUAL HEALTH BOX
 		marker.rect((float) (x + healthBarMargin + marginAdjust), (float) (y + hBDistanceFromTop),
-				(float) (width - 2 * healthBarMargin), (float) (healthBarHeight), (float) (healthBarHeight / 2));
+				(float) (width - 2 * healthBarMargin), (float) (healthBarHeight), (float) (healthBarHeight / 2)); // HEALTH
+																													// BAR
 
+//		if (progress <= 20) {
+//			marker.fill(255, 0, 0);
+//		} else if (progress < 50) {
+//			marker.fill(255, 255, 0);
+//		} else {
 		marker.fill(0, 255, 0);
+//		}
 		marker.rect((float) (x + healthBarMargin + marginAdjust), (float) (y + hBDistanceFromTop),
-				(float) (progress * (width - 2 * healthBarMargin) / 3), (float) (healthBarHeight),
-				(float) (healthBarHeight / 2));
+				(float) (progress * (width - 2 * healthBarMargin) / 4), (float) (healthBarHeight),
+				(float) (healthBarHeight / 2)); // HEALTH BAR WITH CURRENT HEALTH
 
+		// TEXT
 		marker.fill(255);
-		marker.textAlign(PApplet.LEFT, PApplet.BOTTOM);
+		marker.textAlign(marker.LEFT, marker.BOTTOM);
 		marker.textSize(18);
 		marker.text(name, (float) (x + healthBarMargin + marginAdjust), (float) (y + hBDistanceFromTop - textAdjust));
 		marker.textSize(10);
-		marker.text(((Integer) ((int) progress)).toString() + " / 3",
+		marker.text(((Integer) ((int) progress)).toString() + " / 4",
 				(float) (x + marginAdjust + width - healthBarMargin + textAdjust),
 				(float) (y + hBDistanceFromTop + healthBarHeight));
 
