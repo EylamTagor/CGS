@@ -207,7 +207,7 @@ public class Space extends PApplet {
 			else
 				quit.setColor(255, 255, 255);
 
-			if (bool) {
+			if (!bool) {
 				bool = true;
 				wrongAnswers.add(answers.get(index));
 			}

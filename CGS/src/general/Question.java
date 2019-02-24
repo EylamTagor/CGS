@@ -50,4 +50,8 @@ public class Question {
 	public void setWrong3(String wrong3) {
 		this.wrong3 = wrong3;
 	}
+
+	public String toString() {
+		return question + "\n     " + correct + "     " + wrong1 + "     " + wrong2 + "     " + wrong3;
+	}
 }

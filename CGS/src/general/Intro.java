@@ -5,7 +5,6 @@ import java.awt.Color;
 import buttons.AyushTextButton;
 import buttons.ImageButton;
 import processing.core.PApplet;
-import processing.core.PFont;
 
 public class Intro extends PApplet {
 

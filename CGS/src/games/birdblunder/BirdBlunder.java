@@ -5,13 +5,12 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import ayush.shapes.*;
+import ayush.shapes.Rectangle;
 import buttons.AyushTextButton;
 import buttons.ImageButton;
 import general.Player;
 import general.Question;
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PImage;
 
 public class BirdBlunder extends PApplet {
@@ -42,15 +41,20 @@ public class BirdBlunder extends PApplet {
 	private boolean isAddedYet;
 	private JFrame window;
 	private AyushTextButton quit, quit2;
+	private boolean hasLostYet;
+	private ArrayList<Question> answer, wronganswers;
+	private boolean theOnceBoolean;
+	private int inde;
 
-	public BirdBlunder(ArrayList<String> as, String question, int numOfBirdsPerSec, int conf, Player p) {
+	public BirdBlunder(ArrayList<String> as, String question, int numOfBirdsPerSec, int conf, Player p,
+			ArrayList<Question> answers, ArrayList<Question> wronganswers, int indexx) {
 		qslidebuttons = new AyushTextButton[2];
 		shape = new PhysicsShape(new Rectangle(100, 250, 50, 50));
 		counter = 0;
 		birds = new ArrayList<Answer>();
 		coins = new ArrayList<ImageButton>();
 		devMode = false;
-		answers = as;
+		this.answers = as;
 		this.numOfAnswersPerSec = numOfBirdsPerSec;
 		index = 0;
 		slide = 0;
@@ -74,9 +78,15 @@ public class BirdBlunder extends PApplet {
 		isAddedYet = false;
 		quit = new AyushTextButton(250, 300, 200, 100, 275, 365, Color.BLACK, Color.white, "Quit", 40);
 		quit2 = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, Color.white, "Quit", 20);
+		hasLostYet = false;
+		answer = answers;
+		this.wronganswers = wronganswers;
+		theOnceBoolean = false;
+		inde = indexx;
 	}
 
-	public BirdBlunder(Question ques, int numOfBirdsPerSec, int conf, Player p) {
+	public BirdBlunder(Question ques, int numOfBirdsPerSec, int conf, Player p, ArrayList<Question> answers,
+			ArrayList<Question> wronganswers, int indexx) {
 
 		ArrayList<String> as = new ArrayList<String>();
 		as.add(ques.getCorrect());
@@ -90,7 +100,7 @@ public class BirdBlunder extends PApplet {
 		birds = new ArrayList<Answer>();
 		coins = new ArrayList<ImageButton>();
 		devMode = false;
-		answers = as;
+		this.answers = as;
 		this.numOfAnswersPerSec = numOfBirdsPerSec;
 		index = 0;
 		slide = 0;
@@ -114,6 +124,11 @@ public class BirdBlunder extends PApplet {
 		isAddedYet = false;
 		quit = new AyushTextButton(250, 400, 200, 100, 275, 465, Color.BLACK, Color.white, "Quit", 40);
 		quit2 = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, Color.white, "Quit", 20);
+		hasLostYet = false;
+
+		answer = answers;
+		this.wronganswers = wronganswers;
+		inde = indexx;
 
 	}
 
@@ -381,6 +396,16 @@ public class BirdBlunder extends PApplet {
 			circrad += 20;
 		}
 
+		if (!theOnceBoolean) {
+			theOnceBoolean = true;
+			wronganswers.add(answer.get(inde));
+		}
+
+	}
+
+	public boolean getLost() {
+		System.out.println(hasLostYet);
+		return hasLostYet;
 	}
 
 	public void keyPressed() {

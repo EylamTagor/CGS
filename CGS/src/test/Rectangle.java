@@ -1,11 +1,13 @@
 package test;
 
+
+
 import java.awt.Color;
 
 import processing.core.PApplet;
 
 public class Rectangle {
-	private float x, y, width, height;
+	private float x,y,width,height;
 
 	public Rectangle(float x, float y, float width, float height) {
 		this.x = x;
@@ -45,10 +47,10 @@ public class Rectangle {
 	public void setHeight(float height) {
 		this.height = height;
 	}
-
+	
 	public void draw(PApplet papp, Color fcol) {
 		papp.fill(fcol.getRed(), fcol.getGreen(), fcol.getBlue());
-		papp.rect(x, y, width, height);
+		papp.rect(x,y,width,height);
 	}
-
+	
 }

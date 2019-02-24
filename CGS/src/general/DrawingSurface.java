@@ -33,6 +33,9 @@ public class DrawingSurface extends PApplet {
 	private ImageButton next, next2;
 	private AyushTextButton[] options;
 	private int slide;
+	/// birdblunder question 3, psycho question 2, space question0, driving quesiont
+	/// 1
+	private ArrayList<Question> wronganswers;
 
 	private ArrayList<Question> parlibb, bizcommbb, bizprobb, infotechbb, mathbb, fblabb, bizbb;
 	private ArrayList<Question> parlips, bizcommps, bizprops, infotechps, mathps, fblaps, bizps;
@@ -43,6 +46,7 @@ public class DrawingSurface extends PApplet {
 		player = new Player();
 		player.earn(575);
 		topics = new ArrayList<String>();
+		wronganswers = new ArrayList<Question>();
 		slide = 1;
 		options = new AyushTextButton[7];
 		options[0] = new AyushTextButton(30, 40, 700, 80, 130, 90, Color.BLACK, Color.WHITE,
@@ -60,7 +64,7 @@ public class DrawingSurface extends PApplet {
 
 		initializeQuestionArrays();
 
-		font = "Arial Bold";
+		font = "Verdana";
 
 		back = new TextButton(10, 10, 120, 25, 15, 25, 255, 200, 200, 0, 0, 0, "Back to conference");
 		jacket = new TextButton(75, 100, 300, 100, 150, 150, 200, 255, 200, 0, 0, 0, "Jacket: $250");
@@ -157,171 +161,173 @@ public class DrawingSurface extends PApplet {
 		bizps = new ArrayList<Question>();
 
 		bizcommbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizcommbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizcommbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizcommbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		parlibb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		parlibb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		parlibb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		parlibb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		infotechbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		infotechbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		infotechbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		infotechbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizprobb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizprobb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizprobb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizprobb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizbb.add(new Question(
-				"________________ marketing involves developing a unique mix of goods and services for each individual customer.",
-				"One-to-one", "B2B", "Usage", "Volume"));
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
 		bizbb.add(new Question(
-				"Groups of people such as workers who pool their money together for savings and to make\r\n"
-						+ "loans is called a:",
-				"credit union", "union bank", "state union", "labor union"));
-		bizbb.add(new Question("When compared to a traditional savings account, a certificate of deposit is:",
-				"less liquid", "equally liquid", "more dynamic", "more liquid"));
-		bizbb.add(new Question("Spending a few hours observing someone in your chosen occupation is called job ______",
-				"shadowing", "training", "orientation", "mentoring"));
-		fblabb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
+		bizbb.add(new Question(
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
+		bizbb.add(new Question(
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		fblabb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		fblabb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		fblabb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
+		fblabb.add(new Question(
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		mathbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		mathbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		mathbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		mathbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 
 		bizcommps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizcommps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizcommps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizcommps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		parlips.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		parlips.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		parlips.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		parlips.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		infotechps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		infotechps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		infotechps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		infotechps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizprops.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizprops.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizprops.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizprops.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizps.add(new Question(
-				"________________ marketing involves developing a unique mix of goods and services for each individual customer.",
-				"One-to-one", "B2B", "Usage", "Volume"));
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
 		bizps.add(new Question(
-				"Groups of people such as workers who pool their money together for savings and to make\r\n"
-						+ "loans is called a:",
-				"credit union", "union bank", "state union", "labor union"));
-		bizps.add(new Question("When compared to a traditional savings account, a certificate of deposit is:",
-				"less liquid", "equally liquid", "more dynamic", "more liquid"));
-		bizps.add(new Question("Spending a few hours observing someone in your chosen occupation is called job ______",
-				"shadowing", "training", "orientation", "mentoring"));
-		fblaps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
+		bizps.add(new Question(
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
+		bizps.add(new Question(
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		fblaps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		fblaps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		fblaps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
+		fblaps.add(new Question(
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		mathps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		mathps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		mathps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		mathps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 
 		bizcommd.add(new Question(
@@ -373,16 +379,17 @@ public class DrawingSurface extends PApplet {
 				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizd.add(new Question(
-				"________________ marketing involves developing a unique mix of goods and services for each individual customer.",
-				"One-to-one", "B2B", "Usage", "Volume"));
+				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
 		bizd.add(new Question(
-				"Groups of people such as workers who pool their money together for savings and to make\r\n"
-						+ "loans is called a:",
-				"credit union", "union bank", "state union", "labor union"));
-		bizd.add(new Question("When compared to a traditional savings account, a certificate of deposit is:",
-				"less liquid", "equally liquid", "more dynamic", "more liquid"));
-		bizd.add(new Question("Spending a few hours observing someone in your chosen occupation is called job ______",
-				"shadowing", "training", "orientation", "mentoring"));
+				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
+		bizd.add(new Question(
+				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
+		bizd.add(new Question(
+				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
 		fblad.add(new Question(
 				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
@@ -457,16 +464,17 @@ public class DrawingSurface extends PApplet {
 				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizs.add(new Question(
-				"________________ marketing involves developing a unique mix of goods and services for each individual customer.",
-				"One-to-one", "B2B", "Usage", "Volume"));
+				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
 		bizs.add(new Question(
-				"Groups of people such as workers who pool their money together for savings and to make\r\n"
-						+ "loans is called a:",
-				"credit union", "union bank", "state union", "labor union"));
-		bizs.add(new Question("When compared to a traditional savings account, a certificate of deposit is:",
-				"less liquid", "equally liquid", "more dynamic", "more liquid"));
-		bizs.add(new Question("Spending a few hours observing someone in your chosen occupation is called job ______",
-				"shadowing", "training", "orientation", "mentoring"));
+				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
+		bizs.add(new Question(
+				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
+		bizs.add(new Question(
+				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
+				"descriptive", "persuasive", "instructional", "informative"));
 		fblas.add(new Question(
 				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
@@ -569,17 +577,14 @@ public class DrawingSurface extends PApplet {
 	public void drawInstructions() {
 		if (slide == 1) {
 			background(255);
-			fill(0);
+			fill(255, 0, 0);
 			textFont(createFont(font, 100));
 			text("Welcome to", 100, 130);
 			text("FBLA Tester", 90, 280);
 			next.draw(this);
 		} else if (slide == 2) {
 			background(255);
-			textSize(18);
-			fill(0);
-			text("You recently heard about a club at your school called Future Business Leaders\nof America. Having nothing better to do, you decided to join and attend the next\nmeeting. You were so overwhelmed by the remarkable people and achievements\nthat your school's chapter has that you immediately wanted to become a part of it.\n\nFast-forward to your tryout day for competitions. There were so many options to\nchoose from, but you eventually settled for seven. Unfortuately, this year the\nofficers only let competitors have up to five competitions. On the next screen,\nchoose the five competitions you would like to compete in.",
-					50, 50);
+			text("cutscene", 100, 130);
 			next.draw(this);
 		} else if (slide == 3) {
 			background(255);
@@ -663,6 +668,11 @@ public class DrawingSurface extends PApplet {
 	public void drawNatsConference() {
 		headingFormat();
 		text("nats", Main.width / 2, confHeadHeight);
+		textSize(10);
+		for (int i = 0; i < wronganswers.size(); i++) {
+			Question e = wronganswers.get(i);
+			text(e.toString(), Main.width / 2, confHeadHeight + 100 + 50 * i);
+		}
 	}
 
 	public void drawBirdBlunderGame() {
@@ -670,7 +680,7 @@ public class DrawingSurface extends PApplet {
 
 		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "bb");
 		final int birdspersec = 3;
-		BirdBlunder drawing = new BirdBlunder(as.get(2), birdspersec, spaceConfIndicator, player);
+		BirdBlunder drawing = new BirdBlunder(as.get(3), birdspersec, spaceConfIndicator, player, as, wronganswers, 3);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -684,14 +694,16 @@ public class DrawingSurface extends PApplet {
 
 		window.setVisible(true);
 		canvas.requestFocus();
+
 	}
 
 	public void drawSpaceGame() {
 		// change drawing's type to whatever game you want to run (or duplicate for each
 		// game if you want
+		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "s");
 		final int speed = 3;
 		Space drawing = new Space(new Question("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "right",
-				"wrong1", "wrong2", "wrong3"), player, spaceConfIndicator, speed);
+				"wrong1", "wrong2", "wrong3"), player, spaceConfIndicator, speed, as, wronganswers, 0);
 		drawing.setSize(800, 700);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
@@ -710,9 +722,11 @@ public class DrawingSurface extends PApplet {
 	public void drawDrivingGame() {
 		// change drawing's type to whatever game you want to run (or duplicate for each
 		// game if you want)
+		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "s");
+
 		final int speed = 10;
 		Driving drawing = new Driving(new Question("Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "right",
-				"wrong1", "wrong2", "wrong3"), player, drivingConfIndicator, speed);
+				"wrong1", "wrong2", "wrong3"), player, drivingConfIndicator, speed, as, wronganswers, 1);
 		drawing.setSize(800, 700);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
@@ -733,10 +747,8 @@ public class DrawingSurface extends PApplet {
 
 		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "ps");
 
-		int quenum = (int) (Math.random() * 4);
-
 		final int seconds = 30;
-		PsychoSearch drawing = new PsychoSearch(as.get(quenum), seconds, player, spaceConfIndicator);
+		PsychoSearch drawing = new PsychoSearch(as.get(2), seconds, player, spaceConfIndicator, as, wronganswers, 2);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -773,7 +785,7 @@ public class DrawingSurface extends PApplet {
 		if (hasPassedConfs) {
 			headingFormat();
 			textSize(50);
-			text("Congrats on passing all of the \ncompetitions!", Main.width / 2 + 10, confHeadHeight);
+			text("Congrats on passing all of the \nconferences!", Main.width / 2 + 10, confHeadHeight);
 			text("The National Conference is \ndesigned to test all of the \nquestions you got wrong",
 					Main.width / 2 + 10, confHeadHeight + 200);
 
@@ -789,13 +801,13 @@ public class DrawingSurface extends PApplet {
 
 		} else {
 			headingFormat();
-			text("Not yet!\nFinish all of the \ncompetitions first.", Main.width / 2, confHeadHeight + 200);
+			text("Not yet!\nFinish all of the \nconferences first.", Main.width / 2, confHeadHeight + 200);
 		}
 	}
 
 	public void drawConferenceScreen() {
 		headingFormat();
-		text("Competitions", Main.width / 2, confHeadHeight);
+		text("Conferences", Main.width / 2, confHeadHeight);
 		for (SohilButton b : conferenceSelection) {
 			b.draw(this);
 			if (b.isPointInside(mouseX, mouseY)) {

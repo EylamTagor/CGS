@@ -27,16 +27,15 @@ public class FuelTank {
 
 		p.fill(255);
 		p.textAlign(PApplet.LEFT);
-		p.textSize(12);
 
 		if (ans == 0)
-			p.text(question.getCorrect(), x + 25, y + 25);
+			p.text(question.getCorrect(), x + 25, y + 40);
 		if (ans == 1)
-			p.text(question.getWrong1(), x + 25, y + 25);
+			p.text(question.getWrong1(), x + 25, y + 40);
 		if (ans == 2)
-			p.text(question.getWrong2(), x + 25, y + 25);
+			p.text(question.getWrong2(), x + 25, y + 40);
 		if (ans == 3)
-			p.text(question.getWrong3(), x + 25, y + 25);
+			p.text(question.getWrong3(), x + 25, y + 40);
 	}
 
 	public float getX() {

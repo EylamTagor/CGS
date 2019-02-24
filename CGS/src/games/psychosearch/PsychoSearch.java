@@ -3,18 +3,16 @@ package games.psychosearch;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import ayush.shapes.*;
+
+import javax.swing.JFrame;
+
+import ayush.shapes.Circle;
 import buttons.AyushTextButton;
 import buttons.ImageButton;
 import general.Player;
 import general.Question;
-
-import javax.swing.JFrame;
-
-import test.Rectangle;
 import processing.core.PApplet;
-import processing.core.PFont;
-import processing.core.PImage;
+import test.Rectangle;
 
 public class PsychoSearch extends PApplet {
 
@@ -38,9 +36,14 @@ public class PsychoSearch extends PApplet {
 	private AyushTextButton quit2;
 	private Circle animatedCircle;
 	private String ca;
+	private ArrayList<Question> answ, wrongans;
+	private int index;
+	private boolean bool;
 
-	public PsychoSearch(ArrayList<String> as, String question, int seconds, Player p, int conf) {
+	public PsychoSearch(ArrayList<String> as, String question, int seconds, Player p, int conf,
+			ArrayList<Question> answer, ArrayList<Question> wronganswers, int index) {
 		slide = 0;
+		bool = false;
 		qslidebuttons = new AyushTextButton[2];
 		que = question;
 		secondstimes60 = (seconds) * 60;
@@ -71,11 +74,15 @@ public class PsychoSearch extends PApplet {
 		animatedCircle = new Circle(400, 350, 200);
 		animatedCircle.setFillColor(Color.BLACK);
 		ca = as.get(0);
+		this.index = index;
+		answ = answer;
+		wrongans = wronganswers;
 	}
 
-	public PsychoSearch(Question ques, int seconds, Player p, int conf) {
+	public PsychoSearch(Question ques, int seconds, Player p, int conf, ArrayList<Question> answer,
+			ArrayList<Question> wronganswers, int index) {
 		player = p;
-
+		bool = false;
 		ArrayList<String> as = new ArrayList<String>();
 		as.add(ques.getCorrect());
 		as.add(ques.getWrong1());
@@ -112,6 +119,9 @@ public class PsychoSearch extends PApplet {
 		animatedCircle = new Circle(400, 350, 200);
 		animatedCircle.setFillColor(Color.BLACK);
 		ca = ques.getCorrect();
+		this.index = index;
+		answ = answer;
+		wrongans = wronganswers;
 	}
 
 	public void setup() {
@@ -198,7 +208,7 @@ public class PsychoSearch extends PApplet {
 
 		drawFast();
 
-		fill(0, 0, 255);
+		fill(0, 255, 255);
 		textSize(50);
 		text("Time: " + (secondstimes60 / 60 + 1), 275, 60);
 		if (secondstimes60 < 0) {
@@ -257,6 +267,11 @@ public class PsychoSearch extends PApplet {
 				isAddedYet = true;
 			}
 			quit.draw(this);
+		}
+
+		if (!bool) {
+			bool = true;
+			wrongans.add(answ.get(index));
 		}
 
 		// text(money ,30,200);
