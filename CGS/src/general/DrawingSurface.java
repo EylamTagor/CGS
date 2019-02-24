@@ -209,17 +209,15 @@ public class DrawingSurface extends PApplet {
 				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
+				"__________ marketing involves developing a unique mix of goods and services for each individual customer.",
+				"One-to-one", "B2B", "Usage", "Volume"));
 		bizbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
-		bizbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
-		bizbb.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
+				"Groups of people such as workers who pool their money together for savings and to make loans is called a:",
+				"credit union", "union bank", "state union", "labor union"));
+		bizbb.add(new Question("When compared to a traditional savings account, a certificate of deposit is:",
+				"less liquid", "equally liquid", "more dynamic", "more liquid"));
+		bizbb.add(new Question("Spending a few hours observing someone in your chosen occupation is called job _____",
+				"shadowing", "training", "orientation", "mentoring"));
 		fblabb.add(new Question(
 				"\"The hamburger was piled high with juicy, red, thick-sliced\n tomatoes, crisp dark-red \nlettuce leaves, and perfect \nrounds of sliced onion.\" \nThis is an example of what \ntype of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
@@ -294,17 +292,15 @@ public class DrawingSurface extends PApplet {
 				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
+				"__________ marketing involves developing a unique mix of goods and services for each individual customer.",
+				"One-to-one", "B2B", "Usage", "Volume"));
 		bizps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
-		bizps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
-		bizps.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
+				"Groups of people such as workers who pool their money together for savings and to make loans is called a:",
+				"credit union", "union bank", "state union", "labor union"));
+		bizps.add(new Question("When compared to a traditional savings account, a certificate of deposit is:",
+				"less liquid", "equally liquid", "more dynamic", "more liquid"));
+		bizps.add(new Question("Spending a few hours observing someone in your chosen occupation is called job _____",
+				"shadowing", "training", "orientation", "mentoring"));
 		fblaps.add(new Question(
 				"\"The hamburger was piled high with juicy, red, thick-sliced \ntomatoes, crisp dark-red lettuce leaves, and perfect rounds \nof sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
@@ -379,17 +375,15 @@ public class DrawingSurface extends PApplet {
 				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizd.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
+				"__________ marketing involves developing a unique mix of goods and services for each individual customer.",
+				"One-to-one", "B2B", "Usage", "Volume"));
 		bizd.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
-		bizd.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
-		bizd.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
+				"Groups of people such as workers who pool their money together for savings and to make loans is called a:",
+				"credit union", "union bank", "state union", "labor union"));
+		bizd.add(new Question("When compared to a traditional savings account, a certificate of deposit is:",
+				"less liquid", "equally liquid", "more dynamic", "more liquid"));
+		bizd.add(new Question("Spending a few hours observing someone in your chosen occupation is called job _____",
+				"shadowing", "training", "orientation", "mentoring"));
 		fblad.add(new Question(
 				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
@@ -464,17 +458,15 @@ public class DrawingSurface extends PApplet {
 				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
 		bizs.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
+				"__________ marketing involves developing a unique mix of goods and services for each individual customer.",
+				"One-to-one", "B2B", "Usage", "Volume"));
 		bizs.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
-		bizs.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
-		bizs.add(new Question(
-				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
-				"descriptive", "persuasive", "instructional", "informative"));
+				"Groups of people such as workers who pool their money together for savings and to make loans is called a:",
+				"credit union", "union bank", "state union", "labor union"));
+		bizs.add(new Question("When compared to a traditional savings account, a certificate of deposit is:",
+				"less liquid", "equally liquid", "more dynamic", "more liquid"));
+		bizs.add(new Question("Spending a few hours observing someone in your chosen occupation is called job _____",
+				"shadowing", "training", "orientation", "mentoring"));
 		fblas.add(new Question(
 				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes, crisp dark-red lettuce leaves, and perfect rounds of sliced onion.\" This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
