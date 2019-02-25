@@ -618,7 +618,10 @@ public class DrawingSurface extends PApplet {
 			next.draw(this);
 		} else if (slide == 2) {
 			background(255);
-			text("cutscene", 100, 130);
+			textSize(18);
+			fill(0);
+			text("You recently heard about a club at your school called Future Business Leaders\nof America. Having nothing better to do, you decided to join and attend the\nnext meeting. You were so overwhelmed by the remarkable people and\nachievements that your school's chapter has that you immediately wanted to\nbecome a part of it.\n\nFast-forward to your tryout day for competitions. There were so many options\nto choose from, but you eventually settled for seven. Unfortuately, this year\nthe officers only let competitors have up to five competitions. On the next\nscreen, choose the five competitions you would like to compete in.",
+					50, 50);
 			next.draw(this);
 		} else if (slide == 3) {
 			background(255);
@@ -1018,7 +1021,7 @@ public class DrawingSurface extends PApplet {
 
 		window.setVisible(true);
 		canvas.requestFocus();
-		
+
 		status = spaceConfIndicator + 1;
 	}
 
