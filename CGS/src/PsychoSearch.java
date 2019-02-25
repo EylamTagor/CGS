@@ -269,10 +269,7 @@ public class PsychoSearch extends PApplet {
 			text(ca, 200,300);
 			//text(money ,30,200);
 			//player.passGame(conf);
-			if(!isAddedYet) {
-				player.passGame(conf);
-				isAddedYet = true;
-			}
+			
 			quit.draw(this);
 		}
 		

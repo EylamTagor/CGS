@@ -9,7 +9,6 @@ public class ProgressBar {
 	public static final int RIGHT_ALIGN = 1, LEFT_ALIGN = 0;
 	private String name;
 	private int total;
-
 	public ProgressBar(String name, double x, double y, double width, double height, double progress, int total) {
 		this.name = name;
 		this.x = x;
@@ -49,8 +48,8 @@ public class ProgressBar {
 		marker.fill(255);
 		marker.textAlign(marker.CENTER, marker.BOTTOM);
 		marker.textSize(18);
-
-		marker.text(name, (float) ((x + width) / 2), (float) (y + hBDistanceFromTop - textAdjust));
+		
+		marker.text(name, (float) ((x + width)/2), (float) (y + hBDistanceFromTop - textAdjust));
 		marker.textAlign(marker.LEFT, marker.BOTTOM);
 		marker.textSize(10);
 		marker.text(((Integer) ((int) progress)).toString() + " / " + total,
@@ -65,7 +64,10 @@ public class ProgressBar {
 	}
 
 	public void setProgress(double progress) {
-		this.progress = progress;
+		if(progress >total) {
+			this.progress = progress;
+
+		}
 	}
 
 	public void decreaseProgress(double amount) {
@@ -73,6 +75,9 @@ public class ProgressBar {
 	}
 
 	public void increaseProgress(double amount) {
-		progress += amount;
+		
+		if (amount + progress <= total) {
+			progress += amount;
+		}
 	}
 }

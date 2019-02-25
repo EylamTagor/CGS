@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
-public class DrawingSurface extends PApplet {
+public class FBLATriviaTester extends PApplet {
 	private TextButton back, jacket, shirt, slacks, shoes, belt, tie;
 	private SohilButton nationals, quit, activeButton, backConference, game1, game2, game3, game4;
 	private ArrayList<ArrayList<SohilButton>> conferences;
@@ -39,11 +39,11 @@ public class DrawingSurface extends PApplet {
 	private SohilButton quit3;
 	private SohilButton win, backtonats;
 	private ProgressBar confs, nats;
-	private int status = 1; // 1 instructinos 2 win 3 dnats 4 psnats 5 bbnats 6 snats 7 fail 8 natsconf 9 bb
+	private int status = 1;// 1 instructinos 2 win 3 dnats 4 psnats 5 bbnats 6 snats 7 fail 8 natsconf 9 bb
 							// 10 space 11 driving 12 ps 13 nats 14 confscreen 15 conf1 16 conf2 17 conf3 18
 							// conf4 19 conf5 20 playgame
 
-	public DrawingSurface() {
+	public FBLATriviaTester() {
 		player = new Player();
 		player.earn(575);
 		topics = new ArrayList<String>();
@@ -68,31 +68,31 @@ public class DrawingSurface extends PApplet {
 		natsgames = new ArrayList<SohilButton>();
 		final int marginy = 10;
 		final int marginx = 50;
-		natsgames.add(new SohilButton("Game 1", 30, SohilButton.RECTANGLE, 25, 100, 350, 90));
-		natsgames.add(new SohilButton("Game 2", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE, 25, 100, 350, 90));
+		natsgames.add(new SohilButton("Bird Blunder", 30, SohilButton.RECTANGLE, 25,
 				natsgames.get(0).getY() + natsgames.get(0).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Game 3", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SohilButton("Psycho Search", 30, SohilButton.RECTANGLE, 25,
 				natsgames.get(1).getY() + natsgames.get(1).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Game 4", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE, 25,
 				natsgames.get(2).getY() + natsgames.get(2).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Game 5", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SohilButton("Driving Game", 30, SohilButton.RECTANGLE, 25,
 				natsgames.get(3).getY() + natsgames.get(3).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Game 6", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SohilButton("Bird Blunder", 30, SohilButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx, 100, 350, 90));
-		natsgames.add(new SohilButton("Game 7", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(5).getY() + natsgames.get(5).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Game 8", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SohilButton("Psycho Search", 30, SohilButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(6).getY() + natsgames.get(6).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Game 9", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SohilButton("Driving Game", 30, SohilButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(7).getY() + natsgames.get(7).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Game 10", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SohilButton("Bird Blunder", 30, SohilButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(8).getY() + natsgames.get(8).getHeight() + marginy, 350, 90));
 
-		win = new SohilButton("Claim your reward!", 20, SohilButton.RECTANGLE, 640, 400, 50);
+		win = new SohilButton("Claim your reward!", 20, SohilButton.RECTANGLE, 610, 400, 50);
 
 		initializeQuestionArrays();
 
@@ -106,12 +106,12 @@ public class DrawingSurface extends PApplet {
 		belt = new TextButton(75, 400, 300, 100, 150, 450, 200, 255, 200, 0, 0, 0, "Belt: $25");
 		tie = new TextButton(425, 400, 300, 100, 500, 450, 200, 255, 200, 0, 0, 0, "Tie: $50");
 
-		game1 = new SohilButton("Game 1", 40, SohilButton.RECTANGLE, 150, 400, 100);
-		game2 = new SohilButton("Game 2", 40, SohilButton.RECTANGLE,
+		game1 = new SohilButton("Space Game", 40, SohilButton.RECTANGLE, 150, 400, 100);
+		game2 = new SohilButton("Driving Game", 40, SohilButton.RECTANGLE,
 				game1.getY() + game1.getHeight() + gameButtonMargin, 400, 100);
-		game3 = new SohilButton("Game 3", 40, SohilButton.RECTANGLE,
+		game3 = new SohilButton("Psycho Search", 40, SohilButton.RECTANGLE,
 				game2.getY() + game2.getHeight() + gameButtonMargin, 400, 100);
-		game4 = new SohilButton("Game 4", 40, SohilButton.RECTANGLE,
+		game4 = new SohilButton("Bird Blunder", 40, SohilButton.RECTANGLE,
 				game3.getY() + game3.getHeight() + gameButtonMargin, 400, 100);
 
 		backConference = new SohilButton("Back", 20, SohilButton.RECTANGLE, Main.width - 105, Main.height - 100, 75,
@@ -427,7 +427,7 @@ public class DrawingSurface extends PApplet {
 				"credit union", "union bank", "state union", "labor union"));
 		bizs.add(new Question("When compared to a traditional\nsavings account, a certificate of deposit is:",
 				"less liquid", "equally liquid", "more dynamic", "more liquid"));
-		bizs.add(new Question("Spending a few hours observing\nsomeone in your chosen occupation is called job _____",
+		bizs.add(new Question("Spending a few hours observing someone in your chosen occupation is called job _____",
 				"shadowing", "training", "orientation", "mentoring"));
 		fblas.add(new Question(
 				"A parliamentary procedure team can have ______ repeat members\nfrom a previous National Leadership Conference team.",
@@ -531,7 +531,7 @@ public class DrawingSurface extends PApplet {
 
 	public void playGameMessage() {
 		headingFormat();
-		text("Play the game", Main.width / 2, confHeadHeight + 200);
+		text("Play the game!", Main.width / 2, confHeadHeight + 200);
 		backtonats.draw(this);
 
 	}
@@ -753,15 +753,16 @@ public class DrawingSurface extends PApplet {
 			drawNationals();
 
 		}
-		if (activeButton == quit)
-			exit();
+		if (activeButton == quit) {
+			System.exit(0);
+		}
 
 //		System.out.println(Arrays.toString(player.getProgress()));
 	}
 
 	public void drawWin() {
 
-		if (player.getProgress()[5] < 3) {
+		if (player.getProgress()[5] < wronganswers.size()) {
 			headingFormat();
 			textSize(40);
 			text("You haven't beaten " + wronganswers.size() + " of those \ngames yet!", Main.width / 2,
@@ -770,6 +771,7 @@ public class DrawingSurface extends PApplet {
 
 		} else {
 			headingFormat();
+			textSize(50);
 			text("YOU WON! CONGRATS!", Main.width / 2, confHeadHeight);
 			quit.draw(this);
 
@@ -890,7 +892,7 @@ public class DrawingSurface extends PApplet {
 				e.draw(this);
 
 			}
-			nats.draw(this);
+			// nats.draw(this);
 			win.draw(this);
 
 		}
@@ -902,9 +904,8 @@ public class DrawingSurface extends PApplet {
 
 		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "bb");
 		final int birdspersec = 3;
-		int index = (int) (Math.random() * as.size());
-		BirdBlunder drawing = new BirdBlunder(as.get(index), birdspersec, spaceConfIndicator, player, as, wronganswers,
-				index);
+		// int index = (int)(Math.random() * as.size());
+		BirdBlunder drawing = new BirdBlunder(as.get(3), birdspersec, spaceConfIndicator, player, as, wronganswers, 3);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -928,7 +929,7 @@ public class DrawingSurface extends PApplet {
 		final int speed = 1;
 		int index = (int) (Math.random() * as.size());
 
-		Space drawing = new Space(as.get(index), player, spaceConfIndicator, speed, as, wronganswers, index);
+		Space drawing = new Space(as.get(0), player, spaceConfIndicator, speed, as, wronganswers, 0);
 		drawing.setSize(800, 700);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
@@ -952,7 +953,7 @@ public class DrawingSurface extends PApplet {
 		int index = (int) (Math.random() * as.size());
 
 		final int speed = 10;
-		Driving drawing = new Driving(as.get(index), player, drivingConfIndicator, speed, as, wronganswers, index);
+		Driving drawing = new Driving(as.get(1), player, drivingConfIndicator, speed, as, wronganswers, 1);
 		drawing.setSize(800, 700);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
@@ -975,8 +976,7 @@ public class DrawingSurface extends PApplet {
 		int index = (int) (Math.random() * as.size());
 
 		final int seconds = 30;
-		PsychoSearch drawing = new PsychoSearch(as.get(index), seconds, player, spaceConfIndicator, as, wronganswers,
-				index);
+		PsychoSearch drawing = new PsychoSearch(as.get(2), seconds, player, spaceConfIndicator, as, wronganswers, 2);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -1221,7 +1221,7 @@ public class DrawingSurface extends PApplet {
 				}
 			} else if (status == 2) {
 
-				if (player.getProgress()[5] < 3) {
+				if (player.getProgress()[5] < wronganswers.size()) {
 					if (backtonats.isPointInside(mouseX, mouseY)) {
 						activeButton = backtonats;
 
@@ -1483,22 +1483,36 @@ public class DrawingSurface extends PApplet {
 	}
 
 	public void keyPressed() {
-		/**
-		 * //press g to quickly pass all the games if(key == 'g') { player.passGame(0);
-		 * player.passGame(0); player.passGame(0); player.passGame(0);
-		 * player.passGame(1); player.passGame(1); player.passGame(1);
-		 * player.passGame(1);
-		 * 
-		 * 
-		 * }else if(key == 'h') { wronganswers.add(new Question("test11", "test1",
-		 * "test", "test", "test")); wronganswers.add(new Question("test22", "test1",
-		 * "test", "test", "test")); wronganswers.add(new Question("test33", "test1",
-		 * "test", "test", "test")); wronganswers.add(new Question("test44", "test1",
-		 * "test", "test", "test")); //wronganswers.add(new Question("test", "test",
-		 * "test", "test", "test"));
-		 * 
-		 * 
-		 * }
-		 **/
+//
+//		// press g to quickly pass all the games
+//		if (key == 'g') {
+//			player.passGame(0);
+//			player.passGame(0);
+//			player.passGame(0);
+//			player.passGame(0);
+//			player.passGame(1);
+//			player.passGame(1);
+//			player.passGame(1);
+//			player.passGame(1);
+//			player.passGame(2);
+//			player.passGame(2);
+//			player.passGame(2);
+//			player.passGame(2);
+//			player.passGame(3);
+//			player.passGame(3);
+//			player.passGame(3);
+//			player.passGame(3);
+//			player.passGame(4);
+//			player.passGame(4);
+//			player.passGame(4);
+//			player.passGame(4);
+//
+//		} else if (key == 'h') {
+//			wronganswers.add(new Question("test11", "test1", "test", "test", "test"));
+//			wronganswers.add(new Question("test22", "test1", "test", "test", "test"));
+//
+//			// wronganswers.add(new Question("test", "test", "test", "test", "test"));
+//
+//		}
 	}
 }
