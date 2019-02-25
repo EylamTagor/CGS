@@ -557,7 +557,7 @@ public class DrawingSurface extends PApplet {
 			background(38);
 			textSize(20);
 			fill(255);
-			text("Choose the 5 topics you want to study (only then will you be able to proceed)", 25, 25);
+			text("Choose the 5 topics you want to study (only then can you proceed)", 25, 25);
 			options[0].draw(this);
 			options[1].draw(this);
 			options[2].draw(this);
