@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -28,7 +29,7 @@ public class Space extends PApplet {
 	private double speed;
 
 	private JFrame window;
-
+	private AyushTextButton quitintro;
 	private ArrayList<Question> answers, wrongAnswers;
 	private int index;
 
@@ -75,6 +76,7 @@ public class Space extends PApplet {
 		this.answers = answers;
 		this.wrongAnswers = wrongAnswers;
 		this.index = index;
+		quitintro = new AyushTextButton(700,625, 100,55, 715,655, Color.black, Color.white, "Quit", 20);
 
 		bool = false;
 	}
@@ -127,6 +129,7 @@ public class Space extends PApplet {
 
 			fill(0);
 			start.draw(this);
+			quitintro.draw(this);
 
 			if (start.isPointInButton(mouseX, mouseY))
 				start.setColor(200, 200, 200);
@@ -242,9 +245,21 @@ public class Space extends PApplet {
 				pause.setWidth(100);
 			}
 		}
+		
+		if(quitintro.isPointInButton(mouseX, mouseY)) {
+			window.dispose();
+		}
 
 		if ((status == -2 || status == 1 || status == 2) && quit.isInBounds(mouseX, mouseY))
 			window.dispose();
+	}
+	
+	public void mouseMoved() {
+		if(quitintro.isPointInButton(mouseX, mouseY)) {
+			quitintro.setBColor(new Color(125,125,125));
+		}else {
+			quitintro.setBColor(Color.white);
+		}
 	}
 
 	public void keyPressed() {

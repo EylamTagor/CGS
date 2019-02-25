@@ -40,6 +40,8 @@ public class SohilButton {
 		highlightColor = new Color(38, 38, 38);
 		this.textSize = textSize;
 		edgeCurve = 25;
+		rectangleButton = new Rectangle2D.Double(x, y, width, height);
+
 	}
 	
 	public SohilButton(String name, int textSize, int shape, double y, double width, double height) {
@@ -53,6 +55,8 @@ public class SohilButton {
 		highlightColor = new Color(38, 38, 38);
 		this.textSize = textSize;
 		edgeCurve = 25;
+		rectangleButton = new Rectangle2D.Double(x, y, width, height);
+
 	}
 	
 	public void draw(PApplet marker) {

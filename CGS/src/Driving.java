@@ -1,4 +1,5 @@
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -32,7 +33,7 @@ public class Driving extends PApplet {
 	private JFrame window;
 	private ArrayList<Question> answers, wrongAnswers;
 	private int index;
-
+	private AyushTextButton quitintro;
 	private boolean bool;
 
 	public Driving(Question question, Player player, int conference, float speed, ArrayList<Question> answers,
@@ -69,6 +70,7 @@ public class Driving extends PApplet {
 		this.answers = answers;
 		this.wrongAnswers = wrongAnswers;
 		this.index = index;
+		quitintro = new AyushTextButton(700,625, 100,55, 715,655, Color.black, Color.white, "Quit", 20);
 
 		bool = false;
 	}
@@ -124,6 +126,8 @@ public class Driving extends PApplet {
 				start.setColor(50, 150, 50);
 			else
 				start.setColor(75, 175, 75);
+			
+			quitintro.draw(this);
 		} else if (status == 0) {
 			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
@@ -273,8 +277,20 @@ public class Driving extends PApplet {
 		if ((status == -2 || status == 1 || status == 2 || status == 3 || status == 4)
 				&& quit.isInBounds(mouseX, mouseY))
 			window.dispose();
+		
+		if(quitintro.isPointInButton(mouseX, mouseY)) {
+			window.dispose();
+		}
 	}
 
+	public void mouseMoved() {
+		if(quitintro.isPointInButton(mouseX, mouseY)) {
+			quitintro.setBColor(new Color(79, 79, 79));
+		}else {
+			quitintro.setBColor(Color.WHITE);
+		}
+	}
+	
 	public void keyPressed() {
 		if (key == CODED) {
 			if (keyCode == UP && lane > 0)

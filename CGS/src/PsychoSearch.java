@@ -41,8 +41,8 @@ public class PsychoSearch extends PApplet {
 		qslidebuttons = new AyushTextButton[2];
 		que = question;
 		secondstimes60 = (seconds)*60;
-		qslidebuttons[0] = new AyushTextButton(50,500, 200,75, 75, 540, Color.BLACK, Color.WHITE, "Instructions", 25);
-		qslidebuttons[1] = new AyushTextButton(550,500, 200,75, 575, 540, Color.BLACK, Color.WHITE, "Play!", 25);
+		qslidebuttons[0] = new AyushTextButton(50,500, 200,75, 75, 540, Color.BLACK, new Color(160,160,160), "Instructions", 25);
+		qslidebuttons[1] = new AyushTextButton(550,500, 200,75, 575, 540, Color.BLACK, new Color(160,160,160), "Play!", 25);
 		circradintro = 600;
 		money = 0;
 		answers = as;
@@ -58,12 +58,12 @@ public class PsychoSearch extends PApplet {
 			locs.add(new AyushTextButton(topx, topy, 150,50, topx + 10, topy + 20, Color.black, Color.white, e, 15));
 		}
 		coins = new ArrayList<ImageButton>();
-		backtohome = new AyushTextButton(250,500,300,100, 275,550, Color.BLACK, Color.white, "Back to Question", 30);
+		backtohome = new AyushTextButton(250,500,300,100, 275,550, Color.BLACK, new Color(160,160,160), "Back to Question", 30);
 		player = p;
 		this.conf = conf;
 		isAddedYet = false;
-		quit = new AyushTextButton(250,500,300,100, 350,565, Color.BLACK, Color.white, "Quit", 40);
-		quit2 = new AyushTextButton(700,625, 100,55, 715,655, Color.black, Color.white, "Quit", 20);
+		quit = new AyushTextButton(250,500,300,100, 350,565, Color.BLACK, new Color(160,160,160), "Quit", 40);
+		quit2 = new AyushTextButton(700,625, 100,55, 715,655, Color.black, new Color(160,160,160), "Quit", 20);
 		animatedCircle = new Circle(400,350, 200);
 		animatedCircle.setFillColor(Color.BLACK);
 		ca = as.get(0);
@@ -86,8 +86,8 @@ public class PsychoSearch extends PApplet {
 		qslidebuttons = new AyushTextButton[2];
 		que = ques.getQuestion();
 		secondstimes60 = (seconds)*60;
-		qslidebuttons[0] = new AyushTextButton(50,500, 200,75, 75, 540, Color.BLACK, Color.WHITE, "Instructions", 25);
-		qslidebuttons[1] = new AyushTextButton(550,500, 200,75, 575, 540, Color.BLACK, Color.WHITE, "Play!", 25);
+		qslidebuttons[0] = new AyushTextButton(50,500, 200,75, 75, 540, Color.BLACK, new Color(160,160,160), "Instructions", 25);
+		qslidebuttons[1] = new AyushTextButton(550,500, 200,75, 575, 540, Color.BLACK, new Color(160,160,160), "Play!", 25);
 		circradintro = 600;
 		money = 0;
 		answers = as;
@@ -103,11 +103,11 @@ public class PsychoSearch extends PApplet {
 			locs.add(new AyushTextButton(topx, topy, 150,50, topx + 10, topy + 20, Color.black, Color.white, e, 15));
 		}
 		coins = new ArrayList<ImageButton>();
-		backtohome = new AyushTextButton(250,500,300,100, 275,550, Color.BLACK, Color.white, "Back to Question", 30);
+		backtohome = new AyushTextButton(250,500,300,100, 275,550, Color.BLACK, new Color(160,160,160), "Back to Question", 30);
 		this.conf = conf;
 		isAddedYet = false;
-		quit = new AyushTextButton(250,500,300,100, 350,565, Color.BLACK, Color.white, "Quit", 40);
-		quit2 = new AyushTextButton(700,625, 100,55, 715,655, Color.black, Color.white, "Quit", 20);
+		quit = new AyushTextButton(250,500,300,100, 350,565, Color.BLACK, new Color(160,160,160), "Quit", 40);
+		quit2 = new AyushTextButton(700,625, 100,55, 715,655, Color.black, new Color(160,160,160), "Quit", 20);
 		animatedCircle = new Circle(400,350,200);
 		animatedCircle.setFillColor(Color.BLACK);
 		ca = ques.getCorrect();
@@ -124,7 +124,7 @@ public class PsychoSearch extends PApplet {
 	}
 	
 	public void drawQuestion() {
-		background(255);
+		background(38);
 		textSize(25);
 		fill(0);
 		text(que, 50, 100);
@@ -142,10 +142,16 @@ public class PsychoSearch extends PApplet {
 	}
 	
 	public void instructions() {
-		background(255);
-		textSize(50);
-		fill(0);
-		text("instructions", 100,150);
+		background(38);
+		textSize(60);
+		fill(255,0,0);
+		pushStyle();
+		textAlign(CENTER);
+		text("Instructions", 400,50);
+		popStyle();
+		textSize(30);
+		fill(0,0,255);
+		text("Use the arrow keys to move the flashlight to find \nthe correct answer button and click on it to win.", 50, 125);
 		backtohome.draw(this);
 
 	}
@@ -328,10 +334,10 @@ public class PsychoSearch extends PApplet {
 			if(qslidebuttons[0].isPointInButton(mx, my)) {
 
 				slide = 1;
-				qslidebuttons[0].setBColor(Color.white);
+				qslidebuttons[0].setBColor(new Color(160,160,160));
 			}else if(qslidebuttons[1].isPointInButton(mx, my)) {
 				slide = 2;
-				qslidebuttons[1].setBColor(Color.white);
+				qslidebuttons[1].setBColor(new Color(160,160,160));
 
 			}else if(quit2.isPointInButton(mx, my)) {
 				window.dispose();
@@ -362,7 +368,7 @@ public class PsychoSearch extends PApplet {
 		}else if(slide == 1) {
 			if(backtohome.isPointInButton(mx, my)) {
 				slide = 0;
-				backtohome.setBColor(Color.white);
+				backtohome.setBColor(new Color(160,160,160));
 			}
 		}else if(slide == 3) {
 			if(quit.isPointInButton(mx, my)) {
@@ -405,9 +411,9 @@ public class PsychoSearch extends PApplet {
 			if(slide == 0) {
 				for(AyushTextButton e:qslidebuttons) {
 					if(e.isPointInButton(px, py)) {
-						e.setBColor(col2);
+						e.setBColor(new Color(60,60,60));
 					}else {
-						e.setBColor(Color.white);
+						e.setBColor(new Color(160,160,160));
 					}
 					
 				}
@@ -416,14 +422,14 @@ public class PsychoSearch extends PApplet {
 					quit2.setBColor(new Color(125,125,125));
 
 				}else {
-					quit2.setBColor(Color.white);
+					quit2.setBColor(new Color(160,160,160));
 				}
 			}
 		}else if(slide == 1) {
 			if(backtohome.isPointInButton(px, py)) {
-				backtohome.setBColor(col2);
+				backtohome.setBColor(new Color(60,60,60));
 			}else {
-				backtohome.setBColor(Color.WHITE);
+				backtohome.setBColor(new Color(160,160,160));
 			}
 		}else if(slide == 3) {
 			if(quit.isPointInButton(px, py)) {
