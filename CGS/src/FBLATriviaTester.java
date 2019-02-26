@@ -1,11 +1,8 @@
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
@@ -39,7 +36,7 @@ public class FBLATriviaTester extends PApplet {
 	private SohilButton quit3;
 	private SohilButton win, backtonats;
 	private ProgressBar confs, nats;
-	private int status = 1;// 1 instructinos 2 win 3 dnats 4 psnats 5 bbnats 6 snats 7 fail 8 natsconf 9 bb
+	private int status = 1; // 1 instructinos 2 win 3 dnats 4 psnats 5 bbnats 6 snats 7 fail 8 natsconf 9 bb
 							// 10 space 11 driving 12 ps 13 nats 14 confscreen 15 conf1 16 conf2 17 conf3 18
 							// conf4 19 conf5 20 playgame
 
@@ -69,26 +66,26 @@ public class FBLATriviaTester extends PApplet {
 		final int marginy = 10;
 		final int marginx = 50;
 		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE, 25, 100, 350, 90));
-		natsgames.add(new SohilButton("Bird Blunder", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SohilButton("Flight Game", 30, SohilButton.RECTANGLE, 25,
 				natsgames.get(0).getY() + natsgames.get(0).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Psycho Search", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SohilButton("Flashlight Game", 30, SohilButton.RECTANGLE, 25,
 				natsgames.get(1).getY() + natsgames.get(1).getHeight() + marginy, 350, 90));
 		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE, 25,
 				natsgames.get(2).getY() + natsgames.get(2).getHeight() + marginy, 350, 90));
 		natsgames.add(new SohilButton("Driving Game", 30, SohilButton.RECTANGLE, 25,
 				natsgames.get(3).getY() + natsgames.get(3).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Bird Blunder", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SohilButton("Flight Game", 30, SohilButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx, 100, 350, 90));
 		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(5).getY() + natsgames.get(5).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Psycho Search", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SohilButton("Flashlight Game", 30, SohilButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(6).getY() + natsgames.get(6).getHeight() + marginy, 350, 90));
 		natsgames.add(new SohilButton("Driving Game", 30, SohilButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(7).getY() + natsgames.get(7).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Bird Blunder", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SohilButton("Flight Game", 30, SohilButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(8).getY() + natsgames.get(8).getHeight() + marginy, 350, 90));
 
@@ -109,9 +106,9 @@ public class FBLATriviaTester extends PApplet {
 		game1 = new SohilButton("Space Game", 40, SohilButton.RECTANGLE, 150, 400, 100);
 		game2 = new SohilButton("Driving Game", 40, SohilButton.RECTANGLE,
 				game1.getY() + game1.getHeight() + gameButtonMargin, 400, 100);
-		game3 = new SohilButton("Psycho Search", 40, SohilButton.RECTANGLE,
+		game3 = new SohilButton("Flashlight Game", 40, SohilButton.RECTANGLE,
 				game2.getY() + game2.getHeight() + gameButtonMargin, 400, 100);
-		game4 = new SohilButton("Bird Blunder", 40, SohilButton.RECTANGLE,
+		game4 = new SohilButton("Flight Game", 40, SohilButton.RECTANGLE,
 				game3.getY() + game3.getHeight() + gameButtonMargin, 400, 100);
 
 		backConference = new SohilButton("Back", 20, SohilButton.RECTANGLE, Main.width - 105, Main.height - 100, 75,
@@ -1064,6 +1061,7 @@ public class FBLATriviaTester extends PApplet {
 			b.draw(this);
 
 		}
+
 		if (player.getProgress()[1] >= 4)
 			progressBars.get(1).setProgress(4);
 		else
@@ -1082,6 +1080,7 @@ public class FBLATriviaTester extends PApplet {
 			b.draw(this);
 
 		}
+
 		if (player.getProgress()[2] >= 4)
 			progressBars.get(2).setProgress(4);
 		else
@@ -1100,6 +1099,7 @@ public class FBLATriviaTester extends PApplet {
 			b.draw(this);
 
 		}
+
 		if (player.getProgress()[3] >= 4)
 			progressBars.get(3).setProgress(4);
 		else
@@ -1119,6 +1119,7 @@ public class FBLATriviaTester extends PApplet {
 			b.draw(this);
 
 		}
+
 		if (player.getProgress()[4] >= 4)
 			progressBars.get(4).setProgress(4);
 		else
