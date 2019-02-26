@@ -530,7 +530,7 @@ public class FBLATriviaTester extends PApplet {
 
 	public void playGameMessage() {
 		headingFormat();
-		text("Play the game!", Main.width / 2, confHeadHeight + 200);
+		text("Return to\nNationals.", Main.width / 2, confHeadHeight + 200);
 		backtonats.draw(this);
 
 	}
@@ -559,7 +559,7 @@ public class FBLATriviaTester extends PApplet {
 			background(38);
 			textSize(20);
 			fill(255);
-			text("Choose the 5 topics you want to study (only then can you proceed)", 25, 25);
+			text("Choose the 5 topics you want to study (only then can you proceed).", 25, 25);
 			options[0].draw(this);
 			options[1].draw(this);
 			options[2].draw(this);
@@ -601,7 +601,6 @@ public class FBLATriviaTester extends PApplet {
 	}
 
 	public void drawMain() {
-
 		confs.setProgress(0);
 		for (int e : player.getProgress()) {
 			if (e >= 4) {
@@ -609,6 +608,7 @@ public class FBLATriviaTester extends PApplet {
 			}
 		}
 		background(38);
+
 		if (activeButton == backConference) {
 			status = 14;
 			drawConferenceScreen();
@@ -1014,7 +1014,7 @@ public class FBLATriviaTester extends PApplet {
 			headingFormat();
 			textSize(50);
 			text("Congrats on passing all of the \nconferences!", Main.width / 2 + 10, confHeadHeight);
-			text("The National Conference is \ndesigned to test all of the \nquestions you got wrong",
+			text("The National Conference is \ndesigned to test all of the \nquestions you got wrong.",
 					Main.width / 2 + 10, confHeadHeight + 200);
 
 			proceedToNats.draw(this);
@@ -1224,9 +1224,9 @@ public class FBLATriviaTester extends PApplet {
 				// 10 space 11 driving 12 ps 13 nats 14 confscreen 15 conf1 16 conf2 17 conf3 18
 				// conf4 19 conf5 20 playgame}
 			if (status == 20) {
+				status = 8;
 				if (backtonats.isPointInside(mouseX, mouseY)) {
 					activeButton = backtonats;
-
 				}
 			} else if (status == 2) {
 
@@ -1365,7 +1365,7 @@ public class FBLATriviaTester extends PApplet {
 				}
 			} else if (status == 2) {
 
-				if (player.getProgress()[5] < 3) {
+				if (player.getProgress()[5] < wronganswers.size()) {
 					if (backtonats.isPointInside(mouseX, mouseY)) {
 						backtonats.setColor(new Color(0, 191, 255));
 					} else {
@@ -1492,36 +1492,36 @@ public class FBLATriviaTester extends PApplet {
 	}
 
 	public void keyPressed() {
-//
-//		// press g to quickly pass all the games
-//		if (key == 'g') {
-//			player.passGame(0);
-//			player.passGame(0);
-//			player.passGame(0);
-//			player.passGame(0);
-//			player.passGame(1);
-//			player.passGame(1);
-//			player.passGame(1);
-//			player.passGame(1);
-//			player.passGame(2);
-//			player.passGame(2);
-//			player.passGame(2);
-//			player.passGame(2);
-//			player.passGame(3);
-//			player.passGame(3);
-//			player.passGame(3);
-//			player.passGame(3);
-//			player.passGame(4);
-//			player.passGame(4);
-//			player.passGame(4);
-//			player.passGame(4);
-//
-//		} else if (key == 'h') {
-//			wronganswers.add(new Question("test11", "test1", "test", "test", "test"));
-//			wronganswers.add(new Question("test22", "test1", "test", "test", "test"));
-//
-//			// wronganswers.add(new Question("test", "test", "test", "test", "test"));
-//
-//		}
+
+		// press g to quickly pass all the games
+		if (key == 'g') {
+			player.passGame(0);
+			player.passGame(0);
+			player.passGame(0);
+			player.passGame(0);
+			player.passGame(1);
+			player.passGame(1);
+			player.passGame(1);
+			player.passGame(1);
+			player.passGame(2);
+			player.passGame(2);
+			player.passGame(2);
+			player.passGame(2);
+			player.passGame(3);
+			player.passGame(3);
+			player.passGame(3);
+			player.passGame(3);
+			player.passGame(4);
+			player.passGame(4);
+			player.passGame(4);
+			player.passGame(4);
+
+		} else if (key == 'h') {
+			wronganswers.add(new Question("test11", "test1", "test", "test", "test"));
+			wronganswers.add(new Question("test22", "test1", "test", "test", "test"));
+
+			// wronganswers.add(new Question("test", "test", "test", "test", "test"));
+
+		}
 	}
 }
