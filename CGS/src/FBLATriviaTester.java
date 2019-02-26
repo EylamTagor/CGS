@@ -1492,36 +1492,36 @@ public class FBLATriviaTester extends PApplet {
 	}
 
 	public void keyPressed() {
-
-		// press g to quickly pass all the games
-		if (key == 'g') {
-			player.passGame(0);
-			player.passGame(0);
-			player.passGame(0);
-			player.passGame(0);
-			player.passGame(1);
-			player.passGame(1);
-			player.passGame(1);
-			player.passGame(1);
-			player.passGame(2);
-			player.passGame(2);
-			player.passGame(2);
-			player.passGame(2);
-			player.passGame(3);
-			player.passGame(3);
-			player.passGame(3);
-			player.passGame(3);
-			player.passGame(4);
-			player.passGame(4);
-			player.passGame(4);
-			player.passGame(4);
-
-		} else if (key == 'h') {
-			wronganswers.add(new Question("test11", "test1", "test", "test", "test"));
-			wronganswers.add(new Question("test22", "test1", "test", "test", "test"));
-
-			// wronganswers.add(new Question("test", "test", "test", "test", "test"));
-
-		}
+//
+//		// press g to quickly pass all the games
+//		if (key == 'g') {
+//			player.passGame(0);
+//			player.passGame(0);
+//			player.passGame(0);
+//			player.passGame(0);
+//			player.passGame(1);
+//			player.passGame(1);
+//			player.passGame(1);
+//			player.passGame(1);
+//			player.passGame(2);
+//			player.passGame(2);
+//			player.passGame(2);
+//			player.passGame(2);
+//			player.passGame(3);
+//			player.passGame(3);
+//			player.passGame(3);
+//			player.passGame(3);
+//			player.passGame(4);
+//			player.passGame(4);
+//			player.passGame(4);
+//			player.passGame(4);
+//
+//		} else if (key == 'h') {
+//			wronganswers.add(new Question("test11", "test1", "test", "test", "test"));
+//			wronganswers.add(new Question("test22", "test1", "test", "test", "test"));
+//
+//			// wronganswers.add(new Question("test", "test", "test", "test", "test"));
+//
+//		}
 	}
 }
