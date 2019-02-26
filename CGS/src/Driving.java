@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 import javax.swing.JFrame;
 
-
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
@@ -32,12 +31,13 @@ public class Driving extends PApplet {
 
 	private JFrame window;
 	private ArrayList<Question> answers, wrongAnswers;
+	private ArrayList<String> rightAnswers;
 	private int index;
 	private AyushTextButton quitintro;
 	private boolean bool;
 
 	public Driving(Question question, Player player, int conference, float speed, ArrayList<Question> answers,
-			ArrayList<Question> wrongAnswers, int index) {
+			ArrayList<Question> wrongAnswers, ArrayList<String> rightAnswers, int index) {
 		this.player = player;
 		this.conference = conference;
 
@@ -69,8 +69,9 @@ public class Driving extends PApplet {
 
 		this.answers = answers;
 		this.wrongAnswers = wrongAnswers;
+		this.rightAnswers = rightAnswers;
 		this.index = index;
-		quitintro = new AyushTextButton(700,625, 100,55, 715,655, Color.black, Color.white, "Quit", 20);
+		quitintro = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, Color.white, "Quit", 20);
 
 		bool = false;
 	}
@@ -126,7 +127,7 @@ public class Driving extends PApplet {
 				start.setColor(50, 150, 50);
 			else
 				start.setColor(75, 175, 75);
-			
+
 			quitintro.draw(this);
 		} else if (status == 0) {
 			textSize(20);
@@ -226,7 +227,11 @@ public class Driving extends PApplet {
 				quit.setColor(255, 255, 255);
 
 			noLoop();
-			player.passGame(conference);
+			if (!rightAnswers.contains(question.getQuestion())) {
+				player.passGame(conference);
+			}
+
+			rightAnswers.add(question.getQuestion());
 		} else if (status == 3) {
 			textSize(20);
 			text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
@@ -277,20 +282,20 @@ public class Driving extends PApplet {
 		if ((status == -2 || status == 1 || status == 2 || status == 3 || status == 4)
 				&& quit.isInBounds(mouseX, mouseY))
 			window.dispose();
-		
-		if(quitintro.isPointInButton(mouseX, mouseY)) {
+
+		if (quitintro.isPointInButton(mouseX, mouseY)) {
 			window.dispose();
 		}
 	}
 
 	public void mouseMoved() {
-		if(quitintro.isPointInButton(mouseX, mouseY)) {
+		if (quitintro.isPointInButton(mouseX, mouseY)) {
 			quitintro.setBColor(new Color(79, 79, 79));
-		}else {
+		} else {
 			quitintro.setBColor(Color.WHITE);
 		}
 	}
-	
+
 	public void keyPressed() {
 		if (key == CODED) {
 			if (keyCode == UP && lane > 0)

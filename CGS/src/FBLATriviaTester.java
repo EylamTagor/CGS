@@ -28,6 +28,7 @@ public class FBLATriviaTester extends PApplet {
 	/// birdblunder question 3, psycho question 2, space question0, driving quesiont
 	/// 1
 	private ArrayList<Question> wronganswers;
+	private ArrayList<String> rightAnswers;
 	private ArrayList<Question> filler1, filler2;
 	private ArrayList<Question> parlibb, bizcommbb, bizprobb, infotechbb, mathbb, fblabb, bizbb;
 	private ArrayList<Question> parlips, bizcommps, bizprops, infotechps, mathps, fblaps, bizps;
@@ -45,6 +46,7 @@ public class FBLATriviaTester extends PApplet {
 		player.earn(575);
 		topics = new ArrayList<String>();
 		wronganswers = new ArrayList<Question>();
+		rightAnswers = new ArrayList<String>();
 		slide = 1;
 		options = new AyushTextButton[7];
 		options[0] = new AyushTextButton(30, 40, 700, 80, 130, 90, Color.WHITE, new Color(54, 141, 165),
@@ -779,7 +781,7 @@ public class FBLATriviaTester extends PApplet {
 	public void drawDrivingNatsGame(int inde) {
 		// TODO Auto-generated method stub
 		final int speed = 20;
-		Driving drawing = new Driving(wronganswers.get(inde), player, 5, speed, filler1, filler2, 1);
+		Driving drawing = new Driving(wronganswers.get(inde), player, 5, speed, filler1, filler2, rightAnswers, 1);
 		drawing.setSize(800, 700);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
@@ -799,7 +801,8 @@ public class FBLATriviaTester extends PApplet {
 		// TODO Auto-generated method stub
 
 		final int seconds = 15;
-		PsychoSearch drawing = new PsychoSearch(wronganswers.get(inde), seconds, player, 5, filler1, filler2, 2);
+		PsychoSearch drawing = new PsychoSearch(wronganswers.get(inde), seconds, player, 5, filler1, filler2,
+				rightAnswers, 2);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -819,7 +822,8 @@ public class FBLATriviaTester extends PApplet {
 	public void drawBirdBlunderNatsGame(int inde) {
 		// TODO Auto-generated method stub
 		final int birdspersec = 6;
-		BirdBlunder drawing = new BirdBlunder(wronganswers.get(inde), birdspersec, 5, player, filler1, filler2, inde);
+		BirdBlunder drawing = new BirdBlunder(wronganswers.get(inde), birdspersec, 5, player, filler1, filler2,
+				rightAnswers, inde);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -839,7 +843,7 @@ public class FBLATriviaTester extends PApplet {
 	public void drawSpaceNatsGame(int inde) {
 		// TODO Auto-generated method stub
 		final int speed = 2;
-		Space drawing = new Space(wronganswers.get(inde), player, 5, speed, filler1, filler2, 0);
+		Space drawing = new Space(wronganswers.get(inde), player, 5, speed, filler1, filler2, rightAnswers, 0);
 		drawing.setSize(800, 700);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
@@ -902,7 +906,8 @@ public class FBLATriviaTester extends PApplet {
 		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "bb");
 		final int birdspersec = 3;
 		// int index = (int)(Math.random() * as.size());
-		BirdBlunder drawing = new BirdBlunder(as.get(3), birdspersec, spaceConfIndicator, player, as, wronganswers, 3);
+		BirdBlunder drawing = new BirdBlunder(as.get(3), birdspersec, spaceConfIndicator, player, as, wronganswers,
+				rightAnswers, 3);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -926,7 +931,7 @@ public class FBLATriviaTester extends PApplet {
 		final int speed = 1;
 		int index = (int) (Math.random() * as.size());
 
-		Space drawing = new Space(as.get(0), player, spaceConfIndicator, speed, as, wronganswers, 0);
+		Space drawing = new Space(as.get(0), player, spaceConfIndicator, speed, as, wronganswers, rightAnswers, 0);
 		drawing.setSize(800, 700);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
@@ -950,7 +955,8 @@ public class FBLATriviaTester extends PApplet {
 		int index = (int) (Math.random() * as.size());
 
 		final int speed = 10;
-		Driving drawing = new Driving(as.get(1), player, drivingConfIndicator, speed, as, wronganswers, 1);
+		Driving drawing = new Driving(as.get(1), player, drivingConfIndicator, speed, as, wronganswers, rightAnswers,
+				1);
 		drawing.setSize(800, 700);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
@@ -973,7 +979,8 @@ public class FBLATriviaTester extends PApplet {
 		int index = (int) (Math.random() * as.size());
 
 		final int seconds = 30;
-		PsychoSearch drawing = new PsychoSearch(as.get(2), seconds, player, spaceConfIndicator, as, wronganswers, 2);
+		PsychoSearch drawing = new PsychoSearch(as.get(2), seconds, player, spaceConfIndicator, as, wronganswers,
+				rightAnswers, 2);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -988,6 +995,7 @@ public class FBLATriviaTester extends PApplet {
 		window.setVisible(true);
 		canvas.requestFocus();
 
+//		System.out.println(rightAnswers);
 	}
 
 	public void drawNationals() {

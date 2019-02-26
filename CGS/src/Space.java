@@ -31,12 +31,13 @@ public class Space extends PApplet {
 	private JFrame window;
 	private AyushTextButton quitintro;
 	private ArrayList<Question> answers, wrongAnswers;
+	private ArrayList<String> rightAnswers;
 	private int index;
 
 	private boolean bool;
 
 	public Space(Question question, Player player, int conference, float speed, ArrayList<Question> answers,
-			ArrayList<Question> wrongAnswers, int index) {
+			ArrayList<Question> wrongAnswers, ArrayList<String> rightAnswers, int index) {
 		this.player = player;
 		this.conference = conference;
 		this.question = question;
@@ -75,8 +76,9 @@ public class Space extends PApplet {
 
 		this.answers = answers;
 		this.wrongAnswers = wrongAnswers;
+		this.rightAnswers = rightAnswers;
 		this.index = index;
-		quitintro = new AyushTextButton(700,625, 100,55, 715,655, Color.black, Color.white, "Quit", 20);
+		quitintro = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, Color.white, "Quit", 20);
 
 		bool = false;
 	}
@@ -226,7 +228,11 @@ public class Space extends PApplet {
 				quit.setColor(255, 255, 255);
 
 			noLoop();
-			player.passGame(conference);
+			if (!rightAnswers.contains(question.getQuestion())) {
+				player.passGame(conference);
+			}
+
+			rightAnswers.add(question.getQuestion());
 		}
 	}
 
@@ -245,19 +251,19 @@ public class Space extends PApplet {
 				pause.setWidth(100);
 			}
 		}
-		
-		if(quitintro.isPointInButton(mouseX, mouseY)) {
+
+		if (quitintro.isPointInButton(mouseX, mouseY)) {
 			window.dispose();
 		}
 
 		if ((status == -2 || status == 1 || status == 2) && quit.isInBounds(mouseX, mouseY))
 			window.dispose();
 	}
-	
+
 	public void mouseMoved() {
-		if(quitintro.isPointInButton(mouseX, mouseY)) {
-			quitintro.setBColor(new Color(125,125,125));
-		}else {
+		if (quitintro.isPointInButton(mouseX, mouseY)) {
+			quitintro.setBColor(new Color(125, 125, 125));
+		} else {
 			quitintro.setBColor(Color.white);
 		}
 	}
