@@ -9,13 +9,13 @@ import other.Player;
 
 import javax.swing.JFrame;
 
-import test.Rectangle;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 import running.Question;
+import shapes.Rectangle;
 
-public class PsychoSearch extends PApplet {
+public class Flashlight extends PApplet {
 
 	//
 	private Player player;
@@ -45,7 +45,7 @@ public class PsychoSearch extends PApplet {
 	private Question question;
 	private boolean isRepeat;
 
-	public PsychoSearch(ArrayList<String> as, String question, int seconds, Player p, int conf,
+	public Flashlight(ArrayList<String> as, String question, int seconds, Player p, int conf,
 			ArrayList<Question> answer, ArrayList<Question> wronganswers, int index) {
 		slide = 0;
 		bool = false;
@@ -88,7 +88,7 @@ public class PsychoSearch extends PApplet {
 		this.question = new Question(que, as.get(0), as.get(1), as.get(2), as.get(3));
 	}
 
-	public PsychoSearch(Question ques, int seconds, Player p, int conf, ArrayList<Question> answer,
+	public Flashlight(Question ques, int seconds, Player p, int conf, ArrayList<Question> answer,
 			ArrayList<Question> wronganswers, ArrayList<String> rightAnswers, int index) {
 		player = p;
 		bool = false;

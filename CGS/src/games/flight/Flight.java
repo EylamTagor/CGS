@@ -12,8 +12,9 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
 import running.Question;
+import shapes.PhysicsShape;
 
-public class BirdBlunder extends PApplet {
+public class Flight extends PApplet {
 
 	//
 	private int counter;
@@ -49,7 +50,7 @@ public class BirdBlunder extends PApplet {
 
 	private Question question;
 
-	public BirdBlunder(ArrayList<String> as, String question, int numOfBirdsPerSec, int conf, Player p,
+	public Flight(ArrayList<String> as, String question, int numOfBirdsPerSec, int conf, Player p,
 			ArrayList<Question> answers, ArrayList<Question> wronganswers, int indexx) {
 		qslidebuttons = new AyushTextButton[2];
 		shape = new PhysicsShape(new Rectangle(100, 250, 50, 50));
@@ -90,7 +91,7 @@ public class BirdBlunder extends PApplet {
 		this.question = new Question(que, as.get(0), as.get(1), as.get(2), as.get(3));
 	}
 
-	public BirdBlunder(Question ques, int numOfBirdsPerSec, int conf, Player p, ArrayList<Question> answers,
+	public Flight(Question ques, int numOfBirdsPerSec, int conf, Player p, ArrayList<Question> answers,
 			ArrayList<Question> wronganswers, ArrayList<String> rightAnswers, int indexx) {
 
 		ArrayList<String> as = new ArrayList<String>();
