@@ -1,13 +1,11 @@
 package shapes;
 
-import ayush.shapes.*;
 import java.awt.Color;
-import java.awt.geom.Point2D;
-import java.util.ArrayList;
 
 import ayush.shapes.Circle;
 import ayush.shapes.TwoDShapes;
 import processing.core.PApplet;
+import ayush.shapes.Rectangle;
 
 public class PhysicsShape {
 

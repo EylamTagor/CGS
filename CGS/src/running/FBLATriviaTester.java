@@ -1,6 +1,5 @@
 package running;
 
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -813,8 +812,8 @@ public class FBLATriviaTester extends PApplet {
 		// TODO Auto-generated method stub
 
 		final int seconds = 15;
-		Flashlight drawing = new Flashlight(wronganswers.get(inde), seconds, player, 5, filler1, filler2,
-				rightAnswers, 2);
+		Flashlight drawing = new Flashlight(wronganswers.get(inde), seconds, player, 5, filler1, filler2, rightAnswers,
+				2);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -834,8 +833,8 @@ public class FBLATriviaTester extends PApplet {
 	public void drawBirdBlunderNatsGame(int inde) {
 		// TODO Auto-generated method stub
 		final int birdspersec = 6;
-		Flight drawing = new Flight(wronganswers.get(inde), birdspersec, 5, player, filler1, filler2,
-				rightAnswers, inde);
+		Flight drawing = new Flight(wronganswers.get(inde), birdspersec, 5, player, filler1, filler2, rightAnswers,
+				inde);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
@@ -918,8 +917,8 @@ public class FBLATriviaTester extends PApplet {
 		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "bb");
 		final int birdspersec = 3;
 		// int index = (int)(Math.random() * as.size());
-		Flight drawing = new Flight(as.get(3), birdspersec, spaceConfIndicator, player, as, wronganswers,
-				rightAnswers, 3);
+		Flight drawing = new Flight(as.get(3), birdspersec, spaceConfIndicator, player, as, wronganswers, rightAnswers,
+				3);
 		PApplet.runSketch(new String[] { "" }, drawing);
 		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
 		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
