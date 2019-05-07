@@ -9,11 +9,15 @@ import javax.swing.JFrame;
 import buttons.AyushTextButton;
 import buttons.TextButton1;
 import other.Player;
+import other.Question;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
-import running.Question;
 
+/**
+ * Subclass of PApplet. Represents the drawing surface on which the Driving game
+ * will occur.
+ */
 public class Driving extends PApplet {
 	private Player player;
 	private int conference;
@@ -41,6 +45,22 @@ public class Driving extends PApplet {
 	private AyushTextButton quitintro;
 	private boolean bool;
 
+	/**
+	 * Creates a new Driving object with the following parameters
+	 * 
+	 * @param question     the Question that this instance of the game will text the
+	 *                     player on
+	 * @param player       the player of the game
+	 * @param conference   the conference/competition this game belongs to
+	 * @param speed        the speed of the game, used to control difficulty
+	 * @param answers      the answers to the question of this game
+	 * @param wrongAnswers all of the player's incorrect answers throughout the
+	 *                     whole game so far
+	 * @param rightAnswers all of the player's correct answers throughout the whole
+	 *                     game so far
+	 * @param index        the spot of this game on the question database, used to
+	 *                     track progress
+	 */
 	public Driving(Question question, Player player, int conference, float speed, ArrayList<Question> answers,
 			ArrayList<Question> wrongAnswers, ArrayList<String> rightAnswers, int index) {
 		this.player = player;
@@ -81,15 +101,27 @@ public class Driving extends PApplet {
 		bool = false;
 	}
 
+	/**
+	 * Sets the JFrame window this game will run in
+	 * 
+	 * @param win the new JFrame window
+	 */
 	public void setFrame(JFrame win) {
 		window = win;
 	}
 
+	/**
+	 * Sets the font type for text and the image for the player's car
+	 */
 	public void setup() {
 		font = createFont("Arial Bold", 18);
 		car = loadImage("images\\car.png");
 	}
 
+	/**
+	 * Runs the GUI of the Driving game. Manages all output for this particular
+	 * game.
+	 */
 	public void draw() {
 		background(125);
 
@@ -268,6 +300,9 @@ public class Driving extends PApplet {
 		}
 	}
 
+	/**
+	 * Handles input in the form of clicking the mouse.
+	 */
 	public void mouseClicked() {
 		if (status == -1 && start.isInBounds(mouseX, mouseY))
 			status = 0;
@@ -293,6 +328,9 @@ public class Driving extends PApplet {
 		}
 	}
 
+	/**
+	 * Handles input in the form of mouse movement.
+	 */
 	public void mouseMoved() {
 		if (quitintro.isPointInButton(mouseX, mouseY)) {
 			quitintro.setBColor(new Color(79, 79, 79));
@@ -301,6 +339,9 @@ public class Driving extends PApplet {
 		}
 	}
 
+	/**
+	 * Handles input in the form of keyboard presses.
+	 */
 	public void keyPressed() {
 		if (key == CODED) {
 			if (keyCode == UP && lane > 0)

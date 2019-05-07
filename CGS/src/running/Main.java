@@ -2,13 +2,23 @@ package running;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
+/**
+ * Runs FBLA Trivia Tester
+ */
 public class Main {
 
 	public static int width = 800, height = 700;
 
+	/**
+	 * Initializes the game in a new JFrame window of width 800 pixels and height
+	 * 700 pixels.
+	 * 
+	 * @param args (main method standard procedure)
+	 */
 	public static void main(String args[]) {
 		FBLATriviaTester drawing = new FBLATriviaTester();
 		drawing.setSize(800, 700);

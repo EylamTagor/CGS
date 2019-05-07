@@ -15,6 +15,8 @@ import games.flashlight.Flashlight;
 import games.flight.Flight;
 import games.space.Space;
 import other.Player;
+import other.ProgressBar;
+import other.Question;
 import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 

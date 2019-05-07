@@ -1,9 +1,11 @@
-package running;
-
-
+package other;
 
 import processing.core.PApplet;
 
+/**
+ * Represents the progress bars in each conference and the main game, which are
+ * used to track the player's progress towards qualifying for nationals.
+ */
 public class ProgressBar {
 
 	private double progress;
@@ -13,6 +15,18 @@ public class ProgressBar {
 	private String name;
 	private int total;
 
+	/**
+	 * Creates a new ProgressBar object with the following parameters
+	 * 
+	 * @param name     the text that is displayed above the progress bar
+	 * @param x        the x-coordinate of the progress bar
+	 * @param y        the y-coordinate of the progress bar
+	 * @param width    the width of the progress bar
+	 * @param height   the height of the progress bar
+	 * @param progress the initial progress of the player relating to the purpose of
+	 *                 this progress bar
+	 * @param total    the maximum progress for this progress bar
+	 */
 	public ProgressBar(String name, double x, double y, double width, double height, double progress, int total) {
 		this.name = name;
 		this.x = x;
@@ -25,6 +39,11 @@ public class ProgressBar {
 		this.total = total;
 	}
 
+	/**
+	 * Draws this progress bar on a PApplet
+	 * 
+	 * @param marker the PApplet onto which this progress bar will be drawn
+	 */
 	public void draw(PApplet marker) {
 		marker.pushStyle();
 
@@ -63,18 +82,36 @@ public class ProgressBar {
 		marker.popStyle();
 	}
 
+	/**
+	 * @return the progress of this progress bar out of the maximum
+	 */
 	public double getProgress() {
 		return progress;
 	}
 
+	/**
+	 * Sets the progress of this progress bar
+	 * 
+	 * @param progress the new progress value
+	 */
 	public void setProgress(double progress) {
 		this.progress = progress;
 	}
 
+	/**
+	 * Decreases the progress for this progress bar
+	 * 
+	 * @param amount the amount to decrease by
+	 */
 	public void decreaseProgress(double amount) {
 		progress -= amount;
 	}
 
+	/**
+	 * Increases the progress for this progress bar
+	 * 
+	 * @param amount the amount to increase by
+	 */
 	public void increaseProgress(double amount) {
 		progress += amount;
 	}

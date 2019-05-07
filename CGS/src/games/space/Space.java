@@ -8,11 +8,15 @@ import javax.swing.JFrame;
 import buttons.AyushTextButton;
 import buttons.TextButton1;
 import other.Player;
+import other.Question;
 import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PImage;
-import running.Question;
 
+/**
+ * Subclass of PApplet. Represents the drawing surface on which the Space game
+ * will occur.
+ */
 public class Space extends PApplet {
 	private Player player;
 	private int conference;
@@ -41,6 +45,20 @@ public class Space extends PApplet {
 
 	private boolean bool;
 
+	/**
+	 * Creates a new Space object with the following parameters
+	 * 
+	 * @param question     the Question this instance of Space will test the player
+	 *                     on
+	 * @param player       the player who will play this game
+	 * @param conference   the conference/competition this game belongs to
+	 * @param speed        the general speed of progression in this game, used to
+	 *                     measure difficulty
+	 * @param answers      the question's answers
+	 * @param wrongAnswers all of the player's incorrect answers from previous games
+	 * @param rightAnswers all of the player's correct answers from previous games
+	 * @param index        this game's spot in the database, used to track progress
+	 */
 	public Space(Question question, Player player, int conference, float speed, ArrayList<Question> answers,
 			ArrayList<Question> wrongAnswers, ArrayList<String> rightAnswers, int index) {
 		this.player = player;
@@ -88,16 +106,27 @@ public class Space extends PApplet {
 		bool = false;
 	}
 
+	/**
+	 * Sets the JFrame this game will run in
+	 * 
+	 * @param win the JFrame window this game will appear in
+	 */
 	public void setFrame(JFrame win) {
 		window = win;
 	}
 
+	/**
+	 * Sets up images for background and astronaut, and the font type for text
+	 */
 	public void setup() {
 		background = loadImage("images\\Space-800x700.jpg");
 		astronaut = loadImage("images\\astronaut-clipart-png.png");
 		font = createFont("Arial Bold", 18);
 	}
 
+	/**
+	 * Handles all GUI and other output for the entire game.
+	 */
 	public void draw() {
 		background(255);
 		image(background, 0, 0, 800, 700);
@@ -241,6 +270,9 @@ public class Space extends PApplet {
 		}
 	}
 
+	/**
+	 * Handles input in the form of mouse clicking
+	 */
 	public void mouseClicked() {
 		if (status == -1 && start.isInBounds(mouseX, mouseY))
 			status = 0;
@@ -265,6 +297,9 @@ public class Space extends PApplet {
 			window.dispose();
 	}
 
+	/**
+	 * Handles all input in the form of mouse movement
+	 */
 	public void mouseMoved() {
 		if (quitintro.isPointInButton(mouseX, mouseY)) {
 			quitintro.setBColor(new Color(125, 125, 125));
@@ -273,6 +308,9 @@ public class Space extends PApplet {
 		}
 	}
 
+	/**
+	 * Handles all keyboard-related input.
+	 */
 	public void keyPressed() {
 		if (key == CODED) {
 			if (keyCode == UP)
@@ -289,6 +327,9 @@ public class Space extends PApplet {
 		}
 	}
 
+	/**
+	 * Used for smooth movements with keyPressed()
+	 */
 	public void keyReleased() {
 		if (key == CODED) {
 			if (keyCode == UP)

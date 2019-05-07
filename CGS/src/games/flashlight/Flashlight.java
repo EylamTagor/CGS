@@ -1,20 +1,23 @@
 package games.flashlight;
+
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import ayush.shapes.*;
-import buttons.AyushTextButton;
-import buttons.ImageButton;
-import other.Player;
 
 import javax.swing.JFrame;
 
+import ayush.shapes.Circle;
+import buttons.AyushTextButton;
+import buttons.ImageButton;
+import other.Player;
+import other.Question;
 import processing.core.PApplet;
-import processing.core.PFont;
-import processing.core.PImage;
-import running.Question;
 import shapes.Rectangle;
 
+/**
+ * Subclass of PApplet. Represents the drawing surface on which the Flashlight
+ * game will occur.
+ */
 public class Flashlight extends PApplet {
 
 	//
@@ -45,6 +48,21 @@ public class Flashlight extends PApplet {
 	private Question question;
 	private boolean isRepeat;
 
+	/**
+	 * Creates a new Flashlight object with the following parameters
+	 * 
+	 * @param as           the relevant answers of all questions
+	 * @param question     the question that this instance of Flashlight will test
+	 *                     the player on
+	 * @param seconds      the speed of the game, used to measure difficulty
+	 * @param p            the player who will play this game
+	 * @param conf         the conference/competition this game belongs to
+	 * @param answer       the answers of all questions in the database
+	 * @param wronganswers all of the player's incorrect answers from the whole game
+	 *                     so far
+	 * @param index        the spot of this game in the question database, used to
+	 *                     track progress
+	 */
 	public Flashlight(ArrayList<String> as, String question, int seconds, Player p, int conf,
 			ArrayList<Question> answer, ArrayList<Question> wronganswers, int index) {
 		slide = 0;
@@ -88,6 +106,21 @@ public class Flashlight extends PApplet {
 		this.question = new Question(que, as.get(0), as.get(1), as.get(2), as.get(3));
 	}
 
+	/**
+	 * Creates a new Flashlight object with the following parameters
+	 * 
+	 * @param ques         the Question this game will test the player on
+	 * @param seconds      the speed of the game, used to measure difficulty
+	 * @param p            the player who will play this game
+	 * @param conf         the conference/competition this game belongs to
+	 * @param answer       the answers to all questions in the database
+	 * @param wronganswers all of the player's incorrect answers from all previous
+	 *                     games
+	 * @param rightAnswers all of the player's correct answers from all previous
+	 *                     games
+	 * @param index        the spot of this game in the database, used to track
+	 *                     progress
+	 */
 	public Flashlight(Question ques, int seconds, Player p, int conf, ArrayList<Question> answer,
 			ArrayList<Question> wronganswers, ArrayList<String> rightAnswers, int index) {
 		player = p;
@@ -139,6 +172,9 @@ public class Flashlight extends PApplet {
 		isRepeat = rightAnswers.contains(question.getQuestion());
 	}
 
+	/**
+	 * [OBSOLETE FEATURE] Sets up the coins to be picked up during the game
+	 */
 	public void setup() {
 		for (int i = 0; i < numOfCoins; i++) {
 			// coins.add(new ImageButton(loadImage("images\\psychosearch\\coinnw.png"),
@@ -146,6 +182,10 @@ public class Flashlight extends PApplet {
 		}
 	}
 
+	/**
+	 * displays the question at the start of the game, and accounts for animations
+	 * on the starting menu for the Flashlight game
+	 */
 	public void drawQuestion() {
 		background(38);
 		textSize(25);
@@ -164,6 +204,9 @@ public class Flashlight extends PApplet {
 
 	}
 
+	/**
+	 * Displays the instructions of the Flashlight game
+	 */
 	public void instructions() {
 		background(38);
 		textSize(60);
@@ -184,6 +227,11 @@ public class Flashlight extends PApplet {
 	// program is stopped. Each statement is executed in
 	// sequence and after the last line is read, the first
 	// line is executed again.
+
+	/**
+	 * Accounts for the entirety of the game's GUI along with all other outputs.
+	 * 
+	 */
 	public void draw() {
 		background(255);
 
@@ -207,6 +255,10 @@ public class Flashlight extends PApplet {
 
 	}
 
+	/**
+	 * Points to drawing the actual game after clicking "start", and handles output
+	 * from there.
+	 */
 	public void drawGame() {
 
 		if (circradintro > radius) {
@@ -220,6 +272,9 @@ public class Flashlight extends PApplet {
 		}
 	}
 
+	/**
+	 * Draws the actual game, called from drawGame().
+	 */
 	public void drawActualGame() {
 		for (AyushTextButton e : locs) {
 			e.draw(this);
@@ -242,6 +297,10 @@ public class Flashlight extends PApplet {
 		quit2.draw(this);
 	}
 
+	/**
+	 * Accounts for win conditions, and bumps up the player's progress accordingly.
+	 * Also prompts the player with a quit button.
+	 */
 	public void win() {
 		fill(0);
 		rect(0, 0, 800, 700);
@@ -270,6 +329,9 @@ public class Flashlight extends PApplet {
 
 	}
 
+	/**
+	 * Accounts for lose conditions, and prompts to quit the game.
+	 */
 	public void lose() {
 
 		fill(0);
@@ -299,6 +361,10 @@ public class Flashlight extends PApplet {
 		// text(money ,30,200);
 	}
 
+	/**
+	 * Draws the Nationals version of the Flashlight game, which is faster and
+	 * therefore more difficult.
+	 */
 	public void drawFast() {
 		// background(255);
 		Rectangle circle = new Rectangle(x - radius, y - radius, radius * 2, radius * 2);
@@ -321,10 +387,21 @@ public class Flashlight extends PApplet {
 
 	}
 
+	/**
+	 * Sets the JFrame this game will be drawn on
+	 * 
+	 * @param wind the JFrame this game will appear in
+	 */
 	public void setFrame(JFrame wind) {
 		window = wind;
 	}
 
+	/**
+	 * @param xx the x-coordinate of the point
+	 * @param yy the x-coordinate of the point
+	 * @return true if the point (xx, yy) is inside the flashlight circle/field of
+	 *         view, otherwise false
+	 */
 	public boolean isInCircle(float xx, float yy) {
 		float xmath = Math.abs(xx - x) * Math.abs(xx - x);
 		float ymath = Math.abs(yy - y) * Math.abs(yy - y);
@@ -336,6 +413,9 @@ public class Flashlight extends PApplet {
 		}
 	}
 
+	/**
+	 * Handles input in the form of mouse clicking
+	 */
 	public void mouseClicked() {
 		int mx = mouseX;
 		int my = mouseY;
@@ -392,6 +472,9 @@ public class Flashlight extends PApplet {
 
 	}
 
+	/**
+	 * Handles input in the form of mouse movement
+	 */
 	public void mouseMoved() {
 
 		int px = mouseX;
@@ -455,6 +538,9 @@ public class Flashlight extends PApplet {
 
 	}
 
+	/**
+	 * Handles all inputs from the keyboard
+	 */
 	public void keyPressed() {
 		if (keyCode == KeyEvent.VK_UP) {
 			y -= 10;

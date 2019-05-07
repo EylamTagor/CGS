@@ -1,19 +1,23 @@
 package games.flight;
+
 import java.awt.Color;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import ayush.shapes.*;
+import ayush.shapes.Rectangle;
 import buttons.AyushTextButton;
 import buttons.ImageButton;
 import other.Player;
+import other.Question;
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PImage;
-import running.Question;
 import shapes.PhysicsShape;
 
+/**
+ * Subclass of PApplet. Represents the drawing surface on which the Flight game
+ * will occur.
+ */
 public class Flight extends PApplet {
 
 	//
@@ -50,6 +54,21 @@ public class Flight extends PApplet {
 
 	private Question question;
 
+	/**
+	 * Creates a new Flight object with the following parameters
+	 * 
+	 * @param as               the answers to all questions
+	 * @param question         the question this instance of Flight will test the
+	 *                         player on
+	 * @param numOfBirdsPerSec general speed of game, used to measure difficulty
+	 * @param conf             the conference/competition this game belongs to
+	 * @param p                the player who will play this game
+	 * @param answers          all answers to the question
+	 * @param wronganswers     all of the player's incorrect answers to all previous
+	 *                         games
+	 * @param indexx           the spot of this game in the database, used to track
+	 *                         progress
+	 */
 	public Flight(ArrayList<String> as, String question, int numOfBirdsPerSec, int conf, Player p,
 			ArrayList<Question> answers, ArrayList<Question> wronganswers, int indexx) {
 		qslidebuttons = new AyushTextButton[2];
@@ -91,6 +110,22 @@ public class Flight extends PApplet {
 		this.question = new Question(que, as.get(0), as.get(1), as.get(2), as.get(3));
 	}
 
+	/**
+	 * Creates a new Flight object with the following parameters
+	 * 
+	 * @param ques             the Question this instance of Flight will test the
+	 *                         player on
+	 * @param numOfBirdsPerSec the general speed of this game, used to measure
+	 *                         difficulty
+	 * @param conf             the conference/competition this game belongs to
+	 * @param p                the player who will play this game
+	 * @param answers          the answers to this question
+	 * @param wronganswers     all the player's incorrect answers from previous
+	 *                         games
+	 * @param rightAnswers     all the player's right answers from previous games
+	 * @param indexx           this game's spot in the database, used to track
+	 *                         progress
+	 */
 	public Flight(Question ques, int numOfBirdsPerSec, int conf, Player p, ArrayList<Question> answers,
 			ArrayList<Question> wronganswers, ArrayList<String> rightAnswers, int indexx) {
 
@@ -140,16 +175,27 @@ public class Flight extends PApplet {
 		this.question = new Question(que, as.get(0), as.get(1), as.get(2), as.get(3));
 	}
 
+	/**
+	 * Sets the JFrame this game will run in
+	 * 
+	 * @param wi the JFrame window this instance of Flight will appear in
+	 */
 	public void setFrame(JFrame wi) {
 		window = wi;
 	}
 
+	/**
+	 * Sets up the background, bird and coin (OBSOLETE FEATURE) images
+	 */
 	public void setup() {
 		background = loadImage("images\\back.jpg");
 		bird = loadImage("images\\bird.png");
 		coin = loadImage("images\\coinnw.png");
 	}
 
+	/**
+	 * Handles which screen of the Flight game to be in currently
+	 */
 	public void draw() {
 		switch (slide) {
 		case 0:
@@ -171,6 +217,9 @@ public class Flight extends PApplet {
 
 	}
 
+	/**
+	 * Prints the question on the main screen of the game
+	 */
 	public void drawQuestion() {
 		image(background, 0, 0, 800, 700);
 		textSize(50);
@@ -182,6 +231,9 @@ public class Flight extends PApplet {
 		quit2.draw(this);
 	}
 
+	/**
+	 * Prints the instructions when prompted to (i.e. on the proper screen)
+	 */
 	public void instructions() {
 		image(background, 0, 0, 800, 700);
 		textSize(50);
@@ -193,6 +245,9 @@ public class Flight extends PApplet {
 		backtohome.draw(this);
 	}
 
+	/**
+	 * Draws the actual game and handles all GUI and other forms of outputs.
+	 */
 	public void drawGame() {
 		background(255);
 		image(background, 0, 0, 800, 700);
@@ -270,6 +325,10 @@ public class Flight extends PApplet {
 
 	}
 
+	/**
+	 * Handles win conditions and bumps up the player's progress accordingly, while
+	 * also prompting to quit the game.
+	 */
 	public void win() {
 		// TODO Auto-generated method stub
 
@@ -298,6 +357,9 @@ public class Flight extends PApplet {
 
 	}
 
+	/**
+	 * Handles all input in the form of mouse clicking
+	 */
 	public void mouseClicked() {
 
 		int x = mouseX;
@@ -331,6 +393,9 @@ public class Flight extends PApplet {
 
 	}
 
+	/**
+	 * Handles all input in the form of mouse movement
+	 */
 	public void mouseMoved() {
 
 		int px = mouseX;
@@ -385,6 +450,9 @@ public class Flight extends PApplet {
 
 	}
 
+	/**
+	 * Handles losing conditions, and prompts for a quit button
+	 */
 	public void lose() {
 		image(background, 0, 0, 800, 700);
 		fill(255, 0, 0);
@@ -414,11 +482,18 @@ public class Flight extends PApplet {
 
 	}
 
+	/**
+	 * @return true if the player is still in the game, false if they have already
+	 *         lost in some way.
+	 */
 	public boolean getLost() {
 //		System.out.println(hasLostYet);
 		return hasLostYet;
 	}
 
+	/**
+	 * Handles all keyboard-related input.
+	 */
 	public void keyPressed() {
 		if (key == ' ') {
 			shape.accelerate(0, -.75);
