@@ -95,7 +95,7 @@ public class Asteroid {
 	 * Moves the asteroid to a new coordinate (x, y)
 	 * 
 	 * @param x the x-value of the new coordinate
-	 * @param y the x-value of the coordinate
+	 * @param y the y-value of the coordinate
 	 */
 	public void moveTo(float x, float y) {
 		this.x = x;

@@ -1,14 +1,12 @@
 package running;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
 import buttons.AyushTextButton;
+import buttons.AyushTextButtonRounded;
 import buttons.ImageButton;
-import buttons.SohilButton;
+import buttons.SButton;
 import buttons.TextButton;
 import games.driving.Driving;
 import games.flashlight.Flashlight;
@@ -17,29 +15,38 @@ import games.space.Space;
 import other.Player;
 import other.ProgressBar;
 import other.Question;
-import processing.awt.PSurfaceAWT;
+import other.Screen;
 import processing.core.PApplet;
 
+/**
+ * Subclass of PApplet. Represents the menu of the program, the welcome screen
+ * and setup procedures, and manages the whole I/O and GUI for FBLA Trivia
+ * Tester.
+ */
 public class FBLATriviaTester extends PApplet {
 	private TextButton back, jacket, shirt, slacks, shoes, belt, tie;
-	private SohilButton nationals, quit, activeButton, backConference, game1, game2, game3, game4;
-	private ArrayList<ArrayList<SohilButton>> conferences;
-	private ArrayList<SohilButton> conferenceSelection, conference1, conference2, conference3, conference4, conference5;
+	private SButton nationals, quit, activeButton, backConference, game1, game2, game3, game4;
+	private ArrayList<ArrayList<SButton>> conferences;
+	private ArrayList<SButton> conferenceSelection, conference1, conference2, conference3, conference4, conference5;
 	private ArrayList<ProgressBar> progressBars;
 	private Player player;
 	private boolean theOnceBoolean;
 	private int clickTime, spaceConfIndicator, drivingConfIndicator;
 	private int confButtonDiff = 100, buttonWidth = 80, confHeadHeight = 80, gameButtonMargin = 20;
-	private SohilButton proceedToNats;
+	private SButton proceedToNats;
 	private ArrayList<String> topics;
 	private final String font;
-	private ImageButton next, next2;
+	private ImageButton next, next2, next3;
 	private AyushTextButton[] options;
-	private ArrayList<SohilButton> natsgames;
+	private ArrayList<SButton> natsgames;
 	private int slide;
-	private SohilButton gamemessagebutton;
+	private SButton gamemessagebutton;
+	private AyushTextButtonRounded[] difficulties;
 	/// birdblunder question 3, psycho question 2, space question0, driving quesiont
 	/// 1
+
+	private int difficulty;
+
 	private ArrayList<Question> wronganswers;
 	private ArrayList<String> rightAnswers;
 	private ArrayList<Question> filler1, filler2;
@@ -47,19 +54,38 @@ public class FBLATriviaTester extends PApplet {
 	private ArrayList<Question> parlips, bizcommps, bizprops, infotechps, mathps, fblaps, bizps;
 	private ArrayList<Question> parlis, bizcomms, bizpros, infotechs, maths, fblas, bizs;
 	private ArrayList<Question> parlid, bizcommd, bizprod, infotechd, mathd, fblad, bizd;
-	private SohilButton quit3;
-	private SohilButton win, backtonats;
+	private SButton quit3;
+	private SButton win, backtonats;
 	private ProgressBar confs, nats;
 	private int status = 1; // 1 instructinos 2 win 3 dnats 4 psnats 5 bbnats 6 snats 7 fail 8 natsconf 9 bb
 							// 10 space 11 driving 12 ps 13 nats 14 confscreen 15 conf1 16 conf2 17 conf3 18
 							// conf4 19 conf5 20 playgame
 
+	private Screen active;
+
+	/**
+	 * Creates a new FBLATriviaTester object and initializes everything in the
+	 * program to its starting value.
+	 */
 	public FBLATriviaTester() {
 		player = new Player();
 		player.earn(575);
 		topics = new ArrayList<String>();
 		wronganswers = new ArrayList<Question>();
 		rightAnswers = new ArrayList<String>();
+		difficulties = new AyushTextButtonRounded[4];
+
+		float locx = 75;
+		float locy = 75;
+		difficulties[0] = new AyushTextButtonRounded(locx, locy, 275, 275, Color.white, new Color(54, 141, 165), "Easy",
+				48);
+		difficulties[1] = new AyushTextButtonRounded(locx + 350, locy, 275, 275, Color.white, new Color(54, 141, 165),
+				"Normal", 48);
+		difficulties[2] = new AyushTextButtonRounded(locx, locy + 300, 275, 275, Color.white, new Color(54, 141, 165),
+				"Hard", 48);
+		difficulties[3] = new AyushTextButtonRounded(locx + 350, locy + 300, 275, 275, Color.white,
+				new Color(54, 141, 165), "Impossible", 48);
+
 		slide = 1;
 		options = new AyushTextButton[7];
 		options[0] = new AyushTextButton(30, 40, 700, 80, 130, 90, Color.WHITE, new Color(54, 141, 165),
@@ -77,34 +103,34 @@ public class FBLATriviaTester extends PApplet {
 		options[6] = new AyushTextButton(30, 580, 500, 80, 200, 630, Color.WHITE, new Color(54, 141, 165),
 				"Intro to Business", 30);
 
-		natsgames = new ArrayList<SohilButton>();
+		natsgames = new ArrayList<SButton>();
 		final int marginy = 10;
 		final int marginx = 50;
-		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE, 25, 100, 350, 90));
-		natsgames.add(new SohilButton("Flight Game", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SButton("Space Game", 30, SButton.RECTANGLE, 25, 100, 350, 90));
+		natsgames.add(new SButton("Flight Game", 30, SButton.RECTANGLE, 25,
 				natsgames.get(0).getY() + natsgames.get(0).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Flashlight Game", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SButton("Flashlight Game", 30, SButton.RECTANGLE, 25,
 				natsgames.get(1).getY() + natsgames.get(1).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SButton("Space Game", 30, SButton.RECTANGLE, 25,
 				natsgames.get(2).getY() + natsgames.get(2).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Driving Game", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SButton("Driving Game", 30, SButton.RECTANGLE, 25,
 				natsgames.get(3).getY() + natsgames.get(3).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Flight Game", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SButton("Flight Game", 30, SButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx, 100, 350, 90));
-		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SButton("Space Game", 30, SButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(5).getY() + natsgames.get(5).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Flashlight Game", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SButton("Flashlight Game", 30, SButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(6).getY() + natsgames.get(6).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Driving Game", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SButton("Driving Game", 30, SButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(7).getY() + natsgames.get(7).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Flight Game", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SButton("Flight Game", 30, SButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(8).getY() + natsgames.get(8).getHeight() + marginy, 350, 90));
 
-		win = new SohilButton("Claim your reward!", 20, SohilButton.RECTANGLE, 610, 400, 50);
+		win = new SButton("Claim your reward!", 20, SButton.RECTANGLE, 610, 400, 50);
 
 		initializeQuestionArrays();
 
@@ -118,16 +144,15 @@ public class FBLATriviaTester extends PApplet {
 		belt = new TextButton(75, 400, 300, 100, 150, 450, 200, 255, 200, 0, 0, 0, "Belt: $25");
 		tie = new TextButton(425, 400, 300, 100, 500, 450, 200, 255, 200, 0, 0, 0, "Tie: $50");
 
-		game1 = new SohilButton("Space Game", 40, SohilButton.RECTANGLE, 150, 400, 100);
-		game2 = new SohilButton("Driving Game", 40, SohilButton.RECTANGLE,
-				game1.getY() + game1.getHeight() + gameButtonMargin, 400, 100);
-		game3 = new SohilButton("Flashlight Game", 40, SohilButton.RECTANGLE,
+		game1 = new SButton("Space Game", 40, SButton.RECTANGLE, 150, 400, 100);
+		game2 = new SButton("Driving Game", 40, SButton.RECTANGLE, game1.getY() + game1.getHeight() + gameButtonMargin,
+				400, 100);
+		game3 = new SButton("Flashlight Game", 40, SButton.RECTANGLE,
 				game2.getY() + game2.getHeight() + gameButtonMargin, 400, 100);
-		game4 = new SohilButton("Flight Game", 40, SohilButton.RECTANGLE,
-				game3.getY() + game3.getHeight() + gameButtonMargin, 400, 100);
+		game4 = new SButton("Flight Game", 40, SButton.RECTANGLE, game3.getY() + game3.getHeight() + gameButtonMargin,
+				400, 100);
 
-		backConference = new SohilButton("Back", 20, SohilButton.RECTANGLE, Main.width - 105, Main.height - 100, 75,
-				50);
+		backConference = new SButton("Back", 20, SButton.RECTANGLE, CGS.width - 105, CGS.height - 100, 75, 50);
 		activeButton = backConference;
 
 		progressBars = new ArrayList<ProgressBar>();
@@ -137,13 +162,13 @@ public class FBLATriviaTester extends PApplet {
 		confs = new ProgressBar("Conference Progress", 200, game4.getY() + game4.getHeight() - 25, 400, 100, 0, 5);
 		nats = new ProgressBar("Nationals Progress", 200, game4.getY() + game4.getHeight() - 25, 400, 100, 0, 5);
 
-		conferences = new ArrayList<ArrayList<SohilButton>>();
-		conferenceSelection = new ArrayList<SohilButton>();
-		conferences.add(conference1 = new ArrayList<SohilButton>());
-		conferences.add(conference2 = new ArrayList<SohilButton>());
-		conferences.add(conference3 = new ArrayList<SohilButton>());
-		conferences.add(conference4 = new ArrayList<SohilButton>());
-		conferences.add(conference5 = new ArrayList<SohilButton>());
+		conferences = new ArrayList<ArrayList<SButton>>();
+		conferenceSelection = new ArrayList<SButton>();
+		conferences.add(conference1 = new ArrayList<SButton>());
+		conferences.add(conference2 = new ArrayList<SButton>());
+		conferences.add(conference3 = new ArrayList<SButton>());
+		conferences.add(conference4 = new ArrayList<SButton>());
+		conferences.add(conference5 = new ArrayList<SButton>());
 
 		for (int i = 0; i < 5; i++) {
 			conferences.get(i).add(backConference);
@@ -155,25 +180,38 @@ public class FBLATriviaTester extends PApplet {
 		}
 
 		for (int i = 1; i < 6; i++) {
-			conferenceSelection.add(new SohilButton(((Integer) i).toString(), 40, SohilButton.CIRCLE,
-					(Main.width / 2) + (i - 3) * confButtonDiff, 225, buttonWidth, buttonWidth));
+			conferenceSelection.add(new SButton(((Integer) i).toString(), 40, SButton.CIRCLE,
+					(CGS.width / 2) + (i - 3) * confButtonDiff, 225, buttonWidth, buttonWidth));
 		}
 
-		conferenceSelection.add(nationals = new SohilButton("Nationals", 40, SohilButton.RECTANGLE, 300, 400, 100));
-		conferenceSelection.add(quit = new SohilButton("Quit", 40, SohilButton.RECTANGLE, 425, 400, 100));
-		quit3 = new SohilButton("Quit", 40, SohilButton.RECTANGLE, 550, 400, 100);
-		proceedToNats = new SohilButton("Proceed to Nationals", 40, SohilButton.RECTANGLE, 450, 500, 100);
-		backtonats = new SohilButton("Back to Nationals", 40, SohilButton.RECTANGLE, 450, 500, 100);
-		gamemessagebutton = new SohilButton("d", marginx, marginx, frameRate, frameRate, frameRate);
+		conferenceSelection.add(nationals = new SButton("Nationals", 40, SButton.RECTANGLE, 300, 400, 100));
+		conferenceSelection.add(quit = new SButton("Quit", 40, SButton.RECTANGLE, 425, 400, 100));
+		quit3 = new SButton("Quit", 40, SButton.RECTANGLE, 550, 400, 100);
+		proceedToNats = new SButton("Proceed to Nationals", 40, SButton.RECTANGLE, 450, 500, 100);
+		backtonats = new SButton("Back to Nationals", 40, SButton.RECTANGLE, 450, 500, 100);
+		gamemessagebutton = new SButton("d", marginx, marginx, frameRate, frameRate, frameRate);
 	}
 
+	/**
+	 * Handles whether to load the welcome screens/procedures or to load the main
+	 * in-game menu.
+	 */
 	public void draw() {
-		if (!theOnceBoolean)
-			drawInstructions();
-		else
-			drawMain();
+
+		if (active == null) {
+			if (!theOnceBoolean)
+				drawInstructions();
+			else
+				drawMain();
+		} else {
+			active.draw();
+		}
+
 	}
 
+	/**
+	 * Initializes the entire question database with each avaiable question.
+	 */
 	public void initializeQuestionArrays() {
 
 		parlibb = new ArrayList<Question>();
@@ -208,7 +246,7 @@ public class FBLATriviaTester extends PApplet {
 		fblaps = new ArrayList<Question>();
 		bizps = new ArrayList<Question>();
 
-		/***** BB *****/
+		/***** FLIGHT *****/
 		bizcommbb.add(new Question(
 				"\"The hamburger was piled high\nwith juicy, red, thick-sliced\ntomatoes.\" This is an example\nof what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
@@ -221,7 +259,7 @@ public class FBLATriviaTester extends PApplet {
 				"faction", "herd", "heard", "fraction"));
 
 		parlibb.add(new Question("Which article in the FBLA bylaws\ndescribes the information\nabout FBLA dues?",
-				"Article IV", "Article III", "Artivle VI", "Artivle V"));
+				"Article IV", "Article III", "Article VI", "Article V"));
 		parlibb.add(new Question("Viva voce means:", "voice vote", "for motion", "no objection", "objection"));
 		parlibb.add(new Question("Rescind means:", "cancel", "consideration", "give way to", "no objection"));
 		parlibb.add(new Question(
@@ -271,7 +309,7 @@ public class FBLATriviaTester extends PApplet {
 		mathbb.add(new Question("The best way to depict a future\nprediction is by using a:", "line chart", "bar chart",
 				"histogram", "pie chart"));
 
-		/***** PS *****/
+		/***** FLASHLIGHT *****/
 		bizcommps.add(new Question(
 				"\"The hamburger was piled high with juicy, red, thick-sliced\ntomatoes.\"This is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
@@ -284,7 +322,7 @@ public class FBLATriviaTester extends PApplet {
 				"herd", "heard", "fraction"));
 
 		parlips.add(new Question("Which article in the FBLA bylaws describes\nthe information about FBLA dues?",
-				"Article IV", "Article III", "Artivle VI", "Artivle V"));
+				"Article IV", "Article III", "Article VI", "Article V"));
 		parlips.add(new Question("Viva voce means:", "voice vote", "for motion", "no objection", "objection"));
 		parlips.add(new Question("Rescind means:", "cancel", "consideration", "give way to", "no objection"));
 		parlips.add(new Question(
@@ -333,7 +371,7 @@ public class FBLATriviaTester extends PApplet {
 		mathps.add(new Question("The best way to depict a future prediction is by using a:", "line chart", "bar chart",
 				"histogram", "pie chart"));
 
-		/***** D *****/
+		/***** DRIVING *****/
 		bizcommd.add(new Question(
 				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes.\"\nThis is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
@@ -346,7 +384,7 @@ public class FBLATriviaTester extends PApplet {
 				"herd", "heard", "fraction"));
 
 		parlid.add(new Question("Which article in the FBLA bylaws describes\nthe information about FBLA dues?",
-				"Article IV", "Article III", "Artivle VI", "Artivle V"));
+				"Article IV", "Article III", "Article VI", "Article V"));
 		parlid.add(new Question("Viva voce means:", "voice vote", "for motion", "no objection", "objection"));
 		parlid.add(new Question("Rescind means:", "cancel", "consideration", "give way to", "no objection"));
 		parlid.add(new Question(
@@ -395,7 +433,7 @@ public class FBLATriviaTester extends PApplet {
 		mathd.add(new Question("The best way to depict a future prediction is by using a:", "line chart", "bar chart",
 				"histogram", "pie chart"));
 
-		/***** S *****/
+		/***** SPACE *****/
 		bizcomms.add(new Question(
 				"\"The hamburger was piled high with juicy, red, thick-sliced tomatoes.\"\nThis is an example of what type of text?",
 				"descriptive", "persuasive", "instructional", "informative"));
@@ -408,7 +446,7 @@ public class FBLATriviaTester extends PApplet {
 				"herd", "heard", "fraction"));
 
 		parlis.add(new Question("Which article in the FBLA bylaws describes\nthe information about FBLA dues?",
-				"Article IV", "Article III", "Artivle VI", "Artivle V"));
+				"Article IV", "Article III", "Article VI", "Article V"));
 		parlis.add(new Question("Viva voce means:", "voice vote", "for motion", "no objection", "objection"));
 		parlis.add(new Question("Rescind means:", "cancel", "consideration", "give way to", "no objection"));
 		parlis.add(new Question(
@@ -458,9 +496,15 @@ public class FBLATriviaTester extends PApplet {
 				"histogram", "pie chart"));
 	}
 
+	/**
+	 * @param name name of the competition
+	 * @param game minigame that relates to the competition in parameter 'name'
+	 * @return all available questions for 'name' competition with the 'game'
+	 *         minigame
+	 */
 	public ArrayList<Question> getQueArray(String name, String game) {
 
-		if (game.equals("bb")) {
+		if (game.equals("bb")) { // flight
 			if (name.equals("Intro to Parliamentary Procedure")) {
 				return parlibb;
 			} else if (name.equals("Intro to Information Technology")) {
@@ -476,7 +520,7 @@ public class FBLATriviaTester extends PApplet {
 			} else if (name.equals("Intro to Business")) {
 				return bizbb;
 			}
-		} else if (game.equals("s")) {
+		} else if (game.equals("s")) { // space
 			if (name.equals("Intro to Parliamentary Procedure")) {
 				return parlis;
 			} else if (name.equals("Intro to Information Technology")) {
@@ -492,7 +536,7 @@ public class FBLATriviaTester extends PApplet {
 			} else if (name.equals("Intro to Business")) {
 				return bizs;
 			}
-		} else if (game.equals("ps")) {
+		} else if (game.equals("ps")) { // flashlight
 			if (name.equals("Intro to Parliamentary Procedure")) {
 				return parlips;
 			} else if (name.equals("Intro to Information Technology")) {
@@ -508,7 +552,7 @@ public class FBLATriviaTester extends PApplet {
 			} else if (name.equals("Intro to Business")) {
 				return bizps;
 			}
-		} else if (game.equals("d")) {
+		} else if (game.equals("d")) { // driving
 			if (name.equals("Intro to Parliamentary Procedure")) {
 				return parlid;
 			} else if (name.equals("Intro to Information Technology")) {
@@ -530,6 +574,10 @@ public class FBLATriviaTester extends PApplet {
 
 	}
 
+	/**
+	 * @return true if the player has selected precisely five competitions to
+	 *         compete in, otherwise false.
+	 */
 	public boolean is5Selected() {
 		int selected = 0;
 		;
@@ -541,13 +589,21 @@ public class FBLATriviaTester extends PApplet {
 		return selected == 5;
 	}
 
+	/**
+	 * Draws the in-game message after playing through and quitting a game at
+	 * nationals.
+	 */
 	public void playGameMessage() {
 		headingFormat();
-		text("Return to\nNationals.", Main.width / 2, confHeadHeight + 200);
+		text("Return to\nNationals.", CGS.width / 2, confHeadHeight + 200);
 		backtonats.draw(this);
 
 	}
 
+	/**
+	 * Draws the game's instructions screen, indicating the purpose of the game and
+	 * how to achieve that purpose.
+	 */
 	public void drawInstructions() {
 
 		// if(status == 1) {
@@ -558,7 +614,7 @@ public class FBLATriviaTester extends PApplet {
 			text("Welcome to", 100, 130);
 			pushStyle();
 			textAlign(CENTER);
-			text("FBLA Trivia \nTester", Main.width / 2, 280);
+			text("FBLA Trivia \nTester!", CGS.width / 2, 280);
 			popStyle();
 			next.draw(this);
 		} else if (slide == 2) {
@@ -568,7 +624,7 @@ public class FBLATriviaTester extends PApplet {
 			text("You recently heard about a club at your school called Future Business Leaders\nof America. Having nothing better to do, you decided to join and attend the\nnext meeting. You were so overwhelmed by the remarkable people and\nachievements that your school's chapter has that you immediately wanted to\nbecome a part of it.\n\nFast-forward to your tryout day for competitions. There were so many options\nto choose from, but you eventually settled for seven. Unfortuately, this year\nthe officers only let competitors have up to five competitions. ",
 					50, 50);
 			next.draw(this);
-		} else if (slide == 4) {
+		} else if (slide == 5) {
 			background(38);
 			textSize(20);
 			fill(255);
@@ -592,15 +648,28 @@ public class FBLATriviaTester extends PApplet {
 			pushStyle();
 			textAlign(CENTER, CENTER);
 			textSize(80);
-			text("Instructions", Main.width / 2, confHeadHeight - 25);
+			text("Instructions", CGS.width / 2, confHeadHeight - 25);
 			textSize(18);
 			textAlign(BOTTOM, LEFT);
 			text("On the next screen, you will select the competitions you want to compete in. \nOnce the game launches, go to each conference, which is focused on a certain \ntopic that you chose, and beat all of the games by answering the questions \ncorrectly in the games. You will know when the conference is complete when the \nprogress bar on the current conference's screen is full. \n\nWhen that happens for all of the conferences, which you will know when the \nprogress bar at the screen with all the conferences is full, press the Nationals \nbutton to go to the National Conference, where you will be tested on all of the \nquestions that you answered incorrectly. However, to ensure you know the \nanswers, the question will be the same but the games used to test them will be \nmuch more fast-paced. If there are no wrong answers, you automatically pass \nNationals! \n\nPress ESCAPE at any time to completely quit the game, \nand if you want to quit a certain minigame, the games \nalways have a quit button at the ready. ",
 					50, 150);
 			popStyle();
+		} else if (slide == 4) {
+			background(38);
+			pushStyle();
+			textAlign(CENTER, TOP);
+			textSize(40);
+			text("Choose your difficulty level:", 400, 20);
+
+			for (AyushTextButtonRounded e : difficulties) {
+				e.draw(this);
+			}
+
+			popStyle();
+
 		}
 
-		else if (slide == 5) {
+		else if (slide == 6) {
 			for (AyushTextButton e : options) {
 				if (e.getBColor().equals(new Color(44, 44, 221))) {
 					topics.add(e.getText());
@@ -613,6 +682,10 @@ public class FBLATriviaTester extends PApplet {
 
 	}
 
+	/**
+	 * Handles which screen is to be displayed currently, and based on that assigns
+	 * each button status in terms of being currently clickable by the player.
+	 */
 	public void drawMain() {
 		confs.setProgress(0);
 		for (int e : player.getProgress()) {
@@ -657,13 +730,13 @@ public class FBLATriviaTester extends PApplet {
 		} else if (activeButton == natsgames.get(1)) {
 			status = 20;
 
-			drawBirdBlunderNatsGame(1);
+			drawFlightNatsGame(1);
 			activeButton = gamemessagebutton;
 
 		} else if (activeButton == natsgames.get(2)) {
 			status = 20;
 
-			drawPsychoSearchNatsGame(2);
+			drawFlashlightNatsGame(2);
 			activeButton = gamemessagebutton;
 
 		} else if (activeButton == natsgames.get(3)) {
@@ -681,7 +754,7 @@ public class FBLATriviaTester extends PApplet {
 		} else if (activeButton == natsgames.get(5)) {
 			status = 20;
 
-			drawBirdBlunderNatsGame(5);
+			drawFlightNatsGame(5);
 			activeButton = gamemessagebutton;
 
 		} else if (activeButton == natsgames.get(6)) {
@@ -693,7 +766,7 @@ public class FBLATriviaTester extends PApplet {
 		} else if (activeButton == natsgames.get(7)) {
 			status = 20;
 
-			drawPsychoSearchNatsGame(7);
+			drawFlashlightNatsGame(7);
 			activeButton = gamemessagebutton;
 		} else if (activeButton == natsgames.get(8)) {
 			status = 20;
@@ -704,7 +777,7 @@ public class FBLATriviaTester extends PApplet {
 		} else if (activeButton == natsgames.get(9)) {
 			status = 20;
 
-			drawBirdBlunderNatsGame(9);
+			drawFlightNatsGame(9);
 			activeButton = gamemessagebutton;
 
 		} else if (activeButton == win) {
@@ -729,8 +802,8 @@ public class FBLATriviaTester extends PApplet {
 			drawFailure();
 		}
 
-		for (ArrayList<SohilButton> a : conferences) {
-			for (SohilButton b : a) {
+		for (ArrayList<SButton> a : conferences) {
+			for (SButton b : a) {
 				if (activeButton == game1) {
 					status = 10;
 
@@ -746,14 +819,14 @@ public class FBLATriviaTester extends PApplet {
 				if (activeButton == game3) {
 					status = 12;
 
-					drawPsychoSearchGame();
+					drawFlashlightGame();
 					activeButton = b;
 				}
 
 				if (activeButton == game4) {
 					status = 9;
 
-					drawBirdBlunderGame();
+					drawFlightGame();
 					activeButton = b;
 				}
 			}
@@ -772,137 +845,122 @@ public class FBLATriviaTester extends PApplet {
 //		System.out.println(Arrays.toString(player.getProgress()));
 	}
 
+	/**
+	 * Manages the player's progress through Nationals, and, upon beating nationals,
+	 * displays the winning screen.
+	 */
 	public void drawWin() {
 
 		if (player.getProgress()[5] < wronganswers.size()) {
 			headingFormat();
 			textSize(40);
-			text("You haven't beaten " + wronganswers.size() + " of those \ngames yet!", Main.width / 2,
-					confHeadHeight);
+			text("You haven't beaten " + wronganswers.size() + " of those \ngames yet!", CGS.width / 2, confHeadHeight);
 			backtonats.draw(this);
 
 		} else {
 			headingFormat();
 			textSize(50);
-			text("YOU WON! CONGRATS!", Main.width / 2, confHeadHeight);
+			text("YOU WON! CONGRATS!", CGS.width / 2, confHeadHeight);
 			quit.draw(this);
 
 		}
 
 	}
 
+	/**
+	 * Initializes an launches a Driving minigame at the National level (higher
+	 * difficulty).
+	 * 
+	 * @param inde the index of this game in the database, used to track progress
+	 */
 	public void drawDrivingNatsGame(int inde) {
-		// TODO Auto-generated method stub
-		final int speed = 20;
-		Driving drawing = new Driving(wronganswers.get(inde), player, 5, speed, filler1, filler2, rightAnswers, 1);
-		drawing.setSize(800, 700);
-		PApplet.runSketch(new String[] { "" }, drawing);
-		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
-		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
-		JFrame window = (JFrame) canvas.getFrame();
-		drawing.setFrame(window);
-		window.setSize(800, 700);
-		window.setLocation(100, 100);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
-
-		window.setVisible(true);
-		canvas.requestFocus();
+		final int speed = difficulty * 30;
+		active = new Driving(wronganswers.get(inde), player, 5, speed, filler1, filler2, rightAnswers, 1, this);
+		active.setup();
 	}
 
-	public void drawPsychoSearchNatsGame(int inde) {
-		// TODO Auto-generated method stub
+	/**
+	 * Initializes an launches a Flashlight minigame at the National level (higher
+	 * difficulty).
+	 * 
+	 * @param inde the index of this game in the database, used to track progress
+	 */
+	public void drawFlashlightNatsGame(int inde) {
+		final int seconds = (int) (60 / (difficulty * 2f));
+		active = new Flashlight(wronganswers.get(inde), seconds, player, 5, filler1, filler2, rightAnswers, 2, this);
 
-		final int seconds = 15;
-		Flashlight drawing = new Flashlight(wronganswers.get(inde), seconds, player, 5, filler1, filler2, rightAnswers,
-				2);
-		PApplet.runSketch(new String[] { "" }, drawing);
-		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
-		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
-		JFrame window = (JFrame) canvas.getFrame();
-		drawing.setFrame(window);
-		window.setSize(800, 700);
-		window.setLocation(250, 20);
-		window.setMinimumSize(new Dimension(100, 100));
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(true);
-
-		window.setVisible(true);
-		canvas.requestFocus();
+		active.setup();
 
 	}
 
-	public void drawBirdBlunderNatsGame(int inde) {
-		// TODO Auto-generated method stub
-		final int birdspersec = 6;
-		Flight drawing = new Flight(wronganswers.get(inde), birdspersec, 5, player, filler1, filler2, rightAnswers,
-				inde);
-		PApplet.runSketch(new String[] { "" }, drawing);
-		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
-		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
-		JFrame window = (JFrame) canvas.getFrame();
-		drawing.setFrame(window);
-		window.setSize(800, 700);
-		window.setLocation(250, 20);
-		window.setMinimumSize(new Dimension(100, 100));
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(true);
-
-		window.setVisible(true);
-		canvas.requestFocus();
+	/**
+	 * Initializes an launches a Flight minigame at the National level (higher
+	 * difficulty).
+	 * 
+	 * @param inde the index of this game in the database, used to track progress
+	 */
+	public void drawFlightNatsGame(int inde) {
+		final int birdspersec = (int) (difficulty * 2.5);
+		active = new Flight(wronganswers.get(inde), birdspersec, 5, player, filler1, filler2, rightAnswers, inde, this);
+		active.setup();
 
 	}
 
+	/**
+	 * Initializes an launches a Space minigame at the National level (higher
+	 * difficulty).
+	 * 
+	 * @param inde the index of this game in the database, used to track progress
+	 */
 	public void drawSpaceNatsGame(int inde) {
-		// TODO Auto-generated method stub
-		final int speed = 2;
-		Space drawing = new Space(wronganswers.get(inde), player, 5, speed, filler1, filler2, rightAnswers, 0);
-		drawing.setSize(800, 700);
-		PApplet.runSketch(new String[] { "" }, drawing);
-		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
-		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
-		JFrame window = (JFrame) canvas.getFrame();
-		drawing.setFrame(window);
-		window.setSize(800, 700);
-		window.setLocation(100, 100);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
-
-		window.setVisible(true);
-		canvas.requestFocus();
+		final float speed = difficulty * 1.5f;
+		active = new Space(wronganswers.get(inde), player, 5, speed, filler1, filler2, rightAnswers, 0, this);
+		active.setup();
 
 	}
 
+	/**
+	 * Draws the screen indicating loss by the player, which is gotten to by getting
+	 * at least 10 incorrect questions.
+	 */
 	public void drawFailure() {
 
 		headingFormat();
 		textSize(40);
 		text("That is your tenth wrong question! \nObviously you haven't studied enough. \nCome back when you are better :(",
-				Main.width / 2, confHeadHeight + 100);
+				CGS.width / 2, confHeadHeight + 100);
 		quit3.draw(this);
 
 	}
 
+	/**
+	 * Sets up images for the 'next' buttons for the menu/welcome/setup screens.
+	 */
 	public void setup() {
 		next = new ImageButton(loadImage("images\\next.png"), 300, 450, 200, 200);
 		next2 = new ImageButton(loadImage("images\\next.png"), 580, 500, 150, 150);
 	}
 
+	/**
+	 * Draws the interface for the National Leadership Conference, consisting of any
+	 * questions that were previously answered incorrectly and leading to harder
+	 * games with those same questions.
+	 */
 	public void drawNatsConference() {
 
 		headingFormat();
 		if (wronganswers.size() == 0) {
 			textSize(45);
 			text("You got all the questions right! \nYou won the game, no national\n conference for geniuses like you! \n:)",
-					Main.width / 2, confHeadHeight + 150);
+					CGS.width / 2, confHeadHeight + 150);
 			quit3.draw(this);
 
 		} else {
 			headingFormat();
 
-			text("Nationals", Main.width / 2, confHeadHeight - 50);
+			text("Nationals", CGS.width / 2, confHeadHeight - 50);
 			for (int i = 0; i < wronganswers.size(); i++) {
-				SohilButton e = natsgames.get(i);
+				SButton e = natsgames.get(i);
 				e.draw(this);
 
 			}
@@ -913,104 +971,78 @@ public class FBLATriviaTester extends PApplet {
 
 	}
 
-	public void drawBirdBlunderGame() {
+	/**
+	 * Initializes an launches a Flight minigame at the regular level (regular
+	 * difficulty).
+	 */
+	public void drawFlightGame() {
 		// TODO Auto-generated method stub
 
 		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "bb");
-		final int birdspersec = 3;
-		// int index = (int)(Math.random() * as.size());
-		Flight drawing = new Flight(as.get(3), birdspersec, spaceConfIndicator, player, as, wronganswers, rightAnswers,
-				3);
-		PApplet.runSketch(new String[] { "" }, drawing);
-		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
-		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
-		JFrame window = (JFrame) canvas.getFrame();
-		drawing.setFrame(window);
-		window.setSize(800, 700);
-		window.setLocation(250, 20);
-		window.setMinimumSize(new Dimension(100, 100));
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(true);
+		final int birdspersec = difficulty;
+		int index = (int) (Math.random() * as.size());
+		active = new Flight(as.get(0), birdspersec, spaceConfIndicator, player, as, wronganswers, rightAnswers, 3,
+				this);
 
-		window.setVisible(true);
-		canvas.requestFocus();
+		active.setup();
 
 	}
 
+	/**
+	 * Initializes an launches a Space minigame at the regular level (regular
+	 * difficulty).
+	 */
 	public void drawSpaceGame() {
 		// change drawing's type to whatever game you want to run (or duplicate for each
 		// game if you want
 		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "s");
-		final int speed = 1;
+		final float speed = difficulty;
 		int index = (int) (Math.random() * as.size());
 
-		Space drawing = new Space(as.get(0), player, spaceConfIndicator, speed, as, wronganswers, rightAnswers, 0);
-		drawing.setSize(800, 700);
-		PApplet.runSketch(new String[] { "" }, drawing);
-		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
-		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
-		JFrame window = (JFrame) canvas.getFrame();
-		drawing.setFrame(window);
-		window.setSize(800, 700);
-		window.setLocation(100, 100);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
+		active = new Space(as.get(1), player, spaceConfIndicator, speed, as, wronganswers, rightAnswers, 0, this);
 
-		window.setVisible(true);
-		canvas.requestFocus();
+		active.setup();
 
 	}
 
+	/**
+	 * Initializes an launches a Driving minigame at the regular level (regular
+	 * difficulty).
+	 */
 	public void drawDrivingGame() {
 		// change drawing's type to whatever game you want to run (or duplicate for each
 		// game if you want)
-		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "s");
+		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "d");
 		int index = (int) (Math.random() * as.size());
 
-		final int speed = 10;
-		Driving drawing = new Driving(as.get(1), player, drivingConfIndicator, speed, as, wronganswers, rightAnswers,
-				1);
-		drawing.setSize(800, 700);
-		PApplet.runSketch(new String[] { "" }, drawing);
-		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
-		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
-		JFrame window = (JFrame) canvas.getFrame();
-		drawing.setFrame(window);
-		window.setSize(800, 700);
-		window.setLocation(100, 100);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(false);
+		final int speed = difficulty * 15;
+		active = new Driving(as.get(2), player, drivingConfIndicator, speed, as, wronganswers, rightAnswers, 1, this);
 
-		window.setVisible(true);
-		canvas.requestFocus();
+		active.setup();
 
 	}
 
-	public void drawPsychoSearchGame() {
+	/**
+	 * Initializes an launches a Flashlight minigame at the regular level (regular
+	 * difficulty).
+	 */
+	public void drawFlashlightGame() {
 		// TODO Auto-generated method stub
 		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "ps");
 		int index = (int) (Math.random() * as.size());
 
-		final int seconds = 30;
-		Flashlight drawing = new Flashlight(as.get(2), seconds, player, spaceConfIndicator, as, wronganswers,
-				rightAnswers, 2);
-		PApplet.runSketch(new String[] { "" }, drawing);
-		PSurfaceAWT surf = (PSurfaceAWT) drawing.getSurface();
-		PSurfaceAWT.SmoothCanvas canvas = (PSurfaceAWT.SmoothCanvas) surf.getNative();
-		JFrame window = (JFrame) canvas.getFrame();
-		drawing.setFrame(window);
-		window.setSize(800, 700);
-		window.setLocation(250, 20);
-		window.setMinimumSize(new Dimension(100, 100));
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(true);
-
-		window.setVisible(true);
-		canvas.requestFocus();
+		final int seconds = (int) (60 / (difficulty * 1.5f));
+		active = new Flashlight(as.get(3), seconds, player, spaceConfIndicator, as, wronganswers, rightAnswers, 2,
+				this);
+		active.setup();
 
 //		System.out.println(rightAnswers);
 	}
 
+	/**
+	 * Draws the intermediate screen between the regular conferences and Nationals,
+	 * preparing the player to proceed.
+	 */
 	public void drawNationals() {
 
 		backConference.draw(this);
@@ -1026,24 +1058,29 @@ public class FBLATriviaTester extends PApplet {
 		if (hasPassedConfs) {
 			headingFormat();
 			textSize(50);
-			text("Congrats on passing all of the \nconferences!", Main.width / 2 + 10, confHeadHeight);
+			text("Congrats on passing all of the \nconferences!", CGS.width / 2 + 10, confHeadHeight);
 			text("The National Conference is \ndesigned to test all of the \nquestions you got wrong.",
-					Main.width / 2 + 10, confHeadHeight + 200);
+					CGS.width / 2 + 10, confHeadHeight + 200);
 
 			proceedToNats.draw(this);
 
 		} else {
 			headingFormat();
-			text("Not yet!\nFinish all of the \nconferences first.", Main.width / 2, confHeadHeight + 200);
+			text("Not yet!\nFinish all of the \nconferences first.", CGS.width / 2, confHeadHeight + 200);
 		}
 
 	}
 
+	/**
+	 * Draws the interface for the main menu of the game, including entrance to the
+	 * 5 regular conferences, Nationals, and quitting the game along with a progress
+	 * bar for passing all 5 conferences.
+	 */
 	public void drawConferenceScreen() {
 
 		headingFormat();
-		text("Conferences", Main.width / 2, confHeadHeight);
-		for (SohilButton b : conferenceSelection) {
+		text("Conferences", CGS.width / 2, confHeadHeight);
+		for (SButton b : conferenceSelection) {
 			b.draw(this);
 
 		}
@@ -1053,11 +1090,15 @@ public class FBLATriviaTester extends PApplet {
 
 	}
 
+	/**
+	 * Draws the conference interface for the player's first choice of competition,
+	 * including each of the four minigames and a conference-specific progress-bar.
+	 */
 	public void drawConference1() {
 
 		spaceConfIndicator = 0;
 		drivingConfIndicator = 0;
-		for (SohilButton b : conference1) {
+		for (SButton b : conference1) {
 			b.draw(this);
 
 		}
@@ -1070,15 +1111,19 @@ public class FBLATriviaTester extends PApplet {
 		headingFormat();
 		textSize(45);
 
-		text(topics.get(0), Main.width / 2, confHeadHeight);
+		text(topics.get(0), CGS.width / 2, confHeadHeight);
 
 	}
 
+	/**
+	 * Draws the conference interface for the player's second choice of competition,
+	 * including each of the four minigames and a conference-specific progress-bar.
+	 */
 	public void drawConference2() {
 
 		spaceConfIndicator = 1;
 		drivingConfIndicator = 1;
-		for (SohilButton b : conference2) {
+		for (SButton b : conference2) {
 			b.draw(this);
 
 		}
@@ -1090,14 +1135,18 @@ public class FBLATriviaTester extends PApplet {
 		progressBars.get(1).draw(this);
 		headingFormat();
 		textSize(45);
-		text(topics.get(1), Main.width / 2, confHeadHeight);
+		text(topics.get(1), CGS.width / 2, confHeadHeight);
 
 	}
 
+	/**
+	 * Draws the conference interface for the player's third choice of competition,
+	 * including each of the four minigames and a conference-specific progress-bar.
+	 */
 	public void drawConference3() {
 		spaceConfIndicator = 2;
 		drivingConfIndicator = 2;
-		for (SohilButton b : conference3) {
+		for (SButton b : conference3) {
 			b.draw(this);
 
 		}
@@ -1109,14 +1158,18 @@ public class FBLATriviaTester extends PApplet {
 		progressBars.get(2).draw(this);
 		headingFormat();
 		textSize(45);
-		text(topics.get(2), Main.width / 2, confHeadHeight);
+		text(topics.get(2), CGS.width / 2, confHeadHeight);
 
 	}
 
+	/**
+	 * Draws the conference interface for the player's fourth choice of competition,
+	 * including each of the four minigames and a conference-specific progress-bar.
+	 */
 	public void drawConference4() {
 		spaceConfIndicator = 3;
 		drivingConfIndicator = 3;
-		for (SohilButton b : conference4) {
+		for (SButton b : conference4) {
 			b.draw(this);
 
 		}
@@ -1128,15 +1181,19 @@ public class FBLATriviaTester extends PApplet {
 		progressBars.get(3).draw(this);
 		headingFormat();
 		textSize(45);
-		text(topics.get(3), Main.width / 2, confHeadHeight);
+		text(topics.get(3), CGS.width / 2, confHeadHeight);
 
 	}
 
+	/**
+	 * Draws the conference interface for the player's fifth choice of competition,
+	 * including each of the four minigames and a conference-specific progress-bar.
+	 */
 	public void drawConference5() {
 
 		spaceConfIndicator = 4;
 		drivingConfIndicator = 4;
-		for (SohilButton b : conference5) {
+		for (SButton b : conference5) {
 			b.draw(this);
 
 		}
@@ -1148,16 +1205,23 @@ public class FBLATriviaTester extends PApplet {
 		progressBars.get(4).draw(this);
 		headingFormat();
 		textSize(45);
-		text(topics.get(4), Main.width / 2, confHeadHeight);
+		text(topics.get(4), CGS.width / 2, confHeadHeight);
 
 	}
 
+	/**
+	 * Formats the text to fit the heading size and alignment.
+	 */
 	public void headingFormat() {
 		fill(255);
 		textSize(80);
 		textAlign(CENTER, CENTER);
 	}
 
+	/**
+	 * [OBSOLETE FEATURE] Draws the shop, in which the player can buy suit items in
+	 * exchange for currency earned from games.
+	 */
 	public void drawShop() {
 		background(255);
 
@@ -1173,368 +1237,434 @@ public class FBLATriviaTester extends PApplet {
 		tie.draw(this);
 	}
 
+	/**
+	 * Handles input in the form of quick mouse clicks.
+	 */
 	public void mouseClicked() {
-		if (back.isPointInButton(mouseX, mouseY)) {
-			// go back to dashboard
-		} else if (jacket.isInBounds(mouseX, mouseY) && player.getBalance() >= 250) {
-			player.obtainJacket();
-		} else if (shirt.isInBounds(mouseX, mouseY) && player.getBalance() >= 75) {
-			player.obtainShirt();
-		} else if (slacks.isInBounds(mouseX, mouseY) && player.getBalance() >= 100) {
-			player.obtainSlacks();
-		} else if (shoes.isInBounds(mouseX, mouseY) && player.getBalance() >= 75) {
-			player.obtainShoes();
-		} else if (belt.isInBounds(mouseX, mouseY) && player.getBalance() >= 25) {
-			player.obtainBelt();
-		} else if (tie.isInBounds(mouseX, mouseY) && player.getBalance() >= 50) {
-			player.obtainTie();
-		}
+		if (active == null) {
+			if (back.isPointInButton(mouseX, mouseY)) {
+				// go back to dashboard
+			} else if (jacket.isInBounds(mouseX, mouseY) && player.getBalance() >= 250) {
+				player.obtainJacket();
+			} else if (shirt.isInBounds(mouseX, mouseY) && player.getBalance() >= 75) {
+				player.obtainShirt();
+			} else if (slacks.isInBounds(mouseX, mouseY) && player.getBalance() >= 100) {
+				player.obtainSlacks();
+			} else if (shoes.isInBounds(mouseX, mouseY) && player.getBalance() >= 75) {
+				player.obtainShoes();
+			} else if (belt.isInBounds(mouseX, mouseY) && player.getBalance() >= 25) {
+				player.obtainBelt();
+			} else if (tie.isInBounds(mouseX, mouseY) && player.getBalance() >= 50) {
+				player.obtainTie();
+			}
 
-		int x = mouseX;
-		int y = mouseY;
+			int x = mouseX;
+			int y = mouseY;
 
-		Color col1 = new Color(44, 44, 221);
-		Color col2 = new Color(0, 255, 255);
+			Color col1 = new Color(44, 44, 221);
+			Color col2 = new Color(0, 255, 255);
 
-		if (!theOnceBoolean) {
-			if (slide == 1) {
-				if (mouseButton == LEFT) {
-					if (next.isPointInButton(mouseX, mouseY)) {
-						slide++;
-					}
-				}
-
-			} else if (slide == 2) {
-				if (mouseButton == LEFT) {
-					if (next.isPointInButton(mouseX, mouseY)) {
-						slide++;
-					}
-				}
-			} else if (slide == 4) {
-				if (mouseButton == LEFT) {
-
-					if (next2.isPointInButton(x, y) && is5Selected()) {
-						slide++;
+			if (!theOnceBoolean) {
+				if (slide == 1) {
+					if (mouseButton == LEFT) {
+						if (next.isPointInButton(mouseX, mouseY)) {
+							slide++;
+						}
 					}
 
-					for (int i = 0; i < options.length; i++) {
-						if (options[i].isPointInButton(x, y)) {
-							if (options[i].getBColor().equals(col1)) {
-								options[i].setBColor(col2);
-							} else {
-								options[i].setBColor(col1);
+				} else if (slide == 2) {
+					if (mouseButton == LEFT) {
+						if (next.isPointInButton(mouseX, mouseY)) {
+							slide++;
+						}
+					}
+				} else if (slide == 5) {
+					if (mouseButton == LEFT) {
 
+						if (next2.isPointInButton(x, y) && is5Selected()) {
+							slide++;
+						}
+
+						for (int i = 0; i < options.length; i++) {
+							if (options[i].isPointInButton(x, y)) {
+								if (options[i].getBColor().equals(col1)) {
+									options[i].setBColor(col2);
+								} else {
+									options[i].setBColor(col1);
+
+								}
 							}
 						}
 					}
-				}
-			} else if (slide == 3) {
-				if (next2.isPointInButton(x, y)) {
-					slide = 4;
-				}
-			}
-		} else {// 1 instructinos 2 win 3 dnats 4 psnats 5 bbnats 6 snats 7 fail 8 natsconf 9 bb
-				// 10 space 11 driving 12 ps 13 nats 14 confscreen 15 conf1 16 conf2 17 conf3 18
-				// conf4 19 conf5 20 playgame}
-			if (status == 20) {
-				status = 8;
-				if (backtonats.isPointInside(mouseX, mouseY)) {
-					activeButton = backtonats;
-				}
-			} else if (status == 2) {
+				} else if (slide == 3) {
+					if (next2.isPointInButton(x, y)) {
+						slide++;
+					}
+				} else if (slide == 4) {
+					for (AyushTextButtonRounded e : difficulties) {
+						if (e.isPointInButton(x, y)) {
+							if (e.getText().equals("Easy")) {
+								difficulty = 1;
+							} else if (e.getText().equals("Normal")) {
+								difficulty = 2;
+							} else if (e.getText().equals("Hard")) {
+								difficulty = 3;
+							} else if (e.getText().equals("Impossible")) {
+								difficulty = 4;
+							}
+						}
+					}
+					slide++;
 
-				if (player.getProgress()[5] < wronganswers.size()) {
+				}
+			} else {// 1 instructinos 2 win 3 dnats 4 psnats 5 bbnats 6 snats 7 fail 8 natsconf 9 bb
+					// 10 space 11 driving 12 ps 13 nats 14 confscreen 15 conf1 16 conf2 17 conf3 18
+					// conf4 19 conf5 20 playgame}
+				if (status == 20) {
+					status = 8;
 					if (backtonats.isPointInside(mouseX, mouseY)) {
 						activeButton = backtonats;
-
 					}
-				} else {
-					if (quit.isPointInside(mouseX, mouseY)) {
-						activeButton = quit;
+				} else if (status == 2) {
 
+					if (player.getProgress()[5] < wronganswers.size()) {
+						if (backtonats.isPointInside(mouseX, mouseY)) {
+							activeButton = backtonats;
+
+						}
+					} else {
+						if (quit.isPointInside(mouseX, mouseY)) {
+							activeButton = quit;
+
+						}
 					}
-				}
 
-			} else if (status == 7) {
-				if (quit3.isPointInside(mouseX, mouseY)) {
-					activeButton = quit3;
-
-				}
-			} else if (status == 8) {
-
-				if (wronganswers.size() == 0) {
+				} else if (status == 7) {
 					if (quit3.isPointInside(mouseX, mouseY)) {
 						activeButton = quit3;
 
 					}
-				} else {
-					for (int i = 0; i < wronganswers.size(); i++) {
-						SohilButton e = natsgames.get(i);
-						if (e.isPointInside(mouseX, mouseY)) {
-							activeButton = e;
+				} else if (status == 8) {
+
+					if (wronganswers.size() == 0) {
+						if (quit3.isPointInside(mouseX, mouseY)) {
+							activeButton = quit3;
+
+						}
+					} else {
+						for (int i = 0; i < wronganswers.size(); i++) {
+							SButton e = natsgames.get(i);
+							if (e.isPointInside(mouseX, mouseY)) {
+								activeButton = e;
+							}
+
 						}
 
+						if (win.isPointInside(mouseX, mouseY)) {
+							activeButton = win;
+
+						}
 					}
 
-					if (win.isPointInside(mouseX, mouseY)) {
-						activeButton = win;
+				} else if (status == 13) {
+					if (backConference.isPointInside(mouseX, mouseY)) {
+						activeButton = backConference;
 
 					}
-				}
 
-			} else if (status == 13) {
-				if (backConference.isPointInside(mouseX, mouseY)) {
-					activeButton = backConference;
-
-				}
-
-				int[] prog = player.getProgress();
-				boolean hasPassedConfs = true;
-				for (int i = 0; i < prog.length - 1; i++) {
-					int e = prog[i];
-					if (e < 4) {
-						hasPassedConfs = false;
+					int[] prog = player.getProgress();
+					boolean hasPassedConfs = true;
+					for (int i = 0; i < prog.length - 1; i++) {
+						int e = prog[i];
+						if (e < 4) {
+							hasPassedConfs = false;
+						}
 					}
-				}
-				if (hasPassedConfs) {
-					if (proceedToNats.isPointInside(mouseX, mouseY)) {
-						activeButton = proceedToNats;
+					if (hasPassedConfs) {
+						if (proceedToNats.isPointInside(mouseX, mouseY)) {
+							activeButton = proceedToNats;
 
+						}
 					}
-				}
 
-			} else if (status == 14) {
-				for (SohilButton b : conferenceSelection) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						activeButton = b;
+				} else if (status == 14) {
+					for (SButton b : conferenceSelection) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							activeButton = b;
+						}
 					}
-				}
-			} else if (status == 15) {
-				for (SohilButton b : conference1) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						activeButton = b;
+				} else if (status == 15) {
+					for (SButton b : conference1) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							activeButton = b;
 
+						}
 					}
-				}
-			} else if (status == 16) {
-				for (SohilButton b : conference2) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						activeButton = b;
+				} else if (status == 16) {
+					for (SButton b : conference2) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							activeButton = b;
 
+						}
 					}
-				}
-			} else if (status == 17) {
-				for (SohilButton b : conference3) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						activeButton = b;
+				} else if (status == 17) {
+					for (SButton b : conference3) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							activeButton = b;
 
+						}
 					}
-				}
-			} else if (status == 18) {
-				for (SohilButton b : conference4) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						activeButton = b;
+				} else if (status == 18) {
+					for (SButton b : conference4) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							activeButton = b;
 
+						}
 					}
-				}
-			} else if (status == 19) {
-				for (SohilButton b : conference5) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						activeButton = b;
+				} else if (status == 19) {
+					for (SButton b : conference5) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							activeButton = b;
 
+						}
 					}
 				}
 			}
+		} else {
+			active.mouseClicked();
 		}
 
 	}
 
+	/**
+	 * Handles all relevant keyboard-related input, used with keyPressed().
+	 */
+	public void keyReleased() {
+		if (active != null) {
+			active.keyReleased();
+		}
+	}
+
+	/**
+	 * Handles all input in the form of any mouse movement.
+	 */
 	public void mouseMoved() {
 		int x = mouseX;
 		int y = mouseY;
 		Color col1 = new Color(28, 221, 221);
 		Color col2 = new Color(44, 44, 221);
 		Color col3 = new Color(54, 141, 165);
+		if (active == null) {
+			if (!theOnceBoolean) {
+				if (slide == 5) {
+					for (AyushTextButton one : options) {
+						if (!one.getBColor().equals(col2)) {
+							if (one.isPointInButton(x, y)) {
+								one.setBColor(col1);
+							} else {
+								one.setBColor(col3);
+							}
 
-		if (!theOnceBoolean) {
-			if (slide == 4) {
-				for (AyushTextButton one : options) {
-					if (!one.getBColor().equals(col2)) {
-						if (one.isPointInButton(x, y)) {
-							one.setBColor(col1);
-						} else {
-							one.setBColor(col3);
 						}
-
+					}
+				} else if (slide == 4) {
+					for (AyushTextButtonRounded e : difficulties) {
+						if (e.isPointInButton(x, y)) {
+							e.setBColor(col1);
+						} else {
+							e.setBColor(col3);
+						}
 					}
 				}
-			}
-		} else {
-			if (status == 20) {
-				if (backtonats.isPointInside(mouseX, mouseY)) {
-					backtonats.setColor(new Color(0, 191, 255));
-				} else {
-					backtonats.setColor(new Color(135, 206, 255));
-				}
-			} else if (status == 2) {
-
-				if (player.getProgress()[5] < wronganswers.size()) {
+			} else {
+				if (status == 20) {
 					if (backtonats.isPointInside(mouseX, mouseY)) {
 						backtonats.setColor(new Color(0, 191, 255));
 					} else {
 						backtonats.setColor(new Color(135, 206, 255));
 					}
-				} else {
-					if (quit.isPointInside(mouseX, mouseY)) {
-						quit.setColor(new Color(0, 191, 255));
+				} else if (status == 2) {
 
+					if (player.getProgress()[5] < wronganswers.size()) {
+						if (backtonats.isPointInside(mouseX, mouseY)) {
+							backtonats.setColor(new Color(0, 191, 255));
+						} else {
+							backtonats.setColor(new Color(135, 206, 255));
+						}
 					} else {
-						quit.setColor(new Color(135, 206, 255));
-					}
-				}
+						if (quit.isPointInside(mouseX, mouseY)) {
+							quit.setColor(new Color(0, 191, 255));
 
-			} else if (status == 7) {
-				if (quit3.isPointInside(mouseX, mouseY)) {
-					quit3.setColor(new Color(0, 191, 255));
-				} else {
-					quit3.setColor(new Color(135, 206, 255));
-				}
-			} else if (status == 8) {
-				if (wronganswers.size() == 0) {
+						} else {
+							quit.setColor(new Color(135, 206, 255));
+						}
+					}
+
+				} else if (status == 7) {
 					if (quit3.isPointInside(mouseX, mouseY)) {
 						quit3.setColor(new Color(0, 191, 255));
-
 					} else {
 						quit3.setColor(new Color(135, 206, 255));
 					}
-				} else {
-					for (int i = 0; i < wronganswers.size(); i++) {
-						SohilButton e = natsgames.get(i);
-						if (e.isPointInside(mouseX, mouseY)) {
-							e.setColor(new Color(0, 191, 255));
+				} else if (status == 8) {
+					if (wronganswers.size() == 0) {
+						if (quit3.isPointInside(mouseX, mouseY)) {
+							quit3.setColor(new Color(0, 191, 255));
 
 						} else {
-							e.setColor(new Color(135, 206, 255));
+							quit3.setColor(new Color(135, 206, 255));
 						}
+					} else {
+						for (int i = 0; i < wronganswers.size(); i++) {
+							SButton e = natsgames.get(i);
+							if (e.isPointInside(mouseX, mouseY)) {
+								e.setColor(new Color(0, 191, 255));
 
-					}
-					if (win.isPointInside(mouseX, mouseY)) {
-						win.setColor(new Color(0, 191, 255));
+							} else {
+								e.setColor(new Color(135, 206, 255));
+							}
 
-					} else {
-						win.setColor(new Color(135, 206, 255));
-					}
-				}
+						}
+						if (win.isPointInside(mouseX, mouseY)) {
+							win.setColor(new Color(0, 191, 255));
 
-			} else if (status == 13) {
-				if (backConference.isPointInside(mouseX, mouseY)) {
-					backConference.setColor(new Color(0, 191, 255));
-				} else {
-					backConference.setColor(new Color(135, 206, 255));
-				}
+						} else {
+							win.setColor(new Color(135, 206, 255));
+						}
+					}
 
-				int[] prog = player.getProgress();
-				boolean hasPassedConfs = true;
-				for (int i = 0; i < prog.length - 1; i++) {
-					int e = prog[i];
-					if (e < 4) {
-						hasPassedConfs = false;
-					}
-				}
-				if (hasPassedConfs) {
-					if (proceedToNats.isPointInside(mouseX, mouseY)) {
-						proceedToNats.setColor(new Color(0, 191, 255));
+				} else if (status == 13) {
+					if (backConference.isPointInside(mouseX, mouseY)) {
+						backConference.setColor(new Color(0, 191, 255));
 					} else {
-						proceedToNats.setColor(new Color(135, 206, 255));
+						backConference.setColor(new Color(135, 206, 255));
 					}
-				}
-			} else if (status == 14) {
-				for (SohilButton b : conferenceSelection) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						b.setColor(new Color(0, 191, 255));
-					} else {
-						b.setColor(new Color(135, 206, 255));
-					}
-				}
-			} else if (status == 15) {
-				for (SohilButton b : conference1) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						b.setColor(new Color(0, 191, 255));
-					} else {
-						b.setColor(new Color(135, 206, 255));
-					}
-				}
-			} else if (status == 16) {
-				for (SohilButton b : conference2) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						b.setColor(new Color(0, 191, 255));
-					} else {
-						b.setColor(new Color(135, 206, 255));
-					}
-				}
-			} else if (status == 17) {
-				for (SohilButton b : conference3) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						b.setColor(new Color(0, 191, 255));
 
-					} else {
-						b.setColor(new Color(135, 206, 255));
+					int[] prog = player.getProgress();
+					boolean hasPassedConfs = true;
+					for (int i = 0; i < prog.length - 1; i++) {
+						int e = prog[i];
+						if (e < 4) {
+							hasPassedConfs = false;
+						}
 					}
-				}
-			} else if (status == 18) {
-				for (SohilButton b : conference4) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						b.setColor(new Color(0, 191, 255));
-
-					} else {
-						b.setColor(new Color(135, 206, 255));
+					if (hasPassedConfs) {
+						if (proceedToNats.isPointInside(mouseX, mouseY)) {
+							proceedToNats.setColor(new Color(0, 191, 255));
+						} else {
+							proceedToNats.setColor(new Color(135, 206, 255));
+						}
 					}
-				}
-			} else if (status == 19) {
-				for (SohilButton b : conference5) {
-					if (b.isPointInside(mouseX, mouseY)) {
-						b.setColor(new Color(0, 191, 255));
+				} else if (status == 14) {
+					for (SButton b : conferenceSelection) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							b.setColor(new Color(0, 191, 255));
+						} else {
+							b.setColor(new Color(135, 206, 255));
+						}
+					}
+				} else if (status == 15) {
+					for (SButton b : conference1) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							b.setColor(new Color(0, 191, 255));
+						} else {
+							b.setColor(new Color(135, 206, 255));
+						}
+					}
+				} else if (status == 16) {
+					for (SButton b : conference2) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							b.setColor(new Color(0, 191, 255));
+						} else {
+							b.setColor(new Color(135, 206, 255));
+						}
+					}
+				} else if (status == 17) {
+					for (SButton b : conference3) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							b.setColor(new Color(0, 191, 255));
 
-					} else {
-						b.setColor(new Color(135, 206, 255));
+						} else {
+							b.setColor(new Color(135, 206, 255));
+						}
+					}
+				} else if (status == 18) {
+					for (SButton b : conference4) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							b.setColor(new Color(0, 191, 255));
+
+						} else {
+							b.setColor(new Color(135, 206, 255));
+						}
+					}
+				} else if (status == 19) {
+					for (SButton b : conference5) {
+						if (b.isPointInside(mouseX, mouseY)) {
+							b.setColor(new Color(0, 191, 255));
+
+						} else {
+							b.setColor(new Color(135, 206, 255));
+						}
 					}
 				}
 			}
+		} else {
+			active.mouseMoved();
 		}
 
 	}
 
+	/**
+	 * Handles all relevant keyboard-related input, used with keyReleased(). Also
+	 * containts *diabled* secret hotkeys to instantly pass conferences and/or
+	 * generate random incorrect questions, for the sake of testing the program.
+	 */
 	public void keyPressed() {
 //
 //		// press g to quickly pass all the games
-//		if (key == 'g') {
-//			player.passGame(0);
-//			player.passGame(0);
-//			player.passGame(0);
-//			player.passGame(0);
-//			player.passGame(1);
-//			player.passGame(1);
-//			player.passGame(1);
-//			player.passGame(1);
-//			player.passGame(2);
-//			player.passGame(2);
-//			player.passGame(2);
-//			player.passGame(2);
-//			player.passGame(3);
-//			player.passGame(3);
-//			player.passGame(3);
-//			player.passGame(3);
-//			player.passGame(4);
-//			player.passGame(4);
-//			player.passGame(4);
-//			player.passGame(4);
+//		if (active == null) {
+//			if (key == 'g') {
+//				player.passGame(0);
+//				player.passGame(0);
+//				player.passGame(0);
+//				player.passGame(0);
+//				player.passGame(1);
+//				player.passGame(1);
+//				player.passGame(1);
+//				player.passGame(1);
+//				player.passGame(2);
+//				player.passGame(2);
+//				player.passGame(2);
+//				player.passGame(2);
+//				player.passGame(3);
+//				player.passGame(3);
+//				player.passGame(3);
+//				player.passGame(3);
+//				player.passGame(4);
+//				player.passGame(4);
+//				player.passGame(4);
+//				player.passGame(4);
 //
-//		} else if (key == 'h') {
-//			wronganswers.add(new Question("test11", "test1", "test", "test", "test"));
-//			wronganswers.add(new Question("test22", "test1", "test", "test", "test"));
+//			} else if (key == 'h') {
+//				wronganswers.add(new Question("test11", "test1", "test", "test", "test"));
+//				wronganswers.add(new Question("test22", "test1", "test", "test", "test"));
+//				wronganswers.add(new Question("test11", "test1", "test", "test", "test"));
+//				wronganswers.add(new Question("test22", "test1", "test", "test", "test"));
+//				wronganswers.add(new Question("test11", "test1", "test", "test", "test"));
+//				wronganswers.add(new Question("test22", "test1", "test", "test", "test"));
+//				// wronganswers.add(new Question("test", "test", "test", "test", "test"));
 //
-//			// wronganswers.add(new Question("test", "test", "test", "test", "test"));
-//
+//			}
+//		} else {
+//			active.keyPressed();
 //		}
+
+	}
+
+	/**
+	 * Exits the current screen and returns to the main menu.
+	 */
+	public void setConfBack() {
+		active = null;
 	}
 }

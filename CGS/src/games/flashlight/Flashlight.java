@@ -4,76 +4,72 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
 import ayush.shapes.Circle;
-import buttons.AyushTextButton;
 import buttons.ImageButton;
+import buttons.SButton;
 import other.Player;
 import other.Question;
-import processing.core.PApplet;
+import other.Screen;
+import running.FBLATriviaTester;
 import shapes.Rectangle;
 
 /**
- * Subclass of PApplet. Represents the drawing surface on which the Flashlight
- * game will occur.
+ * Subclass of Screen. Represents the drawing surface on which the Flashlight
+ * game will occur
  */
-public class Flashlight extends PApplet {
+public class Flashlight extends Screen {
 
 	//
 	private Player player;
 	private ArrayList<ImageButton> coins;
 	private ArrayList<String> answers;
 	private int slide;
-	private ArrayList<AyushTextButton> locs;
+	private ArrayList<SButton> locs;
 	private float x, y, radius;
 	private final int numOfCoins;
 	private int money;
 	private int secondstimes60;
-	private AyushTextButton[] qslidebuttons;
+	private SButton[] qslidebuttons;
 	private String que;
 	public int circradintro;
-	private AyushTextButton backtohome, quit;
+	private SButton backtohome, quit;
 	private int conf;
 	private boolean isAddedYet;
-	private JFrame window;
-	private AyushTextButton quit2;
+	private SButton quit2;
 	private Circle animatedCircle;
 	private String ca;
 	private ArrayList<Question> answ, wrongans;
 	private ArrayList<String> rightAnswers;
 	private int index;
 	private boolean bool;
-
+	private FBLATriviaTester papp;
 	private Question question;
 	private boolean isRepeat;
 
 	/**
 	 * Creates a new Flashlight object with the following parameters
 	 * 
-	 * @param as           the relevant answers of all questions
-	 * @param question     the question that this instance of Flashlight will test
-	 *                     the player on
-	 * @param seconds      the speed of the game, used to measure difficulty
+	 * @param as           the answers to the questions in the database
+	 * @param question     the question this game will test the player on
+	 * @param seconds      the general speed of the game, used to measure difficulty
 	 * @param p            the player who will play this game
 	 * @param conf         the conference/competition this game belongs to
-	 * @param answer       the answers of all questions in the database
-	 * @param wronganswers all of the player's incorrect answers from the whole game
-	 *                     so far
-	 * @param index        the spot of this game in the question database, used to
-	 *                     track progress
+	 * @param answer       the answers to this question
+	 * @param wronganswers all of the player's incorrect answers from previous
+	 *                     minigames
+	 * @param index        this game's spot in the database, used to track progress
+	 * @param papp         the PApplet this game will run in
 	 */
 	public Flashlight(ArrayList<String> as, String question, int seconds, Player p, int conf,
-			ArrayList<Question> answer, ArrayList<Question> wronganswers, int index) {
+			ArrayList<Question> answer, ArrayList<Question> wronganswers, int index, FBLATriviaTester papp) {
+		super(800, 700);
 		slide = 0;
 		bool = false;
-		qslidebuttons = new AyushTextButton[2];
+		qslidebuttons = new SButton[2];
 		que = question;
 		secondstimes60 = (seconds) * 60;
-		qslidebuttons[0] = new AyushTextButton(50, 500, 200, 75, 75, 540, Color.BLACK, new Color(160, 160, 160),
-				"Instructions", 25);
-		qslidebuttons[1] = new AyushTextButton(550, 500, 200, 75, 575, 540, Color.BLACK, new Color(160, 160, 160),
-				"Play!", 25);
+		qslidebuttons[0] = new SButton("Instructions", 25, 1, 50, 500, 200, 75);
+		qslidebuttons[1] = new SButton("Play", 25, 1, 550, 500, 200, 75);
 		circradintro = 600;
 		money = 0;
 		answers = as;
@@ -81,48 +77,47 @@ public class Flashlight extends PApplet {
 		x = 400;
 		y = 350;
 		radius = 100;
-		locs = new ArrayList<AyushTextButton>();
+		locs = new ArrayList<SButton>();
 		for (String e : answers) {
 			// Answers must be less than 100 pixels wide
 			float topx = (float) (Math.random() * 600);
 			float topy = (float) (Math.random() * 625);
-			locs.add(new AyushTextButton(topx, topy, 150, 50, topx + 10, topy + 20, Color.black, Color.white, e, 15));
+			locs.add(new SButton(e, 15, 1, topx, topy, 150, 50));
 		}
 		coins = new ArrayList<ImageButton>();
-		backtohome = new AyushTextButton(250, 500, 300, 100, 275, 550, Color.BLACK, new Color(160, 160, 160),
-				"Back to Question", 30);
+		backtohome = new SButton("Back to question", 30, 1, 250, 500, 300, 100);
 		player = p;
 		this.conf = conf;
 		isAddedYet = false;
-		quit = new AyushTextButton(250, 500, 300, 100, 350, 565, Color.BLACK, new Color(160, 160, 160), "Quit", 40);
-		quit2 = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, new Color(160, 160, 160), "Quit", 20);
+		quit = new SButton("Quit", 40, 1, 250, 500, 300, 100);
+		quit2 = new SButton("Quit", 20, 1, 675, 600, 100, 55);
 		animatedCircle = new Circle(400, 350, 200);
 		animatedCircle.setFillColor(Color.BLACK);
 		ca = as.get(0);
 		this.index = index;
 		answ = answer;
 		wrongans = wronganswers;
-
+		this.papp = papp;
 		this.question = new Question(que, as.get(0), as.get(1), as.get(2), as.get(3));
 	}
 
 	/**
 	 * Creates a new Flashlight object with the following parameters
 	 * 
-	 * @param ques         the Question this game will test the player on
-	 * @param seconds      the speed of the game, used to measure difficulty
+	 * @param ques         the question this game will test the player on
+	 * @param seconds      the general speed of the game, used to measure difficulty
 	 * @param p            the player who will play this game
 	 * @param conf         the conference/competition this game belongs to
-	 * @param answer       the answers to all questions in the database
-	 * @param wronganswers all of the player's incorrect answers from all previous
-	 *                     games
-	 * @param rightAnswers all of the player's correct answers from all previous
-	 *                     games
-	 * @param index        the spot of this game in the database, used to track
-	 *                     progress
+	 * @param answer       the answers to this question
+	 * @param wronganswers all the player's incorrect answers from previous
+	 *                     minigames
+	 * @param rightAnswers all the player's correct answers from previous minigames
+	 * @param index        this game's spot in the database, used to track progress
+	 * @param papp         the PApplet this game will run in
 	 */
 	public Flashlight(Question ques, int seconds, Player p, int conf, ArrayList<Question> answer,
-			ArrayList<Question> wronganswers, ArrayList<String> rightAnswers, int index) {
+			ArrayList<Question> wronganswers, ArrayList<String> rightAnswers, int index, FBLATriviaTester papp) {
+		super(800, 700);
 		player = p;
 		bool = false;
 		ArrayList<String> as = new ArrayList<String>();
@@ -132,13 +127,11 @@ public class Flashlight extends PApplet {
 		as.add(ques.getWrong3());
 
 		slide = 0;
-		qslidebuttons = new AyushTextButton[2];
+		qslidebuttons = new SButton[2];
 		que = ques.getQuestion();
 		secondstimes60 = (seconds) * 60;
-		qslidebuttons[0] = new AyushTextButton(50, 500, 200, 75, 75, 540, Color.BLACK, new Color(160, 160, 160),
-				"Instructions", 25);
-		qslidebuttons[1] = new AyushTextButton(550, 500, 200, 75, 575, 540, Color.BLACK, new Color(160, 160, 160),
-				"Play!", 25);
+		qslidebuttons[0] = new SButton("Instructions", 25, 1, 50, 500, 200, 75);
+		qslidebuttons[1] = new SButton("Play", 25, 1, 550, 500, 200, 75);
 		circradintro = 600;
 		money = 0;
 		answers = as;
@@ -146,20 +139,19 @@ public class Flashlight extends PApplet {
 		x = 400;
 		y = 350;
 		radius = 100;
-		locs = new ArrayList<AyushTextButton>();
+		locs = new ArrayList<SButton>();
 		for (String e : answers) {
 			// Answers must be less than 100 pixels wide
 			float topx = (float) (Math.random() * 600);
 			float topy = (float) (Math.random() * 625);
-			locs.add(new AyushTextButton(topx, topy, 150, 50, topx + 10, topy + 20, Color.black, Color.white, e, 15));
+			locs.add(new SButton(e, 15, 1, topx, topy, 150, 50));
 		}
 		coins = new ArrayList<ImageButton>();
-		backtohome = new AyushTextButton(250, 500, 300, 100, 275, 550, Color.BLACK, new Color(160, 160, 160),
-				"Back to Question", 30);
+		backtohome = new SButton("Back to question", 30, 1, 250, 500, 300, 100);
 		this.conf = conf;
 		isAddedYet = false;
-		quit = new AyushTextButton(250, 500, 300, 100, 350, 565, Color.BLACK, new Color(160, 160, 160), "Quit", 40);
-		quit2 = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, new Color(160, 160, 160), "Quit", 20);
+		quit = new SButton("Quit", 40, 1, 250, 500, 300, 100);
+		quit2 = new SButton("Quit", 20, 1, 675, 600, 100, 55);
 		animatedCircle = new Circle(400, 350, 200);
 		animatedCircle.setFillColor(Color.BLACK);
 		ca = ques.getCorrect();
@@ -167,13 +159,13 @@ public class Flashlight extends PApplet {
 		answ = answer;
 		wrongans = wronganswers;
 		this.rightAnswers = rightAnswers;
-
+		this.papp = papp;
 		this.question = new Question(que, as.get(0), as.get(1), as.get(2), as.get(3));
 		isRepeat = rightAnswers.contains(question.getQuestion());
 	}
 
 	/**
-	 * [OBSOLETE FEATURE] Sets up the coins to be picked up during the game
+	 * [OBSOLETE FEATURE] Sets up images for coins
 	 */
 	public void setup() {
 		for (int i = 0; i < numOfCoins; i++) {
@@ -183,57 +175,58 @@ public class Flashlight extends PApplet {
 	}
 
 	/**
-	 * displays the question at the start of the game, and accounts for animations
-	 * on the starting menu for the Flashlight game
+	 * Draws the question at the start of the game
 	 */
 	public void drawQuestion() {
-		background(38);
-		textSize(25);
-		fill(255);
-		text(que, 50, 100);
-		qslidebuttons[0].draw(this);
-		qslidebuttons[1].draw(this);
+		papp.textAlign(papp.BOTTOM, papp.LEFT);
+		papp.background(38);
+		papp.textSize(25);
+		papp.fill(255);
+		papp.text(que, 50, 100);
+		qslidebuttons[0].draw(papp);
+		qslidebuttons[1].draw(papp);
 		animatedCircle.setX(animatedCircle.getX() + 15);
 		if (animatedCircle.getX() > 900) {
 			animatedCircle.setX(-100);
 		}
 
-		fill(0);
-		ellipse(animatedCircle.getX(), animatedCircle.getY(), animatedCircle.getWidth(), animatedCircle.getHeight());
-		quit2.draw(this);
+		papp.fill(0);
+		papp.ellipse(animatedCircle.getX(), animatedCircle.getY(), animatedCircle.getWidth(),
+				animatedCircle.getHeight());
+		quit2.draw(papp);
 
 	}
 
 	/**
-	 * Displays the instructions of the Flashlight game
+	 * Draws the instructions of the game when prompted (after clicking the
+	 * "instructions" button)
 	 */
 	public void instructions() {
-		background(38);
-		textSize(60);
-		fill(255);
-		pushStyle();
-		textAlign(CENTER);
-		text("Instructions", 400, 50);
-		popStyle();
-		textSize(30);
-		fill(0, 0, 255);
-		text("Use the arrow keys to move the flashlight to find \nthe correct answer button and click on it to win.",
+		papp.textAlign(papp.BOTTOM, papp.LEFT);
+		papp.background(38);
+		papp.textSize(60);
+		papp.fill(255);
+		papp.pushStyle();
+		papp.textAlign(papp.CENTER);
+		papp.text("Instructions", 400, 50);
+		papp.popStyle();
+		papp.textSize(30);
+		papp.fill(0, 0, 255);
+		papp.text(
+				"Use the arrow keys to move the flashlight to find \nthe correct answer button and click on it to win.",
 				50, 125);
-		backtohome.draw(this);
+		backtohome.draw(papp);
 
 	}
 
-	// The statements in draw() are executed until the
-	// program is stopped. Each statement is executed in
-	// sequence and after the last line is read, the first
-	// line is executed again.
-
 	/**
-	 * Accounts for the entirety of the game's GUI along with all other outputs.
-	 * 
+	 * Handles all GUI/output of this Flashlight game
 	 */
 	public void draw() {
-		background(255);
+		papp.pushStyle();
+		papp.pushMatrix();
+		papp.background(38);
+		papp.textAlign(papp.BOTTOM, papp.LEFT);
 
 		switch (slide) {
 		case 2:
@@ -252,20 +245,22 @@ public class Flashlight extends PApplet {
 			win();
 			break;
 		}
+		papp.popStyle();
+		papp.popMatrix();
 
 	}
 
 	/**
-	 * Points to drawing the actual game after clicking "start", and handles output
-	 * from there.
+	 * Draws starting animation
 	 */
 	public void drawGame() {
+		papp.textAlign(papp.BOTTOM, papp.LEFT);
 
 		if (circradintro > radius) {
-			fill(0);
-			rect(0, 0, 800, 700);
-			fill(255);
-			ellipse(400, 350, circradintro * 2, circradintro * 2);
+			papp.fill(0);
+			papp.rect(0, 0, 800, 700);
+			papp.fill(38);
+			papp.ellipse(400, 350, circradintro * 2, circradintro * 2);
 			circradintro -= 10;
 		} else {
 			drawActualGame();
@@ -273,48 +268,51 @@ public class Flashlight extends PApplet {
 	}
 
 	/**
-	 * Draws the actual game, called from drawGame().
+	 * Handles GUI/output for the actual gameplay part of this Flashlight game,
+	 * after being called on by drawGame()
 	 */
 	public void drawActualGame() {
-		for (AyushTextButton e : locs) {
-			e.draw(this);
+		papp.textAlign(papp.BOTTOM, papp.LEFT);
+
+		for (SButton e : locs) {
+			e.draw(papp);
 		}
 		for (ImageButton e : coins) {
-			e.draw(this);
+			e.draw(papp);
 		}
 
 		drawFast();
 
-		fill(0, 255, 255);
-		textSize(50);
-		text("Time: " + (secondstimes60 / 60 + 1), 275, 60);
+		papp.fill(0, 255, 255);
+		papp.textSize(50);
+		papp.text("Time: " + (secondstimes60 / 60 + 1), 275, 60);
 		if (secondstimes60 < 0) {
 			slide = 3;
 		} else {
 			secondstimes60--;
 
 		}
-		quit2.draw(this);
+		quit2.draw(papp);
 	}
 
 	/**
-	 * Accounts for win conditions, and bumps up the player's progress accordingly.
-	 * Also prompts the player with a quit button.
+	 * Handles win conditions, bumps up player's progress accordingly, and prompts
+	 * to quit
 	 */
 	public void win() {
-		fill(0);
-		rect(0, 0, 800, 700);
-		fill(0, 255, 0);
-		ellipse(x, y, radius * 2, radius * 2);
+		papp.fill(0);
+		papp.rect(0, 0, 800, 700);
+		papp.fill(75, 175, 75);
+		papp.ellipse(x, y, radius * 2, radius * 2);
 		if (radius < 1200) {
 			radius += 15;
 		} else {
-			textSize(50);
-			fill(0);
-			text("Congrats, you won!", 30, 100);
-			text("As you know, the answer was ", 30, 160);
-			fill(0, 125, 255);
-			text(ca, 200, 220);
+			papp.textSize(50);
+			papp.fill(0);
+			papp.text("Congrats, you won!", 30, 100);
+			papp.text("As you know, the answer was ", 30, 160);
+			papp.fill(0, 125, 255);
+			papp.text(ca, 30, 220);
 			// text(money ,30,200);
 			// player.passGame(conf);
 			if (!isAddedYet) {
@@ -324,33 +322,33 @@ public class Flashlight extends PApplet {
 				rightAnswers.add(question.getQuestion());
 //				System.out.println(isRepeat);
 			}
-			quit.draw(this);
+			quit.draw(papp);
 		}
 
 	}
 
 	/**
-	 * Accounts for lose conditions, and prompts to quit the game.
+	 * Handles lose conditions, and prompts to quit
 	 */
 	public void lose() {
 
-		fill(0);
-		rect(0, 0, 800, 700);
-		fill(255, 0, 0);
-		ellipse(x, y, radius * 2, radius * 2);
+		papp.fill(0);
+		papp.rect(0, 0, 800, 700);
+		papp.fill(175, 75, 75);
+		papp.ellipse(x, y, radius * 2, radius * 2);
 		if (radius < 1200) {
 			radius += 15;
 		} else {
-			textSize(50);
-			fill(0);
-			text("Oh no! You either hit the wrong \nanswer or ran out of time.", 30, 100);
-			text("The correct answer was ", 30, 240);
-			fill(0, 125, 255);
-			text(ca, 200, 300);
+			papp.textSize(50);
+			papp.fill(0);
+			papp.text("Oh no! You either hit the wrong \nanswer or ran out of time.", 25, 100);
+			papp.text("The correct answer was ", 25, 240);
+			papp.fill(0, 125, 255);
+			papp.text(ca, 30, 300);
 			// text(money ,30,200);
 			// player.passGame(conf);
 
-			quit.draw(this);
+			quit.draw(papp);
 		}
 
 		if (!bool) {
@@ -362,8 +360,7 @@ public class Flashlight extends PApplet {
 	}
 
 	/**
-	 * Draws the Nationals version of the Flashlight game, which is faster and
-	 * therefore more difficult.
+	 * Draws/handles GUI and output for a faster version of this game
 	 */
 	public void drawFast() {
 		// background(255);
@@ -372,15 +369,15 @@ public class Flashlight extends PApplet {
 		Rectangle right = new Rectangle(x + radius, 0, 800 - (x + radius), 700);
 		Rectangle up = new Rectangle(0, 0, 800, y - radius);
 		Rectangle down = new Rectangle(0, y + radius, 800, 700 - (y + radius));
-		left.draw(this, new Color(0, 0, 0));
-		right.draw(this, new Color(0, 0, 0));
-		up.draw(this, new Color(0, 0, 0));
-		down.draw(this, new Color(0, 0, 0));
+		left.draw(papp, new Color(0, 0, 0));
+		right.draw(papp, new Color(0, 0, 0));
+		up.draw(papp, new Color(0, 0, 0));
+		down.draw(papp, new Color(0, 0, 0));
 		for (float px = circle.getX(); px < circle.getWidth() + circle.getX(); px++) {
 			for (float py = circle.getY(); py < circle.getHeight() + circle.getY(); py++) {
 				if (!isInCircle(px, py)) {
-					fill(0);
-					rect(px, py, 1, 1);
+					papp.fill(0);
+					papp.rect(px, py, 1, 1);
 				}
 			}
 		}
@@ -388,19 +385,10 @@ public class Flashlight extends PApplet {
 	}
 
 	/**
-	 * Sets the JFrame this game will be drawn on
-	 * 
-	 * @param wind the JFrame this game will appear in
-	 */
-	public void setFrame(JFrame wind) {
-		window = wind;
-	}
-
-	/**
 	 * @param xx the x-coordinate of the point
-	 * @param yy the x-coordinate of the point
-	 * @return true if the point (xx, yy) is inside the flashlight circle/field of
-	 *         view, otherwise false
+	 * @param yy the y-coordinate of the point
+	 * @return true if the point (xx, yy) is inside the flashlight's lit area/field
+	 *         of view
 	 */
 	public boolean isInCircle(float xx, float yy) {
 		float xmath = Math.abs(xx - x) * Math.abs(xx - x);
@@ -414,37 +402,37 @@ public class Flashlight extends PApplet {
 	}
 
 	/**
-	 * Handles input in the form of mouse clicking
+	 * Handles input in the form of quick mouse clicks
 	 */
 	public void mouseClicked() {
-		int mx = mouseX;
-		int my = mouseY;
+		int mx = papp.mouseX;
+		int my = papp.mouseY;
 
 		if (slide == 0) {
 
-			if (qslidebuttons[0].isPointInButton(mx, my)) {
+			if (qslidebuttons[0].isPointInside(mx, my)) {
 
 				slide = 1;
-				qslidebuttons[0].setBColor(new Color(160, 160, 160));
-			} else if (qslidebuttons[1].isPointInButton(mx, my)) {
+				qslidebuttons[0].setColor(new Color(160, 160, 160));
+			} else if (qslidebuttons[1].isPointInside(mx, my)) {
 				slide = 2;
-				qslidebuttons[1].setBColor(new Color(160, 160, 160));
+				qslidebuttons[1].setColor(new Color(160, 160, 160));
 
-			} else if (quit2.isPointInButton(mx, my)) {
-				window.dispose();
+			} else if (quit2.isPointInside(mx, my)) {
+				papp.setConfBack();
 			}
 		} else if (slide == 2) {
 
-			if (locs.get(0).isPointInButton(mx, my)) {
+			if (locs.get(0).isPointInside(mx, my)) {
 				slide = 4;// win
 			}
 
-			if (quit2.isPointInButton(mx, my)) {
-				window.dispose();
+			if (quit2.isPointInside(mx, my)) {
+				papp.setConfBack();
 			}
 
 			for (int i = 1; i < locs.size(); i++) {
-				if (locs.get(i).isPointInButton(mx, my)) {
+				if (locs.get(i).isPointInside(mx, my)) {
 					slide = 3;// lose
 				}
 			}
@@ -456,104 +444,122 @@ public class Flashlight extends PApplet {
 				}
 			}
 		} else if (slide == 1) {
-			if (backtohome.isPointInButton(mx, my)) {
+			if (backtohome.isPointInside(mx, my)) {
 				slide = 0;
-				backtohome.setBColor(new Color(160, 160, 160));
+				backtohome.setColor(new Color(160, 160, 160));
 			}
 		} else if (slide == 3) {
-			if (quit.isPointInButton(mx, my)) {
-				window.dispose();
+			if (quit.isPointInside(mx, my)) {
+				papp.setConfBack();
 			}
 		} else if (slide == 4) {
-			if (quit.isPointInButton(mx, my)) {
-				window.dispose();
+			if (quit.isPointInside(mx, my)) {
+				papp.setConfBack();
 			}
 		}
 
 	}
 
 	/**
-	 * Handles input in the form of mouse movement
+	 * Handles input in the form of any movement of the mouse
 	 */
 	public void mouseMoved() {
 
-		int px = mouseX;
-		int py = mouseY;
-		Color col1 = new Color(0, 255, 255);
+		int px = papp.mouseX;
+		int py = papp.mouseY;
+		Color col1 = new Color(0, 191, 255);
 		Color col2 = new Color(41, 155, 149);
 		Color col4 = new Color(96, 117, 150);
 		Color col3 = new Color(55, 64, 79);
 		if (slide == 2) {
-			for (AyushTextButton e : locs) {
-				if (e.isPointInButton(px, py)) {
-					e.setBColor(new Color(0, 255, 255));
+			for (SButton e : locs) {
+				if (e.isPointInside(px, py)) {
+					e.setColor(new Color(0, 191, 255));
 				} else {
-					e.setBColor(Color.WHITE);
+					e.setColor(new Color(135, 206, 255));
 				}
 			}
 
-			if (quit2.isPointInButton(px, py)) {
-				quit2.setBColor(new Color(125, 125, 125));
+			if (quit2.isPointInside(px, py)) {
+				quit2.setColor(new Color(0, 191, 255));
 
 			} else {
-				quit2.setBColor(Color.white);
+				quit2.setColor(new Color(135, 206, 255));
 			}
 		} else if (slide == 0) {
 			if (slide == 0) {
-				for (AyushTextButton e : qslidebuttons) {
-					if (e.isPointInButton(px, py)) {
-						e.setBColor(new Color(60, 60, 60));
+				for (SButton e : qslidebuttons) {
+					if (e.isPointInside(px, py)) {
+						e.setColor(new Color(0, 191, 255));
 					} else {
-						e.setBColor(new Color(160, 160, 160));
+						e.setColor(new Color(135, 206, 255));
 					}
 
 				}
 
-				if (quit2.isPointInButton(px, py)) {
-					quit2.setBColor(new Color(125, 125, 125));
+				if (quit2.isPointInside(px, py)) {
+					quit2.setColor(new Color(135, 206, 255));
 
 				} else {
-					quit2.setBColor(new Color(160, 160, 160));
+					quit2.setColor(new Color(135, 206, 255));
 				}
 			}
 		} else if (slide == 1) {
-			if (backtohome.isPointInButton(px, py)) {
-				backtohome.setBColor(new Color(60, 60, 60));
+			if (backtohome.isPointInside(px, py)) {
+				backtohome.setColor(new Color(0, 191, 255));
 			} else {
-				backtohome.setBColor(new Color(160, 160, 160));
+				backtohome.setColor(new Color(135, 206, 255));
 			}
 		} else if (slide == 3) {
-			if (quit.isPointInButton(px, py)) {
-				quit.setBColor(col1);
+			if (quit.isPointInside(px, py)) {
+				quit.setColor(col1);
 			} else {
-				quit.setBColor(Color.white);
+				quit.setColor(new Color(135, 206, 255));
 			}
 		} else if (slide == 4) {
-			if (quit.isPointInButton(px, py)) {
-				quit.setBColor(col1);
+			if (quit.isPointInside(px, py)) {
+				quit.setColor(col1);
 			} else {
-				quit.setBColor(Color.white);
+				quit.setColor(new Color(135, 206, 255));
 			}
 		}
 
 	}
 
 	/**
-	 * Handles all inputs from the keyboard
+	 * Handles all relevant keyboard-related input
 	 */
 	public void keyPressed() {
-		if (keyCode == KeyEvent.VK_UP) {
+		if (papp.keyCode == KeyEvent.VK_UP) {
 			y -= 10;
-		} else if (keyCode == KeyEvent.VK_RIGHT) {
+		} else if (papp.keyCode == KeyEvent.VK_RIGHT) {
 			x += 10;
-		} else if (keyCode == KeyEvent.VK_LEFT) {
+		} else if (papp.keyCode == KeyEvent.VK_LEFT) {
 			x -= 10;
-		} else if (keyCode == KeyEvent.VK_DOWN) {
+		} else if (papp.keyCode == KeyEvent.VK_DOWN) {
 			y += 10;
-		} else if (keyCode == KeyEvent.VK_5) {
-			window.dispose();
 		}
 		// update();
+	}
+
+	@Override
+	public void mousePressed() {
+		// Necessity from Screen
+	}
+
+	@Override
+	public void mouseDragged() {
+		// Necessity from Screen
+	}
+
+	@Override
+	public void mouseReleased() {
+		// Necessity from Screen
+	}
+
+	@Override
+	public void keyReleased() {
+		// Necessity from Screen
 	}
 
 }

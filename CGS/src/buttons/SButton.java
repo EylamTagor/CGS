@@ -6,13 +6,13 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
 import processing.core.PApplet;
-import running.Main;
+import running.CGS;
 
 /**
- * Represents a variation of Button for personal preference of some coders, with
- * adjusted characteristics
+ * Represents another type of button with different characteristics, adjusted
+ * for personal preference of some developers.
  */
-public class SohilButton {
+public class SButton {
 
 	public static final int RECTANGLE = 1, CIRCLE = 2, GHOST = 3;
 	private String name;
@@ -24,19 +24,18 @@ public class SohilButton {
 	private Ellipse2D.Double circleButton;
 
 	/**
-	 * Creates a new SohilButton object with the following parameters and a
-	 * light-blue color
+	 * Creates a new SButton object with the following parameters, and a light blue
+	 * background color
 	 * 
-	 * @param name     the text of the button
-	 * @param textSize the font size of the text of the button
-	 * @param shape    the shape of the button (1 = rectangle, 2 = circle, 3 =
-	 *                 ghost)
+	 * @param name     the display text of the button
+	 * @param textSize the text's font size
+	 * @param shape    the general shape of the button (rectangle, circle, or ghost)
 	 * @param x        the x-coordinate of the button
 	 * @param y        the y-coordinate of the button
 	 * @param width    the width of the button
 	 * @param height   the height of the button
 	 */
-	public SohilButton(String name, int textSize, int shape, double x, double y, double width, double height) {
+	public SButton(String name, int textSize, int shape, double x, double y, double width, double height) {
 		this.name = name;
 		this.buttonShape = shape;
 		this.x = x;
@@ -47,23 +46,23 @@ public class SohilButton {
 		highlightColor = new Color(38, 38, 38);
 		this.textSize = textSize;
 		edgeCurve = 25;
+		rectangleButton = new Rectangle2D.Double(x, y, width, height);
+
 	}
 
 	/**
-	 * Creates a new SohilButton object with the following parameters
+	 * Creates a new SButton object with the following parameters
 	 * 
-	 * @param name     the text of the button
-	 * @param textSize the font size of the text of the button
-	 * @param shape    the shape of the button (1 = rectangle, 2 = circle, 3 =
-	 *                 ghost)
+	 * @param name     the display text of the button
+	 * @param textSize the text's font size
+	 * @param shape    the general shape of the button (rectangle, circle, or ghost)
 	 * @param x        the x-coordinate of the button
 	 * @param y        the y-coordinate of the button
 	 * @param width    the width of the button
 	 * @param height   the height of the button
-	 * @param col      the color of the button
+	 * @param col      the background color of the button
 	 */
-	public SohilButton(String name, int textSize, int shape, double x, double y, double width, double height,
-			Color col) {
+	public SButton(String name, int textSize, int shape, double x, double y, double width, double height, Color col) {
 		this.name = name;
 		this.buttonShape = shape;
 		this.x = x;
@@ -79,24 +78,23 @@ public class SohilButton {
 	}
 
 	/**
-	 * Creates a new SohilButton object with the following parameters, a light-blue
-	 * color and centered horizontally in the middle of the screen
+	 * Creates a new SButton object with the following parameters and centered
+	 * horizontally
 	 * 
-	 * @param name     the text of the button
-	 * @param textSize the font size of the text of the button
-	 * @param shape    the shape of the button (1 = rectangle, 2 = circle, 3 =
-	 *                 ghost)
+	 * @param name     the display text of the button
+	 * @param textSize the text's font size
+	 * @param shape    the general shape of the button (rectangle, circle, or ghost)
 	 * @param y        the y-coordinate of the button
 	 * @param width    the width of the button
 	 * @param height   the height of the button
 	 */
-	public SohilButton(String name, int textSize, int shape, double y, double width, double height) {
+	public SButton(String name, int textSize, int shape, double y, double width, double height) {
 		this.name = name;
 		this.buttonShape = shape;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		x = Main.width / 2 - width / 2;
+		x = CGS.width / 2 - width / 2;
 		color = new Color(135, 206, 255);
 		highlightColor = new Color(38, 38, 38);
 		this.textSize = textSize;
@@ -106,9 +104,9 @@ public class SohilButton {
 	}
 
 	/**
-	 * Draws the button on a PApplet
+	 * Draws this button on a PApplet
 	 * 
-	 * @param marker the PApplet onto which the button will be drawn on
+	 * @param marker the PApplet onto which the button will be drawn
 	 */
 	public void draw(PApplet marker) {
 
@@ -148,9 +146,9 @@ public class SohilButton {
 	}
 
 	/**
-	 * @param x the x-coordinate of the button
-	 * @param y the y-coordinate of the button
-	 * @return true if the point (x, y) is inside the button, otherwise false
+	 * @param x the x-coordinate of the point
+	 * @param y the y-coordinate of the point
+	 * @return true if the point (x, y) is inside this button, otherwise false
 	 */
 	public boolean isPointInside(double x, double y) {
 		if (buttonShape == RECTANGLE) {
@@ -242,23 +240,24 @@ public class SohilButton {
 	}
 
 	/**
-	 * @return if the button is currently clickable
+	 * @return true if the button is currently clickable by the user, otherwise
+	 *         false
 	 */
 	public boolean getIsActive() {
 		return isActive;
 	}
 
 	/**
-	 * Sets the button's state of being clickable
+	 * Sets the button's status in terms of being clickable
 	 * 
-	 * @param isActive true if button is clickable, otherwise false
+	 * @param isActive true if this button is clickable, otherwise false
 	 */
 	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
 
 	/**
-	 * @return Color object containing the button's color
+	 * @return the color of the button
 	 */
 	public Color getColor() {
 		return color;
@@ -267,38 +266,37 @@ public class SohilButton {
 	/**
 	 * Sets the button's color
 	 * 
-	 * @param color the Color object containing the new color value(s)
+	 * @param color the new color value
 	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
 
 	/**
-	 * @return the highlight color of the button (relevant to "ghost" shaped
-	 *         SohilButtons)
+	 * @return the color of the button in ghost form
 	 */
 	public Color getHighlightColor() {
 		return highlightColor;
 	}
 
 	/**
-	 * Sets the button's highlight color (relevant to "ghost" shaped SohilButtons)
+	 * Sets the button's "glow" color in ghost form
 	 * 
-	 * @param highlightColor the new highlight color
+	 * @param highlightColor the new "glow" color
 	 */
 	public void setHighlightColor(Color highlightColor) {
 		this.highlightColor = highlightColor;
 	}
 
 	/**
-	 * @return text of the button
+	 * @return the display text of this button
 	 */
 	public String getName() {
 		return name;
 	}
 
 	/**
-	 * Sets the button's text
+	 * Sets the display text of this button
 	 * 
 	 * @param name the new text value
 	 */
@@ -307,14 +305,14 @@ public class SohilButton {
 	}
 
 	/**
-	 * @return the font size of the button's text
+	 * @return the font size of the text
 	 */
 	public int getTextSize() {
 		return textSize;
 	}
 
 	/**
-	 * Sets the button's text's font size
+	 * Sets the font size of the text
 	 * 
 	 * @param textSize the new font size value
 	 */
@@ -323,9 +321,9 @@ public class SohilButton {
 	}
 
 	/**
-	 * Sets the intensity of the curve at the button's edges
+	 * Sets the intensity in which the corners of the rectangular SButton curve
 	 * 
-	 * @param edgeCurve the new intensity value
+	 * @param edgeCurve the new curve-intensity value
 	 */
 	public void setEdgeCurve(int edgeCurve) {
 		this.edgeCurve = edgeCurve;

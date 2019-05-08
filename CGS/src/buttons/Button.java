@@ -4,9 +4,8 @@ import ayush.shapes.Rectangle;
 import processing.core.PApplet;
 
 /**
- * Represents a general button in a game or menu, to be clicked on
+ * Represents a general button in a game or menu, to be clicked on.
  */
-
 public abstract class Button {
 	protected float x, y, width, height;
 

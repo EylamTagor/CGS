@@ -7,17 +7,18 @@ import processing.awt.PSurfaceAWT;
 import processing.core.PApplet;
 
 /**
- * Runs FBLA Trivia Tester
+ * Class used to run the main program.
  */
-public class Main {
+public class CGS {
 
+	/**
+	 * Screen dimensions
+	 */
 	public static int width = 800, height = 700;
 
 	/**
-	 * Initializes the game in a new JFrame window of width 800 pixels and height
-	 * 700 pixels.
-	 * 
-	 * @param args (main method standard procedure)
+	 * Standard Java way to run a program upon opening the .jar or clicking 'run' in
+	 * an IDE.
 	 */
 	public static void main(String args[]) {
 		FBLATriviaTester drawing = new FBLATriviaTester();
@@ -30,7 +31,7 @@ public class Main {
 		window.setSize(width, height);
 		window.setLocation(100, 100);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(true);
+		window.setResizable(false);
 		window.setIconImage(new ImageIcon("images//fbla.png").getImage());
 		window.setVisible(true);
 		canvas.requestFocus();
