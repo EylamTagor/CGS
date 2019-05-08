@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import ayush.shapes.Circle;
-import buttons.AyushTextButton;
+import buttons.*;
 import buttons.ImageButton;
 import other.Player;
 import other.Screen;
@@ -22,18 +22,18 @@ public class PsychoSearch extends Screen {
 	private ArrayList<ImageButton> coins;
 	private ArrayList<String> answers;
 	private int slide;
-	private ArrayList<AyushTextButton> locs;
+	private ArrayList<SButton> locs;
 	private float x, y, radius;
 	private final int numOfCoins;
 	private int money;
 	private int secondstimes60;
-	private AyushTextButton[] qslidebuttons;
+	private SButton[] qslidebuttons;
 	private String que;
 	public int circradintro;
-	private AyushTextButton backtohome, quit;
+	private SButton backtohome, quit;
 	private int conf;
 	private boolean isAddedYet;
-	private AyushTextButton quit2;
+	private SButton quit2;
 	private Circle animatedCircle;
 	private String ca;
 	private ArrayList<Question> answ, wrongans;
@@ -49,13 +49,11 @@ public class PsychoSearch extends Screen {
 		super(800,700);
 		slide = 0;
 		bool = false;
-		qslidebuttons = new AyushTextButton[2];
+		qslidebuttons = new SButton[2];
 		que = question;
 		secondstimes60 = (seconds) * 60;
-		qslidebuttons[0] = new AyushTextButton(50, 500, 200, 75, 75, 540, Color.BLACK, new Color(160, 160, 160),
-				"Instructions", 25);
-		qslidebuttons[1] = new AyushTextButton(550, 500, 200, 75, 575, 540, Color.BLACK, new Color(160, 160, 160),
-				"Play!", 25);
+		qslidebuttons[0] = new SButton("Instructions", 25, 1, 50, 500, 200, 75);
+		qslidebuttons[1] = new SButton("Play", 25, 1, 550, 500, 200, 75);
 		circradintro = 600;
 		money = 0;
 		answers = as;
@@ -63,21 +61,20 @@ public class PsychoSearch extends Screen {
 		x = 400;
 		y = 350;
 		radius = 100;
-		locs = new ArrayList<AyushTextButton>();
+		locs = new ArrayList<SButton>();
 		for (String e : answers) {
 			// Answers must be less than 100 pixels wide
 			float topx = (float) (Math.random() * 600);
 			float topy = (float) (Math.random() * 625);
-			locs.add(new AyushTextButton(topx, topy, 150, 50, topx + 10, topy + 20, Color.black, Color.white, e, 15));
+			locs.add(new SButton(e, 15, 1, topx, topy, 150, 50));
 		}
 		coins = new ArrayList<ImageButton>();
-		backtohome = new AyushTextButton(250, 500, 300, 100, 275, 550, Color.BLACK, new Color(160, 160, 160),
-				"Back to Question", 30);
+		backtohome = new SButton("Back to question", 30, 1, 250, 500, 300, 100);
 		player = p;
 		this.conf = conf;
 		isAddedYet = false;
-		quit = new AyushTextButton(250, 500, 300, 100, 350, 565, Color.BLACK, new Color(160, 160, 160), "Quit", 40);
-		quit2 = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, new Color(160, 160, 160), "Quit", 20);
+		quit = new SButton("Quit", 40, 1, 250, 500, 300, 100);
+		quit2 = new SButton("Quit", 20, 1, 675, 600, 100, 55);
 		animatedCircle = new Circle(400, 350, 200);
 		animatedCircle.setFillColor(Color.BLACK);
 		ca = as.get(0);
@@ -100,13 +97,11 @@ public class PsychoSearch extends Screen {
 		as.add(ques.getWrong3());
 
 		slide = 0;
-		qslidebuttons = new AyushTextButton[2];
+		qslidebuttons = new SButton[2];
 		que = ques.getQuestion();
 		secondstimes60 = (seconds) * 60;
-		qslidebuttons[0] = new AyushTextButton(50, 500, 200, 75, 75, 540, Color.BLACK, new Color(160, 160, 160),
-				"Instructions", 25);
-		qslidebuttons[1] = new AyushTextButton(550, 500, 200, 75, 575, 540, Color.BLACK, new Color(160, 160, 160),
-				"Play!", 25);
+		qslidebuttons[0] = new SButton("Instructions", 25, 1, 50, 500, 200, 75);
+		qslidebuttons[1] = new SButton("Play", 25, 1, 550, 500, 200, 75);
 		circradintro = 600;
 		money = 0;
 		answers = as;
@@ -114,20 +109,19 @@ public class PsychoSearch extends Screen {
 		x = 400;
 		y = 350;
 		radius = 100;
-		locs = new ArrayList<AyushTextButton>();
+		locs = new ArrayList<SButton>();
 		for (String e : answers) {
 			// Answers must be less than 100 pixels wide
 			float topx = (float) (Math.random() * 600);
 			float topy = (float) (Math.random() * 625);
-			locs.add(new AyushTextButton(topx, topy, 150, 50, topx + 10, topy + 20, Color.black, Color.white, e, 15));
+			locs.add(new SButton(e, 15, 1, topx, topy, 150, 50));
 		}
 		coins = new ArrayList<ImageButton>();
-		backtohome = new AyushTextButton(250, 500, 300, 100, 275, 550, Color.BLACK, new Color(160, 160, 160),
-				"Back to Question", 30);
+		backtohome = new SButton("Back to question", 30, 1, 250, 500, 300, 100);
 		this.conf = conf;
 		isAddedYet = false;
-		quit = new AyushTextButton(250, 500, 300, 100, 350, 565, Color.BLACK, new Color(160, 160, 160), "Quit", 40);
-		quit2 = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, new Color(160, 160, 160), "Quit", 20);
+		quit = new SButton("Quit", 40, 1, 250, 500, 300, 100);
+		quit2 = new SButton("Quit", 20, 1, 675, 600, 100, 55);
 		animatedCircle = new Circle(400, 350, 200);
 		animatedCircle.setFillColor(Color.BLACK);
 		ca = ques.getCorrect();
@@ -189,7 +183,8 @@ public class PsychoSearch extends Screen {
 	// line is executed again.
 	public void draw() {
 		papp.pushStyle();
-		papp.background(255);
+		papp.pushMatrix();
+		papp.background(38);
 		papp.textAlign(papp.BOTTOM, papp.LEFT);
 
 		switch (slide) {
@@ -220,7 +215,7 @@ public class PsychoSearch extends Screen {
 		if (circradintro > radius) {
 			papp.fill(0);
 			papp.rect(0, 0, 800, 700);
-			papp.fill(255);
+			papp.fill(38);
 			papp.ellipse(400, 350, circradintro * 2, circradintro * 2);
 			circradintro -= 10;
 		} else {
@@ -231,7 +226,7 @@ public class PsychoSearch extends Screen {
 	public void drawActualGame() {
 		papp.textAlign(papp.BOTTOM, papp.LEFT);
 
-		for (AyushTextButton e : locs) {
+		for (SButton e : locs) {
 			e.draw(papp);
 		}
 		for (ImageButton e : coins) {
@@ -255,7 +250,7 @@ public class PsychoSearch extends Screen {
 	public void win() {
 		papp.fill(0);
 		papp.rect(0, 0, 800, 700);
-		papp.fill(0, 255, 0);
+		papp.fill(75,175,75);
 		papp.ellipse(x, y, radius * 2, radius * 2);
 		if (radius < 1200) {
 			radius += 15;
@@ -265,7 +260,7 @@ public class PsychoSearch extends Screen {
 			papp.text("Congrats, you won!", 30, 100);
 			papp.text("As you know, the answer was ", 30, 160);
 			papp.fill(0, 125, 255);
-			papp.text(ca, 200, 220);
+			papp.text(ca, 30, 220);
 			// text(money ,30,200);
 			// player.passGame(conf);
 			if (!isAddedYet) {
@@ -284,17 +279,17 @@ public class PsychoSearch extends Screen {
 
 		papp.fill(0);
 		papp.rect(0, 0, 800, 700);
-		papp.fill(255, 0, 0);
+		papp.fill(175,75,75);
 		papp.ellipse(x, y, radius * 2, radius * 2);
 		if (radius < 1200) {
 			radius += 15;
 		} else {
 			papp.textSize(50);
 			papp.fill(0);
-			papp.text("Oh no! You either hit the wrong \nanswer or ran out of time.", 30, 100);
-			papp.text("The correct answer was ", 30, 240);
+			papp.text("Oh no! You either hit the wrong \nanswer or ran out of time.", 25, 100);
+			papp.text("The correct answer was ", 25, 240);
 			papp.fill(0, 125, 255);
-			papp.text(ca, 200, 300);
+			papp.text(ca, 30, 300);
 			// text(money ,30,200);
 			// player.passGame(conf);
 
@@ -349,29 +344,29 @@ public class PsychoSearch extends Screen {
 
 		if (slide == 0) {
 
-			if (qslidebuttons[0].isPointInButton(mx, my)) {
+			if (qslidebuttons[0].isPointInside(mx, my)) {
 
 				slide = 1;
-				qslidebuttons[0].setBColor(new Color(160, 160, 160));
-			} else if (qslidebuttons[1].isPointInButton(mx, my)) {
+				qslidebuttons[0].setColor(new Color(160, 160, 160));
+			} else if (qslidebuttons[1].isPointInside(mx, my)) {
 				slide = 2;
-				qslidebuttons[1].setBColor(new Color(160, 160, 160));
+				qslidebuttons[1].setColor(new Color(160, 160, 160));
 
-			} else if (quit2.isPointInButton(mx, my)) {
+			} else if (quit2.isPointInside(mx, my)) {
 				papp.setConfBack();
 			}
 		} else if (slide == 2) {
 
-			if (locs.get(0).isPointInButton(mx, my)) {
+			if (locs.get(0).isPointInside(mx, my)) {
 				slide = 4;// win
 			}
 
-			if (quit2.isPointInButton(mx, my)) {
+			if (quit2.isPointInside(mx, my)) {
 				papp.setConfBack();
 			}
 
 			for (int i = 1; i < locs.size(); i++) {
-				if (locs.get(i).isPointInButton(mx, my)) {
+				if (locs.get(i).isPointInside(mx, my)) {
 					slide = 3;// lose
 				}
 			}
@@ -383,16 +378,16 @@ public class PsychoSearch extends Screen {
 				}
 			}
 		} else if (slide == 1) {
-			if (backtohome.isPointInButton(mx, my)) {
+			if (backtohome.isPointInside(mx, my)) {
 				slide = 0;
-				backtohome.setBColor(new Color(160, 160, 160));
+				backtohome.setColor(new Color(160, 160, 160));
 			}
 		} else if (slide == 3) {
-			if (quit.isPointInButton(mx, my)) {
+			if (quit.isPointInside(mx, my)) {
 				papp.setConfBack();
 			}
 		} else if (slide == 4) {
-			if (quit.isPointInButton(mx, my)) {
+			if (quit.isPointInside(mx, my)) {
 				papp.setConfBack();
 			}
 		}
@@ -403,60 +398,60 @@ public class PsychoSearch extends Screen {
 
 		int px = papp.mouseX;
 		int py = papp.mouseY;
-		Color col1 = new Color(0, 255, 255);
+		Color col1 = new Color(0, 191, 255);
 		Color col2 = new Color(41, 155, 149);
 		Color col4 = new Color(96, 117, 150);
 		Color col3 = new Color(55, 64, 79);
 		if (slide == 2) {
-			for (AyushTextButton e : locs) {
-				if (e.isPointInButton(px, py)) {
-					e.setBColor(new Color(0, 255, 255));
+			for (SButton e : locs) {
+				if (e.isPointInside(px, py)) {
+					e.setColor(new Color(0, 191, 255));
 				} else {
-					e.setBColor(Color.WHITE);
+					e.setColor(new Color(135, 206, 255));
 				}
 			}
 
-			if (quit2.isPointInButton(px, py)) {
-				quit2.setBColor(new Color(125, 125, 125));
+			if (quit2.isPointInside(px, py)) {
+				quit2.setColor(new Color(0, 191, 255));
 
 			} else {
-				quit2.setBColor(Color.white);
+				quit2.setColor(new Color(135, 206, 255));
 			}
 		} else if (slide == 0) {
 			if (slide == 0) {
-				for (AyushTextButton e : qslidebuttons) {
-					if (e.isPointInButton(px, py)) {
-						e.setBColor(new Color(60, 60, 60));
+				for (SButton e : qslidebuttons) {
+					if (e.isPointInside(px, py)) {
+						e.setColor(new Color(0, 191, 255));
 					} else {
-						e.setBColor(new Color(160, 160, 160));
+						e.setColor(new Color(135, 206, 255));
 					}
 
 				}
 
-				if (quit2.isPointInButton(px, py)) {
-					quit2.setBColor(new Color(125, 125, 125));
+				if (quit2.isPointInside(px, py)) {
+					quit2.setColor(new Color(135, 206, 255));
 
 				} else {
-					quit2.setBColor(new Color(160, 160, 160));
+					quit2.setColor(new Color(135, 206, 255));
 				}
 			}
 		} else if (slide == 1) {
-			if (backtohome.isPointInButton(px, py)) {
-				backtohome.setBColor(new Color(60, 60, 60));
+			if (backtohome.isPointInside(px, py)) {
+				backtohome.setColor(new Color(0, 191, 255));
 			} else {
-				backtohome.setBColor(new Color(160, 160, 160));
+				backtohome.setColor(new Color(135, 206, 255));
 			}
 		} else if (slide == 3) {
-			if (quit.isPointInButton(px, py)) {
-				quit.setBColor(col1);
+			if (quit.isPointInside(px, py)) {
+				quit.setColor(col1);
 			} else {
-				quit.setBColor(Color.white);
+				quit.setColor(new Color(135, 206, 255));
 			}
 		} else if (slide == 4) {
-			if (quit.isPointInButton(px, py)) {
-				quit.setBColor(col1);
+			if (quit.isPointInside(px, py)) {
+				quit.setColor(col1);
 			} else {
-				quit.setBColor(Color.white);
+				quit.setColor(new Color(135, 206, 255));
 			}
 		}
 

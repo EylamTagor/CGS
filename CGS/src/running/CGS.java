@@ -20,7 +20,7 @@ public class CGS {
 		window.setSize(width, height);
 		window.setLocation(100, 100);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setResizable(true);
+		window.setResizable(false);
 		window.setIconImage(new ImageIcon("images//fbla.png").getImage());
 		window.setVisible(true);
 		canvas.requestFocus();

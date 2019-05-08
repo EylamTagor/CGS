@@ -3,9 +3,8 @@ package games.space;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
 import buttons.AyushTextButton;
+import buttons.SButton;
 import buttons.TextButton1;
 import other.Player;
 import other.Screen;
@@ -23,7 +22,7 @@ public class Space extends Screen {
 	private PImage background, astronaut;
 	private PFont font;
 
-	private TextButton1 start, pause, quit;
+	private SButton start, pause, quit;
 
 	private Asteroid[] asteroids;
 	public static final float[] randomVals = { 100, 250, 400, 550 };
@@ -39,7 +38,7 @@ public class Space extends Screen {
 	private int height;
 	
 	
-	private AyushTextButton quitintro;
+	private SButton quitintro;
 	private ArrayList<Question> answers, wrongAnswers;
 	private ArrayList<String> rightAnswers;
 	private int index;
@@ -53,9 +52,9 @@ public class Space extends Screen {
 		this.player = player;
 		this.conference = conference;
 		this.question = question;
-		start = new TextButton1(50, 375, 105, 40, 70, 400, 255, 255, 255, 0, 0, 0, "START");
-		pause = new TextButton1(0, 0, 100, 40, 15, 25, 255, 255, 255, 0, 0, 0, "PAUSE");
-		quit = new TextButton1(275, 275, 240, 100, 390, 350, 255, 255, 255, 0, 0, 0, "QUIT");
+		start = new SButton("START", 25, 1, 50, 375, 105, 40);
+		pause = new SButton("PAUSE", 25, 1, 0, 0, 100, 40);
+		quit = new SButton("QUIT", 25, 1, 275, 275, 240, 100);
 		this.papp = papp;
 		asteroids = new Asteroid[4];
 		for (int i = 0; i < asteroids.length; i++) {
@@ -92,7 +91,7 @@ public class Space extends Screen {
 		this.wrongAnswers = wrongAnswers;
 		this.rightAnswers = rightAnswers;
 		this.index = index;
-		quitintro = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, Color.white, "Quit", 20);
+		quitintro = new SButton("Quit", 20, 1, 675, 600, 100, 55);
 
 		bool = false;
 	}
@@ -120,23 +119,21 @@ public class Space extends Screen {
 			papp.textAlign(papp.LEFT);
 			papp.textSize(20);
 			pause.draw(papp);
-			if (pause.isPointInButton(papp.mouseX, papp.mouseY))
-				pause.setColor(200, 200, 200);
+			if (pause.isPointInside(papp.mouseX, papp.mouseY))
+				pause.setColor(new Color(0, 191, 255));
 			else
-				pause.setColor(255, 255, 255);
+				pause.setColor(new Color(135, 206, 255));
 
 			papp.textAlign(papp.CENTER);
 			papp.textSize(60);
 			quit.draw(papp);
-			if (quit.isPointInButton(papp.mouseX,papp.mouseY))
-				quit.setColor(200, 200, 200);
+			if (quit.isPointInside(papp.mouseX,papp.mouseY))
+				quit.setColor(new Color(0, 191, 255));
 			else
-				quit.setColor(255, 255, 255);
+				quit.setColor(new Color(135, 206, 255));
 		} else if (status == -1) {
 			papp.textSize(36);
 			papp.text("SPACE EXPLORATION", super.DRAWING_WIDTH / 2, 50);
-			papp.textSize(25);
-			papp.text("How to Play", super.DRAWING_WIDTH / 2, 80);
 			papp.textSize(20);
 			papp.textAlign(papp.LEFT);
 			papp.text("An astronaut is on a mission to explore an asteroid. As he approaches\nthe asteroid, the astronaut realizes there are four asteroids, each with\na different answer to your question. Help advance humanity by guiding\nthe astronaut onto the correct asteroid before they drift off the screen!",
@@ -147,20 +144,20 @@ public class Space extends Screen {
 			start.draw(papp);
 			quitintro.draw(papp);
 
-			if (start.isPointInButton(papp.mouseX, papp.mouseY))
-				start.setColor(200, 200, 200);
+			if (start.isPointInside(papp.mouseX, papp.mouseY))
+				start.setColor(new Color(0, 191, 255));
 			else
-				start.setColor(255, 255, 255);
+				start.setColor(new Color(135, 206, 255));
 		} else if (status == 0) {
 			papp.textSize(20);
 			papp.text("QUESTION: " + question.getQuestion(), super.DRAWING_WIDTH / 2, super.DRAWING_HEIGHT - 75);
 			if (timer == 300) {
 				papp.textAlign(papp.LEFT);
 				pause.draw(papp);
-				if (pause.isPointInButton(papp.mouseX, papp.mouseY))
-					pause.setColor(200, 200, 200);
+				if (pause.isPointInside(papp.mouseX, papp.mouseY))
+					pause.setColor(new Color(0, 191, 255));
 				else
-					pause.setColor(255, 255, 255);
+					pause.setColor(new Color(135, 206, 255));
 				papp.textAlign(papp.CENTER);
 
 				int gones = 0;
@@ -209,18 +206,19 @@ public class Space extends Screen {
 		} else if (status == 1) {
 			papp.textSize(20);
 			papp.text("QUESTION: " + question.getQuestion(), super.DRAWING_WIDTH / 2, super.DRAWING_HEIGHT - 75);
+			papp.textSize(40);
 			papp.text("YOU LOSE!", super.DRAWING_WIDTH / 2, 50);
-			papp.textSize(15);
-			papp.text("Either time's up, or you landed on the\nwrong asteroid. The correct answer is: "
-					+ question.getCorrect(), super.DRAWING_WIDTH / 2, 75);
+			papp.textSize(25);
+			papp.text("Either time's up, or you landed on the\nwrong asteroid. The correct answer is: \n"
+					+ question.getCorrect(), super.DRAWING_WIDTH / 2, 100);
 			papp.textAlign(papp.CENTER);
 
 			papp.textSize(60);
 			quit.draw(papp);
-			if (quit.isPointInButton(papp.mouseX, papp.mouseY))
-				quit.setColor(200, 200, 200);
+			if (quit.isPointInside(papp.mouseX, papp.mouseY))
+				quit.setColor(new Color(0, 191, 255));
 			else
-				quit.setColor(255, 255, 255);
+				quit.setColor(new Color(135, 206, 255));
 
 			if (!bool) {
 				bool = true;
@@ -229,17 +227,18 @@ public class Space extends Screen {
 		} else if (status == 2) {
 			papp.textSize(20);
 			papp.text("QUESTION: " + question.getQuestion(), super.DRAWING_WIDTH / 2, super.DRAWING_HEIGHT- 75);
+			papp.textSize(40);
 			papp.text("YOU WIN!", super.DRAWING_WIDTH / 2, 50);
-			papp.textSize(15);
-			papp.text("You guided the astronaut\nonto the correct asteroid!", super.DRAWING_WIDTH / 2, 75);
+			papp.textSize(35);
+			papp.text("You guided the astronaut\nonto the correct asteroid!", super.DRAWING_WIDTH / 2, 100);
 			papp.textAlign(papp.CENTER);
 
 			papp.textSize(60);
 			quit.draw(papp);
-			if (quit.isPointInButton(papp.mouseX, papp.mouseY))
-				quit.setColor(200, 200, 200);
+			if (quit.isPointInside(papp.mouseX, papp.mouseY))
+				quit.setColor(new Color(0, 191, 255));
 			else
-				quit.setColor(255, 255, 255);
+				quit.setColor(new Color(135, 206, 255));
 
 			if(once) {
 				if (!rightAnswers.contains(question.getQuestion())) {
@@ -257,34 +256,34 @@ public class Space extends Screen {
 	}
 
 	public void mouseClicked() {
-		if (status == -1 && start.isInBounds(papp.mouseX, papp.mouseY))
+		if (status == -1 && start.isPointInside(papp.mouseX, papp.mouseY))
 			status = 0;
 
-		if (pause.isInBounds(papp.mouseX,papp.mouseY)) {
+		if (pause.isPointInside(papp.mouseX,papp.mouseY)) {
 			if (status == 0 && timer == 300) {
 				status = -2;
-				pause.setText("RESUME");
+				pause.setName("RESUME");
 				pause.setWidth(115);
 			} else if (status == -2) {
 				status = 0;
-				pause.setText("PAUSE");
+				pause.setName("PAUSE");
 				pause.setWidth(100);
 			}
 		}
 
-		if (quitintro.isPointInButton(papp.mouseX, papp.mouseY)) {
+		if (quitintro.isPointInside(papp.mouseX, papp.mouseY)) {
 			papp.setConfBack();
 		}
 
-		if ((status == -2 || status == 1 || status == 2) && quit.isInBounds(papp.mouseX, papp.mouseY))
+		if ((status == -2 || status == 1 || status == 2) && quit.isPointInside(papp.mouseX, papp.mouseY))
 			papp.setConfBack();
 	}
 
 	public void mouseMoved() {
-		if (quitintro.isPointInButton(papp.mouseX, papp.mouseY)) {
-			quitintro.setBColor(new Color(125, 125, 125));
+		if (quitintro.isPointInside(papp.mouseX, papp.mouseY)) {
+			quitintro.setColor(new Color(0, 191, 255));
 		} else {
-			quitintro.setBColor(Color.white);
+			quitintro.setColor(new Color(135, 206, 255));
 		}
 	}
 

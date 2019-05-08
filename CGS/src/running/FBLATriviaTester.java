@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import buttons.AyushTextButtonRounded;
 import buttons.AyushTextButton;
 import buttons.ImageButton;
-import buttons.SohilButton;
+import buttons.SButton;
 import buttons.TextButton;
 import games.driving.Driving;
 import games.flashlight.PsychoSearch;
@@ -21,22 +21,22 @@ import processing.core.PApplet;
 
 public class FBLATriviaTester extends PApplet {
 	private TextButton back, jacket, shirt, slacks, shoes, belt, tie;
-	private SohilButton nationals, quit, activeButton, backConference, game1, game2, game3, game4;
-	private ArrayList<ArrayList<SohilButton>> conferences;
-	private ArrayList<SohilButton> conferenceSelection, conference1, conference2, conference3, conference4, conference5;
+	private SButton nationals, quit, activeButton, backConference, game1, game2, game3, game4;
+	private ArrayList<ArrayList<SButton>> conferences;
+	private ArrayList<SButton> conferenceSelection, conference1, conference2, conference3, conference4, conference5;
 	private ArrayList<ProgressBar> progressBars;
 	private Player player;
 	private boolean theOnceBoolean;
 	private int clickTime, spaceConfIndicator, drivingConfIndicator;
 	private int confButtonDiff = 100, buttonWidth = 80, confHeadHeight = 80, gameButtonMargin = 20;
-	private SohilButton proceedToNats;
+	private SButton proceedToNats;
 	private ArrayList<String> topics;
 	private final String font;
 	private ImageButton next, next2, next3;
 	private AyushTextButton[] options;
-	private ArrayList<SohilButton> natsgames;
+	private ArrayList<SButton> natsgames;
 	private int slide;
-	private SohilButton gamemessagebutton;
+	private SButton gamemessagebutton;
 	private AyushTextButtonRounded[] difficulties;
 	/// birdblunder question 3, psycho question 2, space question0, driving quesiont
 	/// 1
@@ -50,8 +50,8 @@ public class FBLATriviaTester extends PApplet {
 	private ArrayList<Question> parlips, bizcommps, bizprops, infotechps, mathps, fblaps, bizps;
 	private ArrayList<Question> parlis, bizcomms, bizpros, infotechs, maths, fblas, bizs;
 	private ArrayList<Question> parlid, bizcommd, bizprod, infotechd, mathd, fblad, bizd;
-	private SohilButton quit3;
-	private SohilButton win, backtonats;
+	private SButton quit3;
+	private SButton win, backtonats;
 	private ProgressBar confs, nats;
 	private int status = 1; // 1 instructinos 2 win 3 dnats 4 psnats 5 bbnats 6 snats 7 fail 8 natsconf 9 bb
 							// 10 space 11 driving 12 ps 13 nats 14 confscreen 15 conf1 16 conf2 17 conf3 18
@@ -70,10 +70,10 @@ public class FBLATriviaTester extends PApplet {
 		
 		float locx = 75;
 		float locy = 75;
-		difficulties[0] = new AyushTextButtonRounded(locx, locy, 275, 275, locx + 135, locy + 105, Color.white, new Color(54,141,165), "Easy", 48);
-		difficulties[1] = new AyushTextButtonRounded(locx, locy + 300, 275, 275, locx + 140, locy + 405, Color.white, new Color(54,141,165), "Normal", 48);
-		difficulties[2] = new AyushTextButtonRounded(locx + 350, locy, 275, 275, locx + 470, locy + 105, Color.white, new Color(54,141,165), "Hard", 48);
-		difficulties[3] = new AyushTextButtonRounded(locx + 350, locy + 300, 275, 275, locx + 485, locy + 405, Color.white, new Color(54,141,165), "Impossible", 48);
+		difficulties[0] = new AyushTextButtonRounded(locx, locy, 275, 275, Color.white, new Color(54,141,165), "Easy", 48);
+		difficulties[1] = new AyushTextButtonRounded(locx + 350, locy, 275, 275, Color.white, new Color(54,141,165), "Normal", 48);
+		difficulties[2] = new AyushTextButtonRounded(locx, locy + 300, 275, 275,Color.white, new Color(54,141,165), "Hard", 48);
+		difficulties[3] = new AyushTextButtonRounded(locx + 350, locy + 300, 275, 275,Color.white, new Color(54,141,165), "Impossible", 48);
 
 		slide = 1;
 		options = new AyushTextButton[7];
@@ -92,34 +92,34 @@ public class FBLATriviaTester extends PApplet {
 		options[6] = new AyushTextButton(30, 580, 500, 80, 200, 630, Color.WHITE, new Color(54, 141, 165),
 				"Intro to Business", 30);
 
-		natsgames = new ArrayList<SohilButton>();
+		natsgames = new ArrayList<SButton>();
 		final int marginy = 10;
 		final int marginx = 50;
-		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE, 25, 100, 350, 90));
-		natsgames.add(new SohilButton("Flight Game", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SButton("Space Game", 30, SButton.RECTANGLE, 25, 100, 350, 90));
+		natsgames.add(new SButton("Flight Game", 30, SButton.RECTANGLE, 25,
 				natsgames.get(0).getY() + natsgames.get(0).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Flashlight Game", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SButton("Flashlight Game", 30, SButton.RECTANGLE, 25,
 				natsgames.get(1).getY() + natsgames.get(1).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SButton("Space Game", 30, SButton.RECTANGLE, 25,
 				natsgames.get(2).getY() + natsgames.get(2).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Driving Game", 30, SohilButton.RECTANGLE, 25,
+		natsgames.add(new SButton("Driving Game", 30, SButton.RECTANGLE, 25,
 				natsgames.get(3).getY() + natsgames.get(3).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Flight Game", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SButton("Flight Game", 30, SButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx, 100, 350, 90));
-		natsgames.add(new SohilButton("Space Game", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SButton("Space Game", 30, SButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(5).getY() + natsgames.get(5).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Flashlight Game", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SButton("Flashlight Game", 30, SButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(6).getY() + natsgames.get(6).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Driving Game", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SButton("Driving Game", 30, SButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(7).getY() + natsgames.get(7).getHeight() + marginy, 350, 90));
-		natsgames.add(new SohilButton("Flight Game", 30, SohilButton.RECTANGLE,
+		natsgames.add(new SButton("Flight Game", 30, SButton.RECTANGLE,
 				natsgames.get(0).getX() + natsgames.get(0).getWidth() + marginx,
 				natsgames.get(8).getY() + natsgames.get(8).getHeight() + marginy, 350, 90));
 
-		win = new SohilButton("Claim your reward!", 20, SohilButton.RECTANGLE, 610, 400, 50);
+		win = new SButton("Claim your reward!", 20, SButton.RECTANGLE, 610, 400, 50);
 
 		initializeQuestionArrays();
 
@@ -133,15 +133,15 @@ public class FBLATriviaTester extends PApplet {
 		belt = new TextButton(75, 400, 300, 100, 150, 450, 200, 255, 200, 0, 0, 0, "Belt: $25");
 		tie = new TextButton(425, 400, 300, 100, 500, 450, 200, 255, 200, 0, 0, 0, "Tie: $50");
 
-		game1 = new SohilButton("Space Game", 40, SohilButton.RECTANGLE, 150, 400, 100);
-		game2 = new SohilButton("Driving Game", 40, SohilButton.RECTANGLE,
+		game1 = new SButton("Space Game", 40, SButton.RECTANGLE, 150, 400, 100);
+		game2 = new SButton("Driving Game", 40, SButton.RECTANGLE,
 				game1.getY() + game1.getHeight() + gameButtonMargin, 400, 100);
-		game3 = new SohilButton("Flashlight Game", 40, SohilButton.RECTANGLE,
+		game3 = new SButton("Flashlight Game", 40, SButton.RECTANGLE,
 				game2.getY() + game2.getHeight() + gameButtonMargin, 400, 100);
-		game4 = new SohilButton("Flight Game", 40, SohilButton.RECTANGLE,
+		game4 = new SButton("Flight Game", 40, SButton.RECTANGLE,
 				game3.getY() + game3.getHeight() + gameButtonMargin, 400, 100);
 
-		backConference = new SohilButton("Back", 20, SohilButton.RECTANGLE, CGS.width - 105, CGS.height - 100, 75,
+		backConference = new SButton("Back", 20, SButton.RECTANGLE, CGS.width - 105, CGS.height - 100, 75,
 				50);
 		activeButton = backConference;
 
@@ -152,13 +152,13 @@ public class FBLATriviaTester extends PApplet {
 		confs = new ProgressBar("Conference Progress", 200, game4.getY() + game4.getHeight() - 25, 400, 100, 0, 5);
 		nats = new ProgressBar("Nationals Progress", 200, game4.getY() + game4.getHeight() - 25, 400, 100, 0, 5);
 
-		conferences = new ArrayList<ArrayList<SohilButton>>();
-		conferenceSelection = new ArrayList<SohilButton>();
-		conferences.add(conference1 = new ArrayList<SohilButton>());
-		conferences.add(conference2 = new ArrayList<SohilButton>());
-		conferences.add(conference3 = new ArrayList<SohilButton>());
-		conferences.add(conference4 = new ArrayList<SohilButton>());
-		conferences.add(conference5 = new ArrayList<SohilButton>());
+		conferences = new ArrayList<ArrayList<SButton>>();
+		conferenceSelection = new ArrayList<SButton>();
+		conferences.add(conference1 = new ArrayList<SButton>());
+		conferences.add(conference2 = new ArrayList<SButton>());
+		conferences.add(conference3 = new ArrayList<SButton>());
+		conferences.add(conference4 = new ArrayList<SButton>());
+		conferences.add(conference5 = new ArrayList<SButton>());
 
 		for (int i = 0; i < 5; i++) {
 			conferences.get(i).add(backConference);
@@ -170,16 +170,16 @@ public class FBLATriviaTester extends PApplet {
 		}
 
 		for (int i = 1; i < 6; i++) {
-			conferenceSelection.add(new SohilButton(((Integer) i).toString(), 40, SohilButton.CIRCLE,
+			conferenceSelection.add(new SButton(((Integer) i).toString(), 40, SButton.CIRCLE,
 					(CGS.width / 2) + (i - 3) * confButtonDiff, 225, buttonWidth, buttonWidth));
 		}
 
-		conferenceSelection.add(nationals = new SohilButton("Nationals", 40, SohilButton.RECTANGLE, 300, 400, 100));
-		conferenceSelection.add(quit = new SohilButton("Quit", 40, SohilButton.RECTANGLE, 425, 400, 100));
-		quit3 = new SohilButton("Quit", 40, SohilButton.RECTANGLE, 550, 400, 100);
-		proceedToNats = new SohilButton("Proceed to Nationals", 40, SohilButton.RECTANGLE, 450, 500, 100);
-		backtonats = new SohilButton("Back to Nationals", 40, SohilButton.RECTANGLE, 450, 500, 100);
-		gamemessagebutton = new SohilButton("d", marginx, marginx, frameRate, frameRate, frameRate);
+		conferenceSelection.add(nationals = new SButton("Nationals", 40, SButton.RECTANGLE, 300, 400, 100));
+		conferenceSelection.add(quit = new SButton("Quit", 40, SButton.RECTANGLE, 425, 400, 100));
+		quit3 = new SButton("Quit", 40, SButton.RECTANGLE, 550, 400, 100);
+		proceedToNats = new SButton("Proceed to Nationals", 40, SButton.RECTANGLE, 450, 500, 100);
+		backtonats = new SButton("Back to Nationals", 40, SButton.RECTANGLE, 450, 500, 100);
+		gamemessagebutton = new SButton("d", marginx, marginx, frameRate, frameRate, frameRate);
 	}
 
 	public void draw() {
@@ -243,7 +243,7 @@ public class FBLATriviaTester extends PApplet {
 				"faction", "herd", "heard", "fraction"));
 
 		parlibb.add(new Question("Which article in the FBLA bylaws\ndescribes the information\nabout FBLA dues?",
-				"Article IV", "Article III", "Artivle VI", "Artivle V"));
+				"Article IV", "Article III", "Article VI", "Article V"));
 		parlibb.add(new Question("Viva voce means:", "voice vote", "for motion", "no objection", "objection"));
 		parlibb.add(new Question("Rescind means:", "cancel", "consideration", "give way to", "no objection"));
 		parlibb.add(new Question(
@@ -306,7 +306,7 @@ public class FBLATriviaTester extends PApplet {
 				"herd", "heard", "fraction"));
 
 		parlips.add(new Question("Which article in the FBLA bylaws describes\nthe information about FBLA dues?",
-				"Article IV", "Article III", "Artivle VI", "Artivle V"));
+				"Article IV", "Article III", "Article VI", "Article V"));
 		parlips.add(new Question("Viva voce means:", "voice vote", "for motion", "no objection", "objection"));
 		parlips.add(new Question("Rescind means:", "cancel", "consideration", "give way to", "no objection"));
 		parlips.add(new Question(
@@ -368,7 +368,7 @@ public class FBLATriviaTester extends PApplet {
 				"herd", "heard", "fraction"));
 
 		parlid.add(new Question("Which article in the FBLA bylaws describes\nthe information about FBLA dues?",
-				"Article IV", "Article III", "Artivle VI", "Artivle V"));
+				"Article IV", "Article III", "Article VI", "Article V"));
 		parlid.add(new Question("Viva voce means:", "voice vote", "for motion", "no objection", "objection"));
 		parlid.add(new Question("Rescind means:", "cancel", "consideration", "give way to", "no objection"));
 		parlid.add(new Question(
@@ -430,7 +430,7 @@ public class FBLATriviaTester extends PApplet {
 				"herd", "heard", "fraction"));
 
 		parlis.add(new Question("Which article in the FBLA bylaws describes\nthe information about FBLA dues?",
-				"Article IV", "Article III", "Artivle VI", "Artivle V"));
+				"Article IV", "Article III", "Article VI", "Article V"));
 		parlis.add(new Question("Viva voce means:", "voice vote", "for motion", "no objection", "objection"));
 		parlis.add(new Question("Rescind means:", "cancel", "consideration", "give way to", "no objection"));
 		parlis.add(new Question(
@@ -580,7 +580,7 @@ public class FBLATriviaTester extends PApplet {
 			text("Welcome to", 100, 130);
 			pushStyle();
 			textAlign(CENTER);
-			text("FBLA Trivia \nTester", CGS.width / 2, 280);
+			text("FBLA Trivia \nTester!", CGS.width / 2, 280);
 			popStyle();
 			next.draw(this);
 		} else if (slide == 2) {
@@ -625,7 +625,7 @@ public class FBLATriviaTester extends PApplet {
 			pushStyle();
 			textAlign(CENTER, TOP);
 			textSize(40);
-			text("Choose your difficulty level!",400, 20);
+			text("Choose your difficulty level:",400, 20);
 			
 			for(AyushTextButtonRounded e : difficulties) {
 				e.draw(this);
@@ -766,8 +766,8 @@ public class FBLATriviaTester extends PApplet {
 			drawFailure();
 		}
 
-		for (ArrayList<SohilButton> a : conferences) {
-			for (SohilButton b : a) {
+		for (ArrayList<SButton> a : conferences) {
+			for (SButton b : a) {
 				if (activeButton == game1) {
 					status = 10;
 
@@ -894,7 +894,7 @@ public class FBLATriviaTester extends PApplet {
 
 			text("Nationals", CGS.width / 2, confHeadHeight - 50);
 			for (int i = 0; i < wronganswers.size(); i++) {
-				SohilButton e = natsgames.get(i);
+				SButton e = natsgames.get(i);
 				e.draw(this);
 
 			}
@@ -934,7 +934,7 @@ public class FBLATriviaTester extends PApplet {
 	public void drawDrivingGame() {
 		// change drawing's type to whatever game you want to run (or duplicate for each
 		// game if you want)
-		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "s");
+		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "d");
 		int index = (int) (Math.random() * as.size());
 
 		final int speed = difficulty*15;
@@ -990,7 +990,7 @@ public class FBLATriviaTester extends PApplet {
 
 		headingFormat();
 		text("Conferences", CGS.width / 2, confHeadHeight);
-		for (SohilButton b : conferenceSelection) {
+		for (SButton b : conferenceSelection) {
 			b.draw(this);
 
 		}
@@ -1004,7 +1004,7 @@ public class FBLATriviaTester extends PApplet {
 
 		spaceConfIndicator = 0;
 		drivingConfIndicator = 0;
-		for (SohilButton b : conference1) {
+		for (SButton b : conference1) {
 			b.draw(this);
 
 		}
@@ -1025,7 +1025,7 @@ public class FBLATriviaTester extends PApplet {
 
 		spaceConfIndicator = 1;
 		drivingConfIndicator = 1;
-		for (SohilButton b : conference2) {
+		for (SButton b : conference2) {
 			b.draw(this);
 
 		}
@@ -1044,7 +1044,7 @@ public class FBLATriviaTester extends PApplet {
 	public void drawConference3() {
 		spaceConfIndicator = 2;
 		drivingConfIndicator = 2;
-		for (SohilButton b : conference3) {
+		for (SButton b : conference3) {
 			b.draw(this);
 
 		}
@@ -1063,7 +1063,7 @@ public class FBLATriviaTester extends PApplet {
 	public void drawConference4() {
 		spaceConfIndicator = 3;
 		drivingConfIndicator = 3;
-		for (SohilButton b : conference4) {
+		for (SButton b : conference4) {
 			b.draw(this);
 
 		}
@@ -1083,7 +1083,7 @@ public class FBLATriviaTester extends PApplet {
 
 		spaceConfIndicator = 4;
 		drivingConfIndicator = 4;
-		for (SohilButton b : conference5) {
+		for (SButton b : conference5) {
 			b.draw(this);
 
 		}
@@ -1235,7 +1235,7 @@ public class FBLATriviaTester extends PApplet {
 						}
 					} else {
 						for (int i = 0; i < wronganswers.size(); i++) {
-							SohilButton e = natsgames.get(i);
+							SButton e = natsgames.get(i);
 							if (e.isPointInside(mouseX, mouseY)) {
 								activeButton = e;
 							}
@@ -1270,41 +1270,41 @@ public class FBLATriviaTester extends PApplet {
 					}
 
 				} else if (status == 14) {
-					for (SohilButton b : conferenceSelection) {
+					for (SButton b : conferenceSelection) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							activeButton = b;
 						}
 					}
 				} else if (status == 15) {
-					for (SohilButton b : conference1) {
+					for (SButton b : conference1) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							activeButton = b;
 
 						}
 					}
 				} else if (status == 16) {
-					for (SohilButton b : conference2) {
+					for (SButton b : conference2) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							activeButton = b;
 
 						}
 					}
 				} else if (status == 17) {
-					for (SohilButton b : conference3) {
+					for (SButton b : conference3) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							activeButton = b;
 
 						}
 					}
 				} else if (status == 18) {
-					for (SohilButton b : conference4) {
+					for (SButton b : conference4) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							activeButton = b;
 
 						}
 					}
 				} else if (status == 19) {
-					for (SohilButton b : conference5) {
+					for (SButton b : conference5) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							activeButton = b;
 
@@ -1393,7 +1393,7 @@ public class FBLATriviaTester extends PApplet {
 						}
 					} else {
 						for (int i = 0; i < wronganswers.size(); i++) {
-							SohilButton e = natsgames.get(i);
+							SButton e = natsgames.get(i);
 							if (e.isPointInside(mouseX, mouseY)) {
 								e.setColor(new Color(0, 191, 255));
 
@@ -1433,7 +1433,7 @@ public class FBLATriviaTester extends PApplet {
 						}
 					}
 				} else if (status == 14) {
-					for (SohilButton b : conferenceSelection) {
+					for (SButton b : conferenceSelection) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							b.setColor(new Color(0, 191, 255));
 						} else {
@@ -1441,7 +1441,7 @@ public class FBLATriviaTester extends PApplet {
 						}
 					}
 				} else if (status == 15) {
-					for (SohilButton b : conference1) {
+					for (SButton b : conference1) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							b.setColor(new Color(0, 191, 255));
 						} else {
@@ -1449,7 +1449,7 @@ public class FBLATriviaTester extends PApplet {
 						}
 					}
 				} else if (status == 16) {
-					for (SohilButton b : conference2) {
+					for (SButton b : conference2) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							b.setColor(new Color(0, 191, 255));
 						} else {
@@ -1457,7 +1457,7 @@ public class FBLATriviaTester extends PApplet {
 						}
 					}
 				} else if (status == 17) {
-					for (SohilButton b : conference3) {
+					for (SButton b : conference3) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							b.setColor(new Color(0, 191, 255));
 
@@ -1466,7 +1466,7 @@ public class FBLATriviaTester extends PApplet {
 						}
 					}
 				} else if (status == 18) {
-					for (SohilButton b : conference4) {
+					for (SButton b : conference4) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							b.setColor(new Color(0, 191, 255));
 
@@ -1475,7 +1475,7 @@ public class FBLATriviaTester extends PApplet {
 						}
 					}
 				} else if (status == 19) {
-					for (SohilButton b : conference5) {
+					for (SButton b : conference5) {
 						if (b.isPointInside(mouseX, mouseY)) {
 							b.setColor(new Color(0, 191, 255));
 
@@ -1536,6 +1536,5 @@ public class FBLATriviaTester extends PApplet {
 
 	public void setConfBack() {
 		active = null;
-		System.out.println("jhere");
 	}
 }

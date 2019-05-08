@@ -2,14 +2,12 @@ package games.flight;
 import java.awt.Color;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
-
 import ayush.shapes.Rectangle;
-import buttons.AyushTextButton;
+import buttons.SButton;
 import buttons.ImageButton;
+import buttons.SButton;
 import other.Player;
 import other.Screen;
-import processing.core.PApplet;
 import processing.core.PImage;
 import running.FBLATriviaTester;
 import running.Question;
@@ -27,8 +25,8 @@ public class BirdBlunder extends Screen {
 	private int slide;
 	private String que;
 	private ArrayList<Answer> birds;
-	private AyushTextButton[] qslidebuttons;
-	private AyushTextButton backtohome;
+	private SButton[] qslidebuttons;
+	private SButton backtohome;
 	private String ca;
 	private int countercoins;
 	private double numOfCoinsPerSec;
@@ -40,7 +38,7 @@ public class BirdBlunder extends Screen {
 	private Player p;
 	private int conf;
 	private boolean isAddedYet;
-	private AyushTextButton quit, quit2;
+	private SButton quit, quit2;
 	private boolean hasLostYet;
 	private ArrayList<Question> answer, wronganswers;
 	private ArrayList<String> rightAnswers;
@@ -56,7 +54,7 @@ public class BirdBlunder extends Screen {
 	public BirdBlunder(ArrayList<String> as, String question, int numOfBirdsPerSec, int conf, Player p,
 			ArrayList<Question> answers, ArrayList<Question> wronganswers, int indexx, FBLATriviaTester papp) {
 		super(800,700);
-		qslidebuttons = new AyushTextButton[2];
+		qslidebuttons = new SButton[2];
 		shape = new PhysicsShape(new Rectangle(100, 250, 50, 50));
 		counter = 0;
 		birds = new ArrayList<Answer>();
@@ -67,10 +65,8 @@ public class BirdBlunder extends Screen {
 		index = 0;
 		slide = 0;
 		que = question;
-		qslidebuttons[0] = new AyushTextButton(50, 500, 200, 75, 75, 540, Color.BLUE, new Color(96, 117, 150),
-				"Instructions", 25);
-		qslidebuttons[1] = new AyushTextButton(550, 500, 200, 75, 575, 540, Color.BLUE, new Color(96, 117, 150),
-				"Play!", 25);
+		qslidebuttons[0] = new SButton("Instructions", 25, 1, 50, 500, 200, 75);
+		qslidebuttons[1] = new SButton("Play", 25, 1, 550, 500, 200, 75);
 		ca = as.get(0);
 		countercoins = 0;
 		numOfCoinsPerSec = .5;
@@ -80,13 +76,12 @@ public class BirdBlunder extends Screen {
 		circrad = 0;
 		wrong = "";
 		this.papp = papp;
-		backtohome = new AyushTextButton(250, 500, 300, 100, 275, 550, Color.BLUE, new Color(96, 117, 150),
-				"Back to Question", 30);
+		backtohome = new SButton("Back to Question", 30, 1, 250, 500, 300, 100);
 		this.conf = conf;
 		this.p = p;
 		isAddedYet = false;
-		quit = new AyushTextButton(250, 300, 200, 100, 275, 365, Color.BLACK, Color.white, "Quit", 40);
-		quit2 = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, Color.white, "Quit", 20);
+		quit = new SButton("Quit", 40, 1, 250, 300, 200, 100);
+		quit2 = new SButton("Quit", 20, 1, 675, 600, 100, 55);
 		hasLostYet = false;
 		answer = answers;
 		this.wronganswers = wronganswers;
@@ -106,7 +101,7 @@ public class BirdBlunder extends Screen {
 		as.add(ques.getWrong2());
 		as.add(ques.getWrong3());
 
-		qslidebuttons = new AyushTextButton[2];
+		qslidebuttons = new SButton[2];
 		shape = new PhysicsShape(new Rectangle(100, 250, 50, 50));
 		counter = 0;
 		birds = new ArrayList<Answer>();
@@ -117,10 +112,8 @@ public class BirdBlunder extends Screen {
 		index = 0;
 		slide = 0;
 		que = ques.getQuestion();
-		qslidebuttons[0] = new AyushTextButton(50, 500, 200, 75, 75, 540, Color.BLUE, new Color(96, 117, 150),
-				"Instructions", 25);
-		qslidebuttons[1] = new AyushTextButton(550, 500, 200, 75, 575, 540, Color.BLUE, new Color(96, 117, 150),
-				"Play!", 25);
+		qslidebuttons[0] = new SButton("Instructions", 25, 1, 50, 500, 200, 75);
+		qslidebuttons[1] = new SButton("Play", 25, 1, 550, 500, 200, 75);
 		ca = as.get(0);
 		countercoins = 0;
 		numOfCoinsPerSec = .5;
@@ -129,13 +122,13 @@ public class BirdBlunder extends Screen {
 		tcounterlose = 0;
 		circrad = 0;
 		wrong = "";
-		backtohome = new AyushTextButton(250, 500, 300, 100, 275, 550, Color.BLUE, new Color(96, 117, 150),
-				"Back to Question", 30);
+		backtohome = new SButton("Back to Question", 30, 1, 250, 500, 300, 100);
+
 		this.conf = conf;
 		this.p = p;
 		isAddedYet = false;
-		quit = new AyushTextButton(250, 400, 200, 100, 275, 465, Color.BLACK, Color.white, "Quit", 40);
-		quit2 = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, Color.white, "Quit", 20);
+		quit = new SButton("Quit", 40, 1, 250, 300, 200, 100);
+		quit2 = new SButton("Quit", 20, 1, 675, 600, 100, 55);
 		hasLostYet = false;
 
 		answer = answers;
@@ -313,27 +306,27 @@ public class BirdBlunder extends Screen {
 		int y = papp.mouseY;
 
 		if (slide == 0) {
-			if (qslidebuttons[0].isPointInButton(x, y)) {
+			if (qslidebuttons[0].isPointInside(x, y)) {
 				slide = 3;
-			} else if (qslidebuttons[1].isPointInButton(x, y)) {
+			} else if (qslidebuttons[1].isPointInside(x, y)) {
 				slide = 1;
-			} else if (quit2.isPointInButton(x, y)) {
+			} else if (quit2.isPointInside(x, y)) {
 				papp.setConfBack();
 			}
 		} else if (slide == 3) {
-			if (backtohome.isPointInButton(x, y)) {
+			if (backtohome.isPointInside(x, y)) {
 				slide = 0;
 			}
 		} else if (slide == 2) {
-			if (quit.isPointInButton(x, y)) {
+			if (quit.isPointInside(x, y)) {
 				papp.setConfBack();
 			}
 		} else if (slide == 4) {
-			if (quit.isPointInButton(x, y)) {
+			if (quit.isPointInside(x, y)) {
 				papp.setConfBack();
 			}
 		} else if (slide == 1) {
-			if (quit2.isPointInButton(x, y)) {
+			if (quit2.isPointInside(x, y)) {
 				papp.setConfBack();
 			}
 		}
@@ -345,50 +338,50 @@ public class BirdBlunder extends Screen {
 		int px = papp.mouseX;
 		int py = papp.mouseY;
 
-		Color col1 = new Color(96, 117, 150);
-		Color col2 = new Color(55, 64, 79);
+		Color col2 = new Color(0, 191, 255);
+		Color col1 = new Color(135, 206, 255);
 		Color col3 = new Color(0, 255, 255);
 
 		if (slide == 0) {
-			for (AyushTextButton e : qslidebuttons) {
-				if (e.isPointInButton(px, py)) {
-					e.setBColor(col2);
+			for (SButton e : qslidebuttons) {
+				if (e.isPointInside(px, py)) {
+					e.setColor(col2);
 				} else {
-					e.setBColor(col1);
+					e.setColor(col1);
 				}
 
 			}
 
-			if (quit2.isPointInButton(px, py)) {
-				quit2.setBColor(new Color(125, 125, 125));
+			if (quit2.isPointInside(px, py)) {
+				quit2.setColor(col2);
 
 			} else {
-				quit2.setBColor(Color.white);
+				quit2.setColor(col1);
 			}
 		} else if (slide == 3) {
-			if (backtohome.isPointInButton(px, py)) {
-				backtohome.setBColor(col2);
+			if (backtohome.isPointInside(px, py)) {
+				backtohome.setColor(col2);
 			} else {
-				backtohome.setBColor(col1);
+				backtohome.setColor(col1);
 			}
 		} else if (slide == 2) {
-			if (quit.isPointInButton(px, py)) {
-				quit.setBColor(col3);
+			if (quit.isPointInside(px, py)) {
+				quit.setColor(col2);
 			} else {
-				quit.setBColor(Color.white);
+				quit.setColor(col1);
 			}
 		} else if (slide == 4) {
-			if (quit.isPointInButton(px, py)) {
-				quit.setBColor(col3);
+			if (quit.isPointInside(px, py)) {
+				quit.setColor(col2);
 			} else {
-				quit.setBColor(Color.white);
+				quit.setColor(col1);
 			}
 		} else if (slide == 1) {
-			if (quit2.isPointInButton(px, py)) {
-				quit2.setBColor(new Color(125, 125, 125));
+			if (quit2.isPointInside(px, py)) {
+				quit2.setColor(col2);
 
 			} else {
-				quit2.setBColor(Color.white);
+				quit2.setColor(col1);
 			}
 		}
 

@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 import javax.swing.JFrame;
 
-import buttons.AyushTextButton;
+import buttons.*;
 import buttons.TextButton1;
 import other.Player;
 import other.Screen;
@@ -27,7 +27,7 @@ public class Driving extends Screen {
 	private PImage car;
 	private PFont font;
 
-	private TextButton1 start, pause, quit;
+	private SButton start, pause, quit;
 
 	private int width, height;
 	
@@ -40,7 +40,7 @@ public class Driving extends Screen {
 	private ArrayList<Question> answers, wrongAnswers;
 	private ArrayList<String> rightAnswers;
 	private int index;
-	private AyushTextButton quitintro;
+	private SButton quitintro;
 	private boolean bool;
 	private boolean once;
 
@@ -51,9 +51,9 @@ public class Driving extends Screen {
 		this.conference = conference;
 		this.papp = papp;
 		this.question = question;
-		start = new TextButton1(50, 375, 105, 40, 70, 400, 75, 175, 75, 255, 255, 255, "START");
-		pause = new TextButton1(0, 0, 100, 40, 15, 25, 255, 255, 255, 0, 0, 0, "PAUSE");
-		quit = new TextButton1(275, 275, 240, 100, 390, 350, 255, 255, 255, 0, 0, 0, "QUIT");
+		start = new SButton("START", 25, 1, 50, 375, 105, 40);
+		pause = new SButton("PAUSE", 20, 1, 0, 0, 100, 40);
+		quit = new SButton("QUIT",45,1, 275, 275, 240, 100);
 
 		width = super.DRAWING_WIDTH;
 		height = super.DRAWING_HEIGHT;
@@ -64,7 +64,7 @@ public class Driving extends Screen {
 
 		ArrayList<Integer> takenCue = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3)),
 				takenLane = (ArrayList<Integer>) takenCue.clone();
-
+ 
 		for (int i = 0; i < 4; i++) {
 			fuel.add(new FuelTank(question, i, takenLane.remove((int) (Math.random() * takenLane.size())),
 					takenCue.remove((int) (Math.random() * takenCue.size()))));
@@ -83,7 +83,7 @@ public class Driving extends Screen {
 		this.wrongAnswers = wrongAnswers;
 		this.rightAnswers = rightAnswers;
 		this.index = index;
-		quitintro = new AyushTextButton(700, 625, 100, 55, 715, 655, Color.black, Color.white, "Quit", 20);
+		quitintro = new SButton("Quit", 25, 1, 675, 600, 100, 55);
 
 		bool = false;
 	}
@@ -110,18 +110,18 @@ public class Driving extends Screen {
 			papp.textAlign(papp.LEFT);
 			papp.textSize(20);
 			pause.draw(papp);
-			if (pause.isPointInButton(papp.mouseX, papp.mouseY))
-				pause.setColor(200, 200, 200);
+			if (pause.isPointInside(papp.mouseX, papp.mouseY))
+				pause.setColor(new Color(0, 191, 255));
 			else
-				pause.setColor(255, 255, 255);
+				pause.setColor(new Color(135, 206, 255));
 
 			papp.textAlign(papp.CENTER);
 			papp.textSize(60);
 			quit.draw(papp);
-			if (quit.isPointInButton(papp.mouseX,papp.mouseY))
-				quit.setColor(200, 200, 200);
+			if (quit.isPointInside(papp.mouseX,papp.mouseY))
+				quit.setColor(new Color(0, 191, 255));
 			else
-				quit.setColor(255, 255, 255);
+				quit.setColor(new Color(135, 206, 255));
 		} else if (status == -1) {
 			papp.textSize(36);
 			papp.text("EXPERT DRIVING", papp.width / 2, 50);
@@ -136,10 +136,10 @@ public class Driving extends Screen {
 			papp.fill(0);
 			papp.noStroke();
 			start.draw(papp);
-			if (start.isPointInButton(papp.mouseX, papp.mouseY))
-				start.setColor(50, 150, 50);
+			if (start.isPointInside(papp.mouseX, papp.mouseY))
+				start.setColor(new Color(50, 150, 50));
 			else
-				start.setColor(75, 175, 75);
+				start.setColor(new Color(75, 175, 75));
 
 			quitintro.draw(papp);
 		} else if (status == 0) {
@@ -149,10 +149,10 @@ public class Driving extends Screen {
 			if (timer == 300) {
 				papp.textAlign(papp.LEFT);
 				pause.draw(papp);
-				if (pause.isPointInButton(papp.mouseX, papp.mouseY))
-					pause.setColor(200, 200, 200);
+				if (pause.isPointInside(papp.mouseX, papp.mouseY))
+					pause.setColor(new Color(0, 191, 255));
 				else
-					pause.setColor(255, 255, 255);
+					pause.setColor(new Color(135, 206, 255));
 
 				papp.textAlign(papp.CENTER);
 
@@ -210,16 +210,17 @@ public class Driving extends Screen {
 		} else if (status == 1) {
 			papp.textSize(20);
 			papp.text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
+			papp.textSize(40);
 			papp.text("YOU LOSE!", width / 2, 50);
-			papp.textSize(15);
-			papp.text("You collected the wrong fuel tank. The correct answer is: " + question.getCorrect(), width / 2, 75);
+			papp.textSize(25);
+			papp.text("You collected the wrong fuel tank. The correct answer is: \n" + question.getCorrect(), width / 2, 100);
 
 			papp.textSize(60);
 			quit.draw(papp);
-			if (quit.isPointInButton(papp.mouseX, papp.mouseY))
-				quit.setColor(200, 200, 200);
+			if (quit.isPointInside(papp.mouseX, papp.mouseY))
+				quit.setColor(new Color(0, 191, 255));
 			else
-				quit.setColor(255, 255, 255);
+				quit.setColor(new Color(135, 206, 255));
 
 			if (!bool) {
 				bool = true;
@@ -228,16 +229,17 @@ public class Driving extends Screen {
 		} else if (status == 2) {
 			papp.textSize(20);
 			papp.text("QUESTION: " + question.getQuestion(), width / 2, height - 75);
+			papp.textSize(40);
 			papp.text("YOU WIN!", width / 2, 50);
-			papp.textSize(15);
-			papp.text("You collected the right fuel tank!", width / 2, 75);
+			papp.textSize(25);
+			papp.text("You collected the right fuel tank!", width / 2, 100);
 
 			papp.textSize(60);
 			quit.draw(papp);
-			if (quit.isPointInButton(papp.mouseX,papp.mouseY))
-				quit.setColor(200, 200, 200);
+			if (quit.isPointInside(papp.mouseX,papp.mouseY))
+				quit.setColor(new Color(0, 191, 255));
 			else
-				quit.setColor(255, 255, 255);
+				quit.setColor(new Color(135, 206, 255));
 
 			
 			if(once) {
@@ -283,35 +285,35 @@ public class Driving extends Screen {
 	}
 
 	public void mouseClicked() {
-		if (status == -1 && start.isInBounds(papp.mouseX,papp.mouseY))
+		if (status == -1 && start.isPointInside(papp.mouseX,papp.mouseY))
 			status = 0;
 
-		if (pause.isInBounds(papp.mouseX, papp.mouseY)) {
+		if (pause.isPointInside(papp.mouseX, papp.mouseY)) {
 			if (status == 0 && timer == 300) {
 				status = -2;
-				pause.setText("RESUME");
+				pause.setName("RESUME");
 				pause.setWidth(115);
 			} else if (status == -2) {
 				status = 0;
-				pause.setText("PAUSE");
+				pause.setName("PAUSE");
 				pause.setWidth(100);
 			}
 		}
 
 		if ((status == -2 || status == 1 || status == 2 || status == 3 || status == 4)
-				&& quit.isInBounds(papp.mouseX, papp.mouseY))
+				&& quit.isPointInside(papp.mouseX, papp.mouseY))
 			papp.setConfBack();
 
-		if (quitintro.isPointInButton(papp.mouseX, papp.mouseY)) {
+		if (quitintro.isPointInside(papp.mouseX, papp.mouseY)) {
 			papp.setConfBack();
 		}
 	}
 
 	public void mouseMoved() {
-		if (quitintro.isPointInButton(papp.mouseX,papp.mouseY)) {
-			quitintro.setBColor(new Color(79, 79, 79));
+		if (quitintro.isPointInside(papp.mouseX,papp.mouseY)) {
+			quitintro.setColor(new Color(0, 191, 255));
 		} else {
-			quitintro.setBColor(Color.WHITE);
+			quitintro.setColor(new Color(135, 206, 255));
 		}
 	}
 
