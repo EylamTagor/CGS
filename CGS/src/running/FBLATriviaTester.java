@@ -614,21 +614,38 @@ public class FBLATriviaTester extends PApplet {
 			text("Welcome to", 100, 130);
 			pushStyle();
 			textAlign(CENTER);
-			text("FBLA Trivia \nTester!", CGS.width / 2, 280);
+			fill(255,0,0);
+			text("F", CGS.width/2-100, 280);
+			fill(255,255,255);
+			text("B", CGS.width/2-35, 280);
+			fill(0,0,255);
+			text("L", CGS.width/2+35, 280);
+			fill(255,255,255);
+			text("A", CGS.width/2+105, 280);
+			
+			text("\nTrivia Tester!", CGS.width / 2, 280);
 			popStyle();
 			next.draw(this);
 		} else if (slide == 2) {
 			background(38);
+			pushStyle();
+			textAlign(CENTER, CENTER);
+			textSize(35);
+			fill(200,0,0);
+			text("Backstory", CGS.width/2, 40);
+			textAlign(LEFT, TOP);
 			textSize(18);
 			fill(255);
 			text("You recently heard about a club at your school called Future Business Leaders\nof America. Having nothing better to do, you decided to join and attend the\nnext meeting. You were so overwhelmed by the remarkable people and\nachievements that your school's chapter has that you immediately wanted to\nbecome a part of it.\n\nFast-forward to your tryout day for competitions. There were so many options\nto choose from, but you eventually settled for seven. Unfortuately, this year\nthe officers only let competitors have up to five competitions. ",
-					50, 50);
+					50, 90);
 			next.draw(this);
+			popStyle();
 		} else if (slide == 5) {
 			background(38);
 			textSize(20);
-			fill(255);
+			fill(255,0,0);
 			text("Choose the 5 topics you want to study (only then can you proceed).", 25, 25);
+			fill(255);
 			options[0].draw(this);
 			options[1].draw(this);
 			options[2].draw(this);
@@ -648,7 +665,9 @@ public class FBLATriviaTester extends PApplet {
 			pushStyle();
 			textAlign(CENTER, CENTER);
 			textSize(80);
+			fill(200,0,0);
 			text("Instructions", CGS.width / 2, confHeadHeight - 25);
+			fill(255);
 			textSize(18);
 			textAlign(BOTTOM, LEFT);
 			text("On the next screen, you will select the competitions you want to compete in. \nOnce the game launches, go to each conference, which is focused on a certain \ntopic that you chose, and beat all of the games by answering the questions \ncorrectly in the games. You will know when the conference is complete when the \nprogress bar on the current conference's screen is full. \n\nWhen that happens for all of the conferences, which you will know when the \nprogress bar at the screen with all the conferences is full, press the Nationals \nbutton to go to the National Conference, where you will be tested on all of the \nquestions that you answered incorrectly. However, to ensure you know the \nanswers, the question will be the same but the games used to test them will be \nmuch more fast-paced. If there are no wrong answers, you automatically pass \nNationals! \n\nPress ESCAPE at any time to completely quit the game, \nand if you want to quit a certain minigame, the games \nalways have a quit button at the ready. ",
@@ -659,8 +678,9 @@ public class FBLATriviaTester extends PApplet {
 			pushStyle();
 			textAlign(CENTER, TOP);
 			textSize(40);
+			fill(200,0,0);
 			text("Choose your difficulty level:", 400, 20);
-
+			fill(255);
 			for (AyushTextButtonRounded e : difficulties) {
 				e.draw(this);
 			}
@@ -981,7 +1001,7 @@ public class FBLATriviaTester extends PApplet {
 		ArrayList<Question> as = getQueArray(topics.get(spaceConfIndicator), "bb");
 		final int birdspersec = difficulty;
 		int index = (int) (Math.random() * as.size());
-		active = new Flight(as.get(0), birdspersec, spaceConfIndicator, player, as, wronganswers, rightAnswers, 3,
+		active = new Flight(as.get(3), birdspersec, spaceConfIndicator, player, as, wronganswers, rightAnswers, 3,
 				this);
 
 		active.setup();
@@ -999,7 +1019,7 @@ public class FBLATriviaTester extends PApplet {
 		final float speed = difficulty;
 		int index = (int) (Math.random() * as.size());
 
-		active = new Space(as.get(1), player, spaceConfIndicator, speed, as, wronganswers, rightAnswers, 0, this);
+		active = new Space(as.get(0), player, spaceConfIndicator, speed, as, wronganswers, rightAnswers, 0, this);
 
 		active.setup();
 
@@ -1016,7 +1036,7 @@ public class FBLATriviaTester extends PApplet {
 		int index = (int) (Math.random() * as.size());
 
 		final int speed = difficulty * 15;
-		active = new Driving(as.get(2), player, drivingConfIndicator, speed, as, wronganswers, rightAnswers, 1, this);
+		active = new Driving(as.get(1), player, drivingConfIndicator, speed, as, wronganswers, rightAnswers, 1, this);
 
 		active.setup();
 
@@ -1032,7 +1052,7 @@ public class FBLATriviaTester extends PApplet {
 		int index = (int) (Math.random() * as.size());
 
 		final int seconds = (int) (60 / (difficulty * 1.5f));
-		active = new Flashlight(as.get(3), seconds, player, spaceConfIndicator, as, wronganswers, rightAnswers, 2,
+		active = new Flashlight(as.get(2), seconds, player, spaceConfIndicator, as, wronganswers, rightAnswers, 2,
 				this);
 		active.setup();
 
@@ -1305,16 +1325,23 @@ public class FBLATriviaTester extends PApplet {
 						if (e.isPointInButton(x, y)) {
 							if (e.getText().equals("Easy")) {
 								difficulty = 1;
+								slide++;
+
 							} else if (e.getText().equals("Normal")) {
 								difficulty = 2;
+								slide++;
+
 							} else if (e.getText().equals("Hard")) {
 								difficulty = 3;
+								slide++;
+
 							} else if (e.getText().equals("Impossible")) {
 								difficulty = 4;
+								slide++;
+
 							}
 						}
 					}
-					slide++;
 
 				}
 			} else {// 1 instructinos 2 win 3 dnats 4 psnats 5 bbnats 6 snats 7 fail 8 natsconf 9 bb
@@ -1620,8 +1647,8 @@ public class FBLATriviaTester extends PApplet {
 	 * generate random incorrect questions, for the sake of testing the program.
 	 */
 	public void keyPressed() {
-
-		// press g to quickly pass all the games
+//
+//		// press g to quickly pass all the games
 		if (active == null) {
 //			if (key == 'g') {
 //				player.passGame(0);
