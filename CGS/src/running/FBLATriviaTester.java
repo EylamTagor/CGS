@@ -1620,9 +1620,9 @@ public class FBLATriviaTester extends PApplet {
 	 * generate random incorrect questions, for the sake of testing the program.
 	 */
 	public void keyPressed() {
-//
-//		// press g to quickly pass all the games
-//		if (active == null) {
+
+		// press g to quickly pass all the games
+		if (active == null) {
 //			if (key == 'g') {
 //				player.passGame(0);
 //				player.passGame(0);
@@ -1655,9 +1655,9 @@ public class FBLATriviaTester extends PApplet {
 //				// wronganswers.add(new Question("test", "test", "test", "test", "test"));
 //
 //			}
-//		} else {
-//			active.keyPressed();
-//		}
+		} else {
+			active.keyPressed();
+		}
 
 	}
 
